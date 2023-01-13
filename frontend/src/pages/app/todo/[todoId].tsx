@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Table, TableCaption, TableContainer, Text } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -26,13 +26,13 @@ const SingleTodo: NextPage = () => {
     return <h1>Loading..</h1>;
   }
 
-  console.log(data);
   return (
     <BaseView>
       <h1>Single Todo Page</h1>
       <p>{todoId}</p>
       <Text>{data.name}</Text>
       <Text>{data.description}</Text>
+      This is not what I want but what I need!
     </BaseView>
   );
 };
