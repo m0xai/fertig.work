@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=m0xai
+      - POSTGRES_PASSWORD=1299
+      - POSTGRES_DB=fertig_work
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U m0xai -d fertig_work']
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    ports:
+        - '5432:5432'
+    volumes:
+        - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
