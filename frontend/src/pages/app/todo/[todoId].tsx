@@ -1,4 +1,4 @@
-import { Table, TableCaption, TableContainer, Text } from '@chakra-ui/react';
+import { Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -30,8 +30,8 @@ const SingleTodo: NextPage = () => {
     <BaseView>
       <h1>Single Todo Page</h1>
       <p>{todoId}</p>
-      <Text>{data.name}</Text>
-      <Text>{data.description}</Text>
+      <Typography>{data.name}</Typography>
+      <Typography>{data.description}</Typography>
       This is not what I want but what I need!
     </BaseView>
   );
