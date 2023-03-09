@@ -18,11 +18,20 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
+# It's not easy to make live reload work
   # backend:
   #   build:
   #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/fertig_work
+  #     - SPRING_DATASOURCE_USERNAME=m0xai
+  #     - SPRING_DATASOURCE_PASSWORD=1299
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
   #   volumes:
-  #     - './backend:/usr/src/app/backend'
+  #     - './backend:/app/backend'
+  #   depends_on:
+  #     - db
 
   web:
     build:
