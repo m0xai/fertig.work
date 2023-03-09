@@ -9,15 +9,25 @@ services:
       - POSTGRES_PASSWORD=1299
       - POSTGRES_DB=fertig_work
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U m0xai -d fertig_work']
+      test: [ 'CMD-SHELL', 'pg_isready -U m0xai -d fertig_work' ]
       interval: 1s
       timeout: 5s
       retries: 10
     ports:
-        - '5432:5432'
+      - '5432:5432'
     volumes:
-        - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
 
+  web:
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile
+    ports:
+      - '4200:4200'
+      - '49153:49153'
+    volumes:
+      - '/usr/src/app/web/node_modules'
+      - './web:/usr/src/app/web'
 volumes:
   db:
     driver: local
