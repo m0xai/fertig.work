@@ -11,3 +11,5 @@ RUN bash -c "brew install lazygit"
 
 RUN bash -c "echo 'alias lg=lazygit' >> .bashrc"
 RUN bash -c "echo 'alias ld=lazydocker' >> .bashrc"
+
+RUN bash -c "npm install --global @angular/cli"
