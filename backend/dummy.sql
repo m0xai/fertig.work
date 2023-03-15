@@ -1,3 +1,5 @@
+truncate table todo;
+
 insert into todo
 values (1, null, 'some basic description', false, false, 'first test todo', null);
 
