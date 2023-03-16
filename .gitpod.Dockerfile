@@ -12,4 +12,4 @@ RUN bash -c "echo 'alias lg=lazygit' >> .bashrc"
 RUN bash -c "echo 'alias ld=lazydocker' >> .bashrc"
 
 RUN npm install --global @angular/cli
-RUN chown -R gitpod:gitpod /workspace/fertig.work/
+# RUN chown -R gitpod:gitpod /workspace/fertig.work/
