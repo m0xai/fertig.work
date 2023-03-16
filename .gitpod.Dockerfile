@@ -18,3 +18,4 @@ RUN brew install node
 RUN echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
 
 RUN bash -c "npm install --global @angular/cli"
+RUN bash -c "sudo chown -R gitpod:gitpod /workspace/fertig.work/"
