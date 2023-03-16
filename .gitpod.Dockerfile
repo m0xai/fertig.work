@@ -7,13 +7,9 @@ RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \
     sdk default java 17.0.3-ms"
 
 RUN bash -c "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
-RUN bash -c "brew install lazygit"
 
 RUN bash -c "echo 'alias lg=lazygit' >> .bashrc"
 RUN bash -c "echo 'alias ld=lazydocker' >> .bashrc"
-
-# to use npm without sudo
-RUN brew install node 
 
 RUN bash -c "npm install --global @angular/cli"
 RUN bash -c "sudo chown -R gitpod:gitpod /workspace/fertig.work/"
