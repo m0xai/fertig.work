@@ -6,10 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodosModule } from './features/todos/todos.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './features/home/components/home/home.component';
+import { AuthModule } from './features/auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, TodosModule, BrowserAnimationsModule],
+  declarations: [AppComponent, HomeComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AuthModule,
+    TodosModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
