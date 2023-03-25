@@ -1,4 +1,6 @@
-export abstract class ResourceModel<T> {
+import IResource from './models/IResource';
+
+export abstract class ResourceModel<T> implements IResource {
   public id?: number;
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -13,6 +15,10 @@ export abstract class ResourceModel<T> {
     if (this.updatedAt) {
       this.updatedAt = new Date(this.updatedAt);
     }
+  }
+
+  getId(): number {
+    return this.id!;
   }
 
   public toJson(): any {
