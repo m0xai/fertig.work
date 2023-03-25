@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "fw_user") // table user is for postgres reserved
-public class User implements UserDetails {
+public class FWUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,6 +31,10 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public void setPassword(String password) {
