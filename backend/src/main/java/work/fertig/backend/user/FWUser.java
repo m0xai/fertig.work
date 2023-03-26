@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "fw_user") // table user is for postgres reserved
@@ -20,12 +22,16 @@ public class FWUser implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Username field can't leave blank.")
     private String username;
 
     @Column(nullable = false)
+    @NotBlank(message = "Password field can't leave blank.")
     private String password;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "This  field can't leave blank.")
+    @Email(message = "Email should be a valid address.")
     private String email;
 
     @Override

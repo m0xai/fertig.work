@@ -8,4 +8,6 @@ public interface FWUserRepository extends JpaRepository<FWUser, Long> {
     FWUser findByEmail(String mail);
 
     boolean existsByEmail(String mail);
+
+    boolean existsByUsername(String userName);
 }

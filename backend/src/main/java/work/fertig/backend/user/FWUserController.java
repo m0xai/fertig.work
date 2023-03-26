@@ -9,7 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import work.fertig.backend.user.exceptions.*;
+import jakarta.validation.Valid;
+import work.fertig.backend.user.exceptions.UserAlreadyExistsException;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -33,9 +34,12 @@ public class FWUserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<FWUserDto> createUser(@RequestBody FWUser user) {
+    public ResponseEntity<FWUserDto> createUser(@Valid @RequestBody FWUser user) {
         if (repository.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExistsException(user.getEmail());
+            throw new UserAlreadyExistsException("email: " + user.getEmail());
+        }
+        if (repository.existsByUsername(user.getUsername())) {
+            throw new UserAlreadyExistsException("username: " + user.getUsername());
         }
 
         FWUser fwUser = new FWUser();
