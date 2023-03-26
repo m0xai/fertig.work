@@ -34,11 +34,6 @@ public class FWUser implements UserDetails {
     @Email(message = "Email should be a valid address.")
     private String email;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -47,7 +42,6 @@ public class FWUser implements UserDetails {
         this.password = password;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
@@ -56,7 +50,6 @@ public class FWUser implements UserDetails {
         this.username = username;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
@@ -70,23 +63,32 @@ public class FWUser implements UserDetails {
     }
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
-        return false;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
     }
-
 }
