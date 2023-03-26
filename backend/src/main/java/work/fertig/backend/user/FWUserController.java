@@ -5,14 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import work.fertig.backend.user.exceptions.*;
+
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin
+@Validated
 public class FWUserController {
 
     @Autowired
@@ -31,16 +33,16 @@ public class FWUserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<FWUserDto> createUser(@Validated @RequestBody FWUser user) {
+    public ResponseEntity<FWUserDto> createUser(@RequestBody FWUser user) {
         if (repository.existsByEmail(user.getEmail())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new UserAlreadyExistsException(user.getEmail());
         }
 
         FWUser fwUser = new FWUser();
         fwUser.setUsername(user.getUsername());
         fwUser.setEmail(user.getEmail());
-        String encoedpassword = passwordEncoder.encode(user.getPassword());
-        fwUser.setPassword(encoedpassword);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        fwUser.setPassword(encodedPassword);
         FWUser savedUser = repository.save(user);
 
         FWUserDto fwUserDto = new FWUserDto(savedUser.getId(), savedUser.getUsername(), savedUser.getPassword(),
