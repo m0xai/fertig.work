@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +18,6 @@ import work.fertig.backend.user.exceptions.UserAlreadyExistsException;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin
 @Validated
 public class FWUserController {
 
@@ -24,8 +27,17 @@ public class FWUserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     public FWUserController(FWUserRepository repository) {
         this.repository = repository;
+    }
+
+    @RequestMapping("/user")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public FWUser user(FWUser user) {
+        return user;
     }
 
     @GetMapping("/users")
@@ -33,7 +45,8 @@ public class FWUserController {
         return repository.findAll();
     }
 
-    @PostMapping("/users")
+    @PostMapping("/register")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<FWUserDto> createUser(@Valid @RequestBody FWUser user) {
         if (repository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException("email: " + user.getEmail());
@@ -53,6 +66,17 @@ public class FWUserController {
                 savedUser.getEmail());
 
         return new ResponseEntity<>(fwUserDto, HttpStatus.CREATED);
+    }
+
+    // @CrossOrigin(origins = "http://localhost:4200/*")
+    @PostMapping("/login")
+    @CrossOrigin
+    public ResponseEntity<String> authenticateUser(@RequestBody FWUserDto loginDto) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getUsername(), loginDto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
     }
 
 }
