@@ -31,12 +31,14 @@ public class TodoController {
         return item;
     }
 
-    @PostMapping("/todos/") public Todo addSingleTodo(@RequestBody Todo submittedTodo) { return repository.save(submittedTodo);
+    @PostMapping("/todos/")
+    public Todo addSingleTodo(@RequestBody Todo submittedTodo) {
+        return repository.save(submittedTodo);
     }
 
-//    @PutMapping("/todos/{id}")
-//    public Todo
-//
+    // @PutMapping("/todos/{id}")
+    // public Todo
+    //
     @DeleteMapping("/todos/{id}")
     public void deleteSingleTodo(@PathVariable Long id) {
         repository.deleteById(id);
