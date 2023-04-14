@@ -7,30 +7,28 @@ import ICredentials from './models/ICredentials';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   authenticated: boolean = false;
 
   authenticate(credentials?: ICredentials, callback?: Function) {
-    const headers = new HttpHeaders(
-      credentials
-        ? {
-            authorization:
-              'Basic ' +
-              btoa(credentials.username + ':' + credentials.password),
-          }
-        : {}
-    );
 
-    this.http.get('user', { headers: headers }).subscribe((response: any) => {
-      if (response['name']) {
-        this.authenticated = true;
-      } else {
-        this.authenticated = false;
-      }
-      return callback && callback();
-    });
+    const headers = new HttpHeaders().set("Authorization", credentials ? `Basic ${btoa(credentials.username + ":" + credentials.password)}` : "")
+
+    console.log(headers);
+
+    this.http
+      .post("http://localhost:8080/api/v1/login", { headers: headers })
+      .subscribe((response: any) => {
+        if (response['name']) {
+          this.authenticated = true;
+        } else {
+          this.authenticated = false;
+        }
+        return callback && callback();
+      });
   }
 
   logout() {
