@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TodoModel } from '../../models/todo';
 import { TodoService } from '../../services/todo.service';
@@ -8,7 +9,7 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todos.component.css'],
 })
 export class TodosComponent implements OnInit {
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService, private http: HttpClient) {}
 
   todos: TodoModel[] = [];
 

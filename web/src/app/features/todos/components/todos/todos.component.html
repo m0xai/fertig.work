@@ -1,6 +1,8 @@
-
 <mat-drawer-container class="example-container" autosize>
-<p>todos works!</p>
-<app-todo-detail [todoList]="todos"></app-todo-detail>
+    <p>todos works!</p>
+    <app-todo-detail [todoList]="todos"></app-todo-detail>
 
 </mat-drawer-container>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
