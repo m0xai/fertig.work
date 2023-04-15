@@ -9,10 +9,7 @@ import { AuthService } from 'src/app/features/auth/auth.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  constructor(private auth: AuthService, private http: HttpClient) {
-    this.auth.authenticate(undefined, undefined);
-  }
-
+  constructor(private auth: AuthService, private http: HttpClient) {}
 
   logout() {
     this.auth.logout();
