@@ -18,4 +18,4 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [TodosComponent],
 })
-export class TodosModule {}
+export class TodoModule {}
