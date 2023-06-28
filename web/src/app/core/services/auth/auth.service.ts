@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import ICredentials from './models/ICredentials';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
 
-  private isAuthenticated: boolean = false;
+  private isAuthenticated = false;
 
   public get authenticated(): boolean {
     return this.isAuthenticated;
@@ -20,16 +21,6 @@ export class AuthService {
   }
 
   authenticate(credentials?: ICredentials, callback?: Function) {
-    //? Headers only set for other requests, that require authentication
-    // const headers = new HttpHeaders()
-    //   .set(
-    //     'Authorization',
-    //     credentials
-    //       ? `Basic ${btoa(credentials.username + ':' + credentials.password)}`
-    //       : ''
-    //   )
-    //   .set('withCredentials', 'true');
-
     this.http
       .post('http://localhost:8080/api/v1/login', {
         username: credentials?.username,
@@ -39,6 +30,8 @@ export class AuthService {
         console.log(response);
         if (response['msg']) {
           this.authenticated = true;
+          const jwt = response["token"]
+          this.saveAuthToken(jwt);
         } else {
           this.authenticated = false;
         }
@@ -48,13 +41,25 @@ export class AuthService {
 
   logout() {
     this.http
-      .post('logout', [])
+      .post('http://localhost:8080/logout', [])
       .pipe(
         finalize(() => {
           this.authenticated = false;
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/');
         })
       )
       .subscribe();
+  }
+
+  private saveAuthToken(token: string) {
+    this.cookieService.set("jwt", token);
+  }
+
+  private removeAuthToken() {
+    this.cookieService.delete("jwt");
+  }
+
+  public getAuthorizationToken() {
+    return this.cookieService.get("jwt")
   }
 }
