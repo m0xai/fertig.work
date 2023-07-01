@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import work.fertig.backend.auth.JwtAuthService;
 import work.fertig.backend.user.exceptions.UserAlreadyExistsException;
 
 @RestController
@@ -32,6 +35,9 @@ public class FWUserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtAuthService jwtAuthService;
 
     public FWUserController(FWUserRepository repository) {
         this.repository = repository;
@@ -71,7 +77,6 @@ public class FWUserController {
         return new ResponseEntity<>(fwUserDto, HttpStatus.CREATED);
     }
 
-    // @CrossOrigin(origins = "http://localhost:4200/*")
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<Map> authenticateUser(@RequestBody FWUserDto loginDto) {
@@ -79,9 +84,16 @@ public class FWUserController {
                 loginDto.getUsername(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        FWUserDetails fwUser = (FWUserDetails) authentication.getPrincipal();
+
+        String token = jwtAuthService.generateToken(loginDto.getUsername());
         Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("token", token);
         responseBody.put("msg", "User signed-in successfully!.");
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK).ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername()))
+                .body(responseBody);
     }
 
 }
