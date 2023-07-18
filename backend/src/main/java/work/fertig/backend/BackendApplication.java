@@ -6,9 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import work.fertig.backend.todo.Todo;
-import work.fertig.backend.todo.TodoRepository;
+import work.fertig.backend.task.TaskRepository;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.FWUserRepository;
 
@@ -19,14 +17,13 @@ public class BackendApplication {
     }
 
     @Autowired
-    private TodoRepository todoRepository;
+    private TaskRepository taskRepository;
 
     @Bean
     CommandLineRunner commandLineRunner(FWUserRepository repository, BCryptPasswordEncoder encoder) {
         return args -> {
             repository.deleteAll();
-            todoRepository.deleteAll();
-            todoRepository.save(new Todo("Test Todo", "A description for the test todo!"));
+            taskRepository.deleteAll();
             repository.save(new FWUser("derya", encoder.encode("1299"), "kerem@dery.ya"));
         };
     }

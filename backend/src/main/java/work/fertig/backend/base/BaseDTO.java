@@ -1,9 +1,8 @@
 package work.fertig.backend.base;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-public interface BaseDTO extends Serializable {
+public interface BaseDTO {
     Long getId();
 
     Timestamp getCreatedAt();
