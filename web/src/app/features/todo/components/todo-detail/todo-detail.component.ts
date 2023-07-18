@@ -8,5 +8,5 @@ import { TodoModel } from '../../models/todo';
 })
 export class TodoDetailComponent {
   @Input() todoList: Array<TodoModel> = [];
-  showFiller: boolean = false;
+  showFiller = false;
 }

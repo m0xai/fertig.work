@@ -9,9 +9,9 @@ import { ResourceModel } from './ResourceModel';
 export abstract class ResourceService<T extends ResourceModel<T>> {
   constructor(
     private httpClient: HttpClient,
-    private tConstructor: { new (m: Partial<T>, ...args: unknown[]): T },
+    private tConstructor: { new(m: Partial<T>, ...args: unknown[]): T },
     private apiURL: string
-  ) {}
+  ) { }
 
   public create(resource: Partial<T> & { toJson: () => T }): Observable<T> {
     return this.httpClient
@@ -21,14 +21,9 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 
   public fetch(): Observable<T[]> {
     //? Headers only set for other requests, that require authentication
-    // TODO: Set auth credentials to the localStorage or something elsewhere to use in Resource Service
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Basic ${btoa('derya:1299')}`
-    );
     //   .set('withCredentials', 'true');
     return this.httpClient
-      .get<T[]>(`${this.apiURL}`, { headers })
+      .get<T[]>(this.apiURL)
       .pipe(map((result) => result.map((i) => new this.tConstructor(i))));
   }
 

@@ -9,12 +9,15 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import work.fertig.backend.auth.JwtAuthenticationFilter;
 import work.fertig.backend.user.FWUserDetailsService;
 import work.fertig.backend.user.FWUserRepository;
 
@@ -24,6 +27,9 @@ public class WebSecurityConfig {
 
     @Autowired
     private FWUserRepository userRepository;
+
+    @Autowired
+    private JwtAuthenticationFilter jwtTokenFilter;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -46,22 +52,29 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
+        authProvider.setHideUserNotFoundExceptions(false);
         return authProvider;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
+
+        http
+                .logout().and()
                 .cors().and()
                 .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(
+                        jwtTokenFilter,
+                        UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
                         .requestMatchers("/api/v1/login").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsService())
-                .httpBasic(withDefaults())
-                .build();
-    }
+                .httpBasic(withDefaults());
 
+        return http.build();
+    }
 }
