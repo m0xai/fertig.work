@@ -19,10 +19,10 @@ public class TaskDTORequest implements TaskDTO {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public TaskDTORequest() {
+    private TaskDTORequest() {
     }
 
-    public Task convertToEntity() {
+    public Task convertToEntity(FWUser fwUser) throws UserNotFoundException {
         // No need to request id, created_at and updated_at fields from client
         return Task.builder()
                 .name(this.getName())
@@ -30,6 +30,7 @@ public class TaskDTORequest implements TaskDTO {
                 // Setting isDone and isDraft false by default may change in the future
                 .isDone(false)
                 .isDraft(false)
+                .createdBy(fwUser)
                 .build();
     }
 }

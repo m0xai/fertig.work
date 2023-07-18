@@ -1,7 +1,6 @@
 package work.fertig.backend.task;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import work.fertig.backend.base.BaseEntity;
+import work.fertig.backend.user.FWUser;
 
 import java.sql.Timestamp;
 
@@ -25,7 +25,6 @@ public class Task extends BaseEntity {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank(message = "A name for the task is required.")
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
@@ -42,6 +41,7 @@ public class Task extends BaseEntity {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    public Task() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by")
+    private FWUser createdBy;
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import work.fertig.backend.task.Task;
+import work.fertig.backend.user.FWUser;
 
 import java.sql.Timestamp;
 
@@ -19,6 +20,7 @@ public class TaskDTOResponse implements TaskDTO {
     private Boolean isDraft;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private FWUser createdBy;
 
     public static TaskDTOResponse fromTask(Task task) {
         return TaskDTOResponse.builder()
@@ -29,6 +31,7 @@ public class TaskDTOResponse implements TaskDTO {
                 .isDraft(task.getIsDraft())
                 .createdAt(task.getCreatedAt())
                 .updatedAt(task.getUpdatedAt())
+                .createdBy(task.getCreatedBy())
                 .build();
     }
 }
