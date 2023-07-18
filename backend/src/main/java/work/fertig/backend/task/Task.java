@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import work.fertig.backend.base.BaseEntity;
 
 import java.sql.Timestamp;
 
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Data
 @Table(name = "task")
 @CrossOrigin(origins = "http://localhost:4200")
-public class Task {
+public class Task extends BaseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
