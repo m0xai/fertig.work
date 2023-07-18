@@ -2,6 +2,8 @@ package work.fertig.backend.task;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,6 +14,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @Table(name = "task")
 @CrossOrigin(origins = "http://localhost:4200")
 public class Task extends BaseEntity {
@@ -29,11 +33,15 @@ public class Task extends BaseEntity {
     private Boolean isDone;
     @Column(name = "is_draft")
     private Boolean isDraft;
-    @Column(name = "created_at")
+
     @CreationTimestamp
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at")
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+    public Task() {
+    }
 }
