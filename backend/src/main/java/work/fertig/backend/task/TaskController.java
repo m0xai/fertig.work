@@ -1,10 +1,11 @@
 package work.fertig.backend.task;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import work.fertig.backend.task.dtos.TaskDTO;
+import work.fertig.backend.task.dtos.TaskDTORequest;
 
 import java.util.List;
 
@@ -14,27 +15,25 @@ import java.util.List;
 public class TaskController {
 
     @Autowired
-    private final TaskService taskService;
+    private TaskService taskService;
 
-    @GetMapping("/Tasks/")
+    @GetMapping("/tasks/")
     public List<Task> getAllTasks() {
-        return repository.findAll();
+        return taskService.getAll();
     }
 
-    @GetMapping("/Tasks/{id}/")
-    public Task getSingleTask(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "A Task with the id: " + id + " not found."));
+    @GetMapping("/tasks/{id}/")
+    public Task getSingleTask(@PathVariable @NotNull Long id) {
+        return taskService.get(id);
     }
 
-    @PostMapping("/Tasks/")
-    public Task addSingleTask(@Valid @RequestBody Task submittedTask) {
+    @PostMapping("/tasks/")
+    public TaskDTO createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
         return taskService.create(submittedTask);
     }
 
-    @DeleteMapping("/Tasks/{id}")
+    @DeleteMapping("/tasks/{id}")
     public void deleteSingleTask(@PathVariable Long id) {
-        repository.deleteById(id);
+        taskService.delete(id);
     }
 }
