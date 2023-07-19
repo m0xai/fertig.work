@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import work.fertig.backend.task.Task;
+import work.fertig.backend.task.enums.TaskPriority;
+import work.fertig.backend.task.enums.TaskStatus;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.exceptions.UserNotFoundException;
 
@@ -28,6 +30,10 @@ public class TaskDTORequest implements TaskDTO {
     private Timestamp updatedAt;
     @NotNull(message = "User id cannot be blank.")
     private Long createdById;
+    @NotNull(message = "Status field cannot left blank.")
+    private TaskStatus status;
+    @NotNull(message = "Priority field cannot be blank.")
+    private TaskPriority priority;
 
     private TaskDTORequest() {
     }
@@ -41,6 +47,8 @@ public class TaskDTORequest implements TaskDTO {
                 .isDone(false)
                 .isDraft(false)
                 .createdBy(fwUser)
+                .status(this.getStatus())
+                .priority(this.getPriority())
                 .build();
     }
 }

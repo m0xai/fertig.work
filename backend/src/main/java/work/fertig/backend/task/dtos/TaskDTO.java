@@ -1,6 +1,8 @@
 package work.fertig.backend.task.dtos;
 
 import work.fertig.backend.base.BaseDTO;
+import work.fertig.backend.task.enums.TaskPriority;
+import work.fertig.backend.task.enums.TaskStatus;
 
 public interface TaskDTO extends BaseDTO {
     Long getId();
@@ -12,4 +14,8 @@ public interface TaskDTO extends BaseDTO {
     Boolean getIsDone();
 
     Boolean getIsDraft();
+
+    TaskStatus getStatus();
+
+    TaskPriority getPriority();
 }

@@ -46,4 +46,15 @@ public class Task extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     private FWUser createdBy;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "integer default 0")
+    private TaskStatus status;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "2")
+    private TaskPriority priority;
+
+    @ManyToOne
+    private TaskList taskList;
 }
