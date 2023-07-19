@@ -1,27 +1,29 @@
 package work.fertig.backend.task;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import work.fertig.backend.base.BaseEntity;
+import work.fertig.backend.task.enums.TaskPriority;
+import work.fertig.backend.task.enums.TaskStatus;
 import work.fertig.backend.user.FWUser;
 
 import java.sql.Timestamp;
 
 @Entity
-@Data
-@Builder
-@AllArgsConstructor
 @Table(name = "task")
 @CrossOrigin(origins = "http://localhost:4200")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Task extends BaseEntity {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false)
