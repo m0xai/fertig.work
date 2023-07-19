@@ -3,14 +3,18 @@ package work.fertig.backend.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import work.fertig.backend.base.BaseEntity;
 
 import java.util.Collection;
 
 @Entity
 @Table(name = "fw_users") // table user is for postgres reserved
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

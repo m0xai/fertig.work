@@ -1,7 +1,11 @@
 package work.fertig.backend.tasklist;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import work.fertig.backend.base.BaseEntity;
 import work.fertig.backend.task.Task;
 
@@ -11,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskList extends BaseEntity {
