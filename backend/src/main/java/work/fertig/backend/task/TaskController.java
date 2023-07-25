@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import work.fertig.backend.task.dtos.TaskDTO;
 import work.fertig.backend.task.dtos.TaskDTORequest;
+import work.fertig.backend.task.dtos.TaskDTOResponse;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}/")
-    public Task getSingleTask(@PathVariable @NotNull Long id) {
+    public TaskDTOResponse getSingleTask(@PathVariable @NotNull Long id) {
         return taskService.get(id);
     }
 
