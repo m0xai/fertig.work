@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import work.fertig.backend.task.Task;
 import work.fertig.backend.task.enums.TaskPriority;
 import work.fertig.backend.task.enums.TaskStatus;
+import work.fertig.backend.tasklist.TaskList;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.exceptions.UserNotFoundException;
 
@@ -34,11 +35,13 @@ public class TaskDTORequest implements TaskDTO {
     private TaskStatus status;
     @NotNull(message = "Priority field cannot be blank.")
     private TaskPriority priority;
+    // Get only id of taskList from client
+    private Long taskListId;
 
     private TaskDTORequest() {
     }
 
-    public Task convertToEntity(FWUser fwUser) throws UserNotFoundException {
+    public Task convertToEntity(FWUser fwUser, TaskList taskList) throws UserNotFoundException {
         // No need to request id, created_at and updated_at fields from client
         return Task.builder()
                 .name(this.getName())
@@ -49,6 +52,7 @@ public class TaskDTORequest implements TaskDTO {
                 .createdBy(fwUser)
                 .status(this.getStatus())
                 .priority(this.getPriority())
+                .taskList(taskList)
                 .build();
     }
 }

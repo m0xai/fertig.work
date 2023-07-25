@@ -7,6 +7,7 @@ import lombok.Data;
 import work.fertig.backend.task.Task;
 import work.fertig.backend.task.enums.TaskPriority;
 import work.fertig.backend.task.enums.TaskStatus;
+import work.fertig.backend.tasklist.TaskList;
 import work.fertig.backend.user.dtos.FWUserDTOResponse;
 
 import java.sql.Timestamp;
@@ -25,6 +26,7 @@ public class TaskDTOResponse implements TaskDTO {
     private FWUserDTOResponse createdBy;
     private TaskStatus status;
     private TaskPriority priority;
+    private TaskList taskList;
 
     public static TaskDTOResponse fromTask(Task task) {
         return TaskDTOResponse.builder()
@@ -39,6 +41,7 @@ public class TaskDTOResponse implements TaskDTO {
                 .createdBy(FWUserDTOResponse.fromEntity(task.getCreatedBy()))
                 .status(task.getStatus())
                 .priority(task.getPriority())
+                .taskList(task.getTaskList())
                 .build();
     }
 }
