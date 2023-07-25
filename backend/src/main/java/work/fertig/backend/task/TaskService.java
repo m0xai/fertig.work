@@ -1,11 +1,12 @@
 package work.fertig.backend.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
+import work.fertig.backend.tasklist.TaskList;
+import work.fertig.backend.tasklist.TaskListRepository;
+import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.FWUserRepository;
 import work.fertig.backend.user.exceptions.UserNotFoundException;
@@ -18,14 +19,15 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
     @Autowired
-    private TaskValidator taskValidator;
+    private TaskListRepository taskListRepository;
     @Autowired
     private FWUserRepository fwUserRepository;
 
     public TaskDTOResponse create(TaskDTORequest request) {
         // Takes a request without
         FWUser createdBy = this.getUser(request.getCreatedById());
-        Task taskEntity = request.convertToEntity(createdBy);
+        TaskList taskList = this.getTaskList(request.getTaskListId());
+        Task taskEntity = request.convertToEntity(createdBy, taskList);
         if (taskEntity == null) {
             throw new NullPointerException("A task, which converted to the entity is NULL");
         }
@@ -37,10 +39,12 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task get(Long id) {
-        return taskRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "A Task with the id: " + id + " not found."));
+    public TaskDTOResponse get(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException(id);
+        }
+        return TaskDTOResponse.fromTask(task.get());
     }
 
     public void delete(Long id) {
@@ -55,6 +59,14 @@ public class TaskService {
             throw new UserNotFoundException("An user with ID: " + String.valueOf(userId) + " not found.");
         }
         return createdBy.get();
+    }
+
+    private TaskList getTaskList(Long taskListId) {
+        Optional<TaskList> taskList = taskListRepository.findById(taskListId);
+        if (taskList.isEmpty()) {
+            throw new TaskListNotFoundException(taskListId);
+        }
+        return taskList.get();
     }
 }
 
