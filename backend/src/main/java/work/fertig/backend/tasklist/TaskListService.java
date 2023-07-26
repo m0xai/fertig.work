@@ -11,6 +11,7 @@ import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
 import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,14 @@ public class TaskListService {
             throw new TaskListNotFoundException(id);
         }
         return TaskListDTOResponse.fromTaskList(oTaskList.get());
+    }
+
+    public List<TaskDTOResponse> getTasksByTaskList(Long id) {
+        List<Task> tasks = taskRepository.findAllByTaskListId(id);
+        if (tasks.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return tasks.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
     private List<Task> getTaskItems(List<Long> ids) {

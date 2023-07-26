@@ -7,8 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
+
+import java.util.List;
 
 @RestController
 @Validated
@@ -25,5 +28,11 @@ public class TaskListController {
     @GetMapping("/tasklists/{id}/")
     public ResponseEntity<TaskListDTOResponse> getSingleTaskList(@PathVariable @NotNull Long id) {
         return new ResponseEntity<>(taskListService.get(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/tasklists/{id}/tasks")
+    public ResponseEntity<List<TaskDTOResponse>> getAllTasksOfTaskList(@PathVariable @NotNull Long id) {
+        taskListService.getTasksByTaskList(id).size();
+        return new ResponseEntity<>(taskListService.getTasksByTaskList(id), HttpStatus.OK);
     }
 }
