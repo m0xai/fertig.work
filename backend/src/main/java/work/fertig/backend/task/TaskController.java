@@ -3,6 +3,8 @@ package work.fertig.backend.task;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import work.fertig.backend.task.dtos.TaskDTO;
 import work.fertig.backend.task.dtos.TaskDTORequest;
@@ -19,22 +21,23 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping("/tasks/")
-    public List<Task> getAllTasks() {
-        return taskService.getAll();
+    public ResponseEntity<List<TaskDTOResponse>> getAllTasks() {
+        return new ResponseEntity<>(taskService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/tasks/{id}/")
-    public TaskDTOResponse getSingleTask(@PathVariable @NotNull Long id) {
-        return taskService.get(id);
+    public ResponseEntity<TaskDTOResponse> getSingleTask(@PathVariable @NotNull Long id) {
+        return new ResponseEntity<>(taskService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/tasks/")
-    public TaskDTO createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
-        return taskService.create(submittedTask);
+    public ResponseEntity<TaskDTO> createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
+        return new ResponseEntity<>(taskService.create(submittedTask), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/tasks/{id}")
-    public void deleteSingleTask(@PathVariable Long id) {
+    public ResponseEntity<String> deleteSingleTask(@PathVariable Long id) {
         taskService.delete(id);
+        return new ResponseEntity<>("Task with ID: " + id + " deleted successfully.", HttpStatus.OK);
     }
 }
