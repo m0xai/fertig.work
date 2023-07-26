@@ -1,7 +1,9 @@
 package work.fertig.backend.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.TaskList;
@@ -26,6 +28,9 @@ public class TaskService {
     public TaskDTOResponse create(TaskDTORequest request) {
         // Takes a request without
         FWUser createdBy = this.getUser(request.getCreatedById());
+        if (request.getTaskListId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TaskList(parent) id field cannot be null");
+        }
         TaskList taskList = this.getTaskList(request.getTaskListId());
         Task taskEntity = request.convertToEntity(createdBy, taskList);
         if (taskEntity == null) {
@@ -35,8 +40,9 @@ public class TaskService {
         return TaskDTOResponse.fromTask(task);
     }
 
-    public List<Task> getAll() {
-        return taskRepository.findAll();
+    public List<TaskDTOResponse> getAll() {
+        List<Task> taskDTOList = taskRepository.findAll();
+        return taskDTOList.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
     public TaskDTOResponse get(Long id) {
@@ -69,4 +75,3 @@ public class TaskService {
         return taskList.get();
     }
 }
-
