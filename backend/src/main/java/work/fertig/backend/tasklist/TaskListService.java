@@ -5,10 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.Task;
-import work.fertig.backend.task.TaskNotFoundException;
 import work.fertig.backend.task.TaskRepository;
+import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
+import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,6 @@ public class TaskListService {
 
     public TaskListDTOResponse create(TaskListDTORequest request) {
         TaskList convertedTaskList = request.convertToEntity();
-        System.out.println("Deryamcik");
         TaskList taskList = taskListRepository.save(convertedTaskList);
         return TaskListDTOResponse.fromTaskList(taskList);
     }
@@ -30,7 +30,7 @@ public class TaskListService {
     public TaskListDTOResponse get(Long id) {
         Optional<TaskList> oTaskList = taskListRepository.findById(id);
         if (oTaskList.isEmpty()) {
-            throw new TaskNotFoundException(id);
+            throw new TaskListNotFoundException(id);
         }
         return TaskListDTOResponse.fromTaskList(oTaskList.get());
     }

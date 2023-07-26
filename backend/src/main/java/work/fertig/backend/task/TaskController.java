@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import work.fertig.backend.task.dtos.TaskDTO;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 
@@ -31,7 +30,7 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/")
-    public ResponseEntity<TaskDTO> createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
+    public ResponseEntity<TaskDTOResponse> createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
         return new ResponseEntity<>(taskService.create(submittedTask), HttpStatus.CREATED);
     }
 
