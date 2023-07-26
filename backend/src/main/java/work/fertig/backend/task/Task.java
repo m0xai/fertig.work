@@ -36,7 +36,7 @@ public class Task extends BaseEntity {
     @Column(name = "is_draft")
     private Boolean isDraft;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "created_by")
     private FWUser createdBy;
 
@@ -48,6 +48,6 @@ public class Task extends BaseEntity {
     @Column(columnDefinition = "2")
     private TaskPriority priority;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private TaskList taskList;
 }
