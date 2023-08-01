@@ -1,23 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {finalize} from 'rxjs';
 import ICredentials from './models/ICredentials';
-import { CookieService } from 'ngx-cookie-service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
-
-  private isAuthenticated = false;
-
-  public get authenticated(): boolean {
-    return this.isAuthenticated;
-  }
-  public set authenticated(value: boolean) {
-    this.isAuthenticated = value;
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
   }
 
   authenticate(credentials?: ICredentials, callback?: Function) {
@@ -29,11 +21,11 @@ export class AuthService {
       .subscribe((response: any) => {
         console.log(response);
         if (response['msg']) {
-          this.authenticated = true;
+          this.setAuthenticated(true);
           const jwt = response["token"]
           this.saveAuthToken(jwt);
         } else {
-          this.authenticated = false;
+          this.setAuthenticated(false);
         }
         return callback && callback();
       });
@@ -44,7 +36,8 @@ export class AuthService {
       .post('http://localhost:8080/logout', [])
       .pipe(
         finalize(() => {
-          this.authenticated = false;
+          this.setAuthenticated(false);
+          this.removeAuthToken();
           this.router.navigateByUrl('/');
         })
       )
@@ -61,5 +54,13 @@ export class AuthService {
 
   public getAuthorizationToken() {
     return this.cookieService.get("jwt")
+  }
+
+  public setAuthenticated(state: boolean): void {
+    localStorage.setItem("isLoggedIn", state + "");
+  }
+
+  public isAuthenticated(): boolean {
+    return localStorage.getItem("isLoggedIn") == "true";
   }
 }
