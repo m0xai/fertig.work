@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserModule } from './user/user.module';
-import { TodoModule } from './todo/todo.module';
-import { ProjectModule } from './project/projects.module';
-import { HomeModule } from './home/home.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UserModule} from './user/user.module';
+import {TodoModule} from './todo/todo.module';
+import {ProjectModule} from './project/projects.module';
+import {HomeModule} from './home/home.module';
 
 
 @NgModule({
@@ -17,4 +17,5 @@ import { HomeModule } from './home/home.module';
   ],
   exports: [HomeModule]
 })
-export class FeaturesModule { }
+export class FeaturesModule {
+}

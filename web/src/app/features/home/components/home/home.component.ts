@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth/auth.service';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-home',
