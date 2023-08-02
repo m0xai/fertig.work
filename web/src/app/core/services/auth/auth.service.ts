@@ -1,34 +1,37 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {finalize} from 'rxjs';
 import ICredentials from './models/ICredentials';
 import {CookieService} from 'ngx-cookie-service';
+import {ErrorService} from "../../../shared/services/error.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private errorSerivce: ErrorService) {
   }
 
   authenticate(credentials?: ICredentials, callback?: Function) {
-    this.http
-      .post('http://localhost:8080/api/v1/login', {
-        username: credentials?.username,
-        password: credentials?.password,
-      })
-      .subscribe((response: any) => {
-        console.log(response);
-        if (response['msg']) {
-          this.setAuthenticated(true);
-          const jwt = response["token"]
-          this.saveAuthToken(jwt);
-        } else {
-          this.setAuthenticated(false);
+    const url = 'http://localhost:8080/api/v1/login';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post(url, credentials, {headers, observe: 'response'})
+      .subscribe(
+        (response: HttpResponse<any>) => {
+          if (response.ok) {
+            const jwt = response.body["token"]
+            this.saveAuthToken(jwt);
+          }
+          return callback && callback();
+        },
+        (error) => {
+          this.errorSerivce.setError(error.error.msg);
         }
-        return callback && callback();
-      });
+      );
   }
 
   logout() {
@@ -36,7 +39,6 @@ export class AuthService {
       .post('http://localhost:8080/logout', [])
       .pipe(
         finalize(() => {
-          this.setAuthenticated(false);
           this.removeAuthToken();
           this.router.navigateByUrl('/');
         })
@@ -52,15 +54,12 @@ export class AuthService {
     this.cookieService.delete("jwt");
   }
 
-  public getAuthorizationToken() {
+  public getAuthToken() {
     return this.cookieService.get("jwt")
   }
 
-  public setAuthenticated(state: boolean): void {
-    localStorage.setItem("isLoggedIn", state + "");
-  }
-
   public isAuthenticated(): boolean {
-    return localStorage.getItem("isLoggedIn") == "true";
+    // If JWT Token set, it's longer than 0
+    return this.getAuthToken().length > 0;
   }
 }
