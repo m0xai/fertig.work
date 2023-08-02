@@ -1,9 +1,9 @@
 <div class="alert alert-{{alertType}}">
   <ng-container [ngSwitch]="alertType">
-    <mat-icon *ngSwitchCase="alertType === 'none'" aria-hidden="false" aria-label="Alert" fontIcon="help"></mat-icon>
-    <mat-icon *ngSwitchCase="alertType === 'error'" aria-hidden="false" aria-label="Alert" fontIcon="cancel"></mat-icon>
-    <mat-icon *ngSwitchCase="alertType === 'info'" aria-hidden="false" aria-label="Alert" fontIcon="info"></mat-icon>
-    <mat-icon *ngSwitchCase="alertType === 'warn'" aria-hidden="false" aria-label="Alert" fontIcon="error"></mat-icon>
+    <mat-icon *ngSwitchCase="'none'" aria-hidden="false" aria-label="Alert" fontIcon="help"></mat-icon>
+    <mat-icon *ngSwitchCase="'error'" aria-hidden="false" aria-label="Alert" fontIcon="cancel"></mat-icon>
+    <mat-icon *ngSwitchCase="'info'" aria-hidden="false" aria-label="Alert" fontIcon="info"></mat-icon>
+    <mat-icon *ngSwitchCase="'warn'" aria-hidden="false" aria-label="Alert" fontIcon="error"></mat-icon>
   </ng-container>
   <p class="alert-text">{{alertMessage}}</p>
 </div>

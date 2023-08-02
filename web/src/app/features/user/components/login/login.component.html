@@ -17,9 +17,8 @@
         <mat-error *ngIf="credentials.get('password')?.invalid">{{getErrorMessage("password")}}</mat-error>
         <mat-hint align="end">{{credentials.get('password')?.value?.length}}/10</mat-hint>
       </mat-form-field>
-      <app-fw-alert *ngIf="errorService.errorMessage$ | async as errorMessage" class="error-message" alertType="info"
-                    [alertMessage]="errorMessage"
-      />
+      <app-fw-alert *ngIf="errorService.errorMessage$ | async as errorMessage" class="error-message" alertType="error"
+                    [alertMessage]="errorMessage"/>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Login</button>
