@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from 'src/app/core/services/auth/auth.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ErrorService} from "../../../../shared/services/error.service";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, public errorService: ErrorService) {
   }
 
   credentials = new FormGroup({
@@ -18,7 +19,6 @@ export class LoginComponent {
   });
 
   login() {
-
     if (this.credentials.valid) {
       this.authService.authenticate({
         username: this.credentials.value.username,
@@ -27,7 +27,6 @@ export class LoginComponent {
         this.router.navigateByUrl('/home');
       });
     }
-
   }
 
   getErrorMessage(fieldName: string) {
