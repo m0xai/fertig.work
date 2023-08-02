@@ -6,10 +6,10 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./fw-alert.component.css']
 })
 export class FwAlertComponent {
-  @Input({required: true}) alertType: "none" | "warn" | "error" | "info" = "none"
-  @Input() alertMessage: string = ''
+  @Input({required: true}) alertType: "none" | "warn" | "error" | "info" = "none";
+  @Input() alertMessage: string = '';
 
-  public hideCard() {
-    console.log("Trying to hid")
+  public hideAlert() {
+    this.alertMessage = "";
   }
 }

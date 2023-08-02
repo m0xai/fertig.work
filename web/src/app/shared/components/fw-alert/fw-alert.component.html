@@ -1,4 +1,4 @@
-<div class="alert alert-{{alertType}}">
+<div *ngIf="alertMessage" class="alert alert-{{alertType}}" (click)="hideAlert()">
   <ng-container [ngSwitch]="alertType">
     <mat-icon *ngSwitchCase="'none'" aria-hidden="false" aria-label="Alert" fontIcon="help"></mat-icon>
     <mat-icon *ngSwitchCase="'error'" aria-hidden="false" aria-label="Alert" fontIcon="cancel"></mat-icon>
