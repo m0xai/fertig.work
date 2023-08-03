@@ -29,9 +29,22 @@ public class TaskController {
         return new ResponseEntity<>(taskService.get(id), HttpStatus.OK);
     }
 
+
     @PostMapping("/tasks/")
     public ResponseEntity<TaskDTOResponse> createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
         return new ResponseEntity<>(taskService.create(submittedTask), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/tasks/{id}/")
+    public ResponseEntity<TaskDTOResponse> updateTutorial(@PathVariable @NotNull long id,
+                                                          @RequestBody TaskDTORequest taskDTORequest) {
+        TaskDTOResponse updatedData = null;
+        try {
+            updatedData = taskService.update(id, taskDTORequest);
+        } catch (TaskNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedData, HttpStatus.OK);
     }
 
     @DeleteMapping("/tasks/{id}")

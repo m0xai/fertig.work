@@ -53,6 +53,22 @@ public class TaskService {
         return TaskDTOResponse.fromTask(task.get());
     }
 
+    public TaskDTOResponse update(Long id, TaskDTORequest taskDTORequest) {
+        Optional<Task> taskData = taskRepository.findById(id);
+        if (taskData.isPresent()) {
+            Task task = taskData.get();
+            task.setName(taskDTORequest.getName());
+            task.setDescription(taskDTORequest.getDescription());
+            task.setIsDone(taskDTORequest.getIsDone());
+            task.setIsDraft(taskDTORequest.getIsDraft());
+            task.setCreatedBy(this.getUser(taskDTORequest.getCreatedById()));
+            task.setTaskList(this.getTaskList(taskDTORequest.getTaskListId()));
+            return TaskDTOResponse.fromTask(taskRepository.save(task));
+        } else {
+            throw new TaskNotFoundException(id);
+        }
+    }
+
     public void delete(Long id) {
         taskRepository.deleteById(id);
     }
