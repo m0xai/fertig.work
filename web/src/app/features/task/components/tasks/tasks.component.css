@@ -1,0 +1,12 @@
+.tasks-drawer {
+  height: 100%;
+}
+
+.tasks-drawer__sidenav {
+  padding: 2rem;
+  min-width: 50%;
+}
+
+mat-form-field {
+  width: 100%;
+}
