@@ -1,0 +1,7 @@
+* {
+  overflow: hidden !important;
+}
+
+.container {
+  height: 100%;
+}
