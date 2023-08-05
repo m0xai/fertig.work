@@ -1,5 +1,6 @@
 * {
   overflow: hidden !important;
+  box-sizing: border-box;
 }
 
 .container {
