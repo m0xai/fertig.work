@@ -1,10 +1,10 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {finalize} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import ICredentials from './models/ICredentials';
-import {CookieService} from 'ngx-cookie-service';
-import {ErrorService} from "../../../shared/services/error.service";
+import { CookieService } from 'ngx-cookie-service';
+import { ErrorService } from "../../../shared/services/error.service";
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class AuthService {
             const jwt = response.body["token"]
             this.saveAuthToken(jwt);
           }
-          return callback && callback();
+          return callback?.call(null);
         },
         (error) => {
           this.errorSerivce.setError(error.error.msg);
@@ -46,14 +46,6 @@ export class AuthService {
       .subscribe();
   }
 
-  private saveAuthToken(token: string) {
-    this.cookieService.set("jwt", token);
-  }
-
-  private removeAuthToken() {
-    this.cookieService.delete("jwt");
-  }
-
   public getAuthToken() {
     return this.cookieService.get("jwt")
   }
@@ -61,5 +53,13 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // If JWT Token set, it's longer than 0
     return this.getAuthToken().length > 0;
+  }
+
+  private saveAuthToken(token: string) {
+    this.cookieService.set("jwt", token);
+  }
+
+  private removeAuthToken() {
+    this.cookieService.delete("jwt");
   }
 }
