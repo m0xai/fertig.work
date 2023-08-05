@@ -1,21 +1,55 @@
-<p>header works!</p>
-<div class="container">
-  <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
-  </mat-toolbar>
-  <ul class="nav nav-pills">
-    <li><a routerLinkActive="active" routerLink="/home">Home</a></li>
-    <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
-    <li><a (click)="logout()">Logout</a></li>
-  </ul>
-</div>
+<mat-drawer-container id="main-container">
+  <mat-drawer #drawer mode="side" opened>
+    <div id="base-sidenav">
+      <h1>Fertig Work</h1>
+      <nav id="base-sidenav__navbar">
+        <mat-nav-list class="base-sidenav__navbar__menu">
+          <ng-container *ngFor="let item of menuItems">
+            <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
+               class="base-sidenav__menu-item__link"
+               routerLinkActive="active">
+              <mat-list-item>
+                <div class="base-sidenav__menu-item">
+                  <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
+                  {{item.text}}
+                </div>
+              </mat-list-item>
+            </a>
+            <ng-template #dividerItem>
+              <mat-divider [ngClass]="item?.class"/>
+            </ng-template>
+          </ng-container>
+        </mat-nav-list>
+      </nav>
+    </div>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-toolbar color="accent">
+      <mat-toolbar-row>
+        <button (click)="drawer.toggle()" aria-label="Example icon-button with menu icon" class="example-icon"
+                mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <!--          <a class="header__site-name" routerLink="/home" routerLinkActive="active">Fertig Work</a>-->
+        <nav class="header__nav">
+          <a routerLink="/login" routerLinkActive="active">Login</a>
+          <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+          <a (click)="logout()">Logout</a>
+        </nav>
+        <span class="example-spacer"></span>
+        <button aria-label="Example icon-button with heart icon" class="example-icon favorite-icon" mat-icon-button>
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button aria-label="Example icon-button with share icon" class="example-icon" mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        {{ title }}
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- Application's content    -->
+    <ng-content class="main-content"/>
+  </div>
+</mat-drawer-container>
