@@ -15,19 +15,19 @@ export class HeaderComponent implements OnDestroy {
       icon: "dashboard",
       text: "Dashboard",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
     {
       icon: "token",
       text: "Projects",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
     {
       icon: "inbox",
       text: "Inbox",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
     {
       icon: null,
@@ -40,13 +40,13 @@ export class HeaderComponent implements OnDestroy {
       icon: "book",
       text: "Project A",
       isDivider: false,
-      route: "/home"
+      route: "tasks"
     },
     {
       icon: "book",
       text: "Another Project",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
     {
       icon: null,
@@ -58,13 +58,13 @@ export class HeaderComponent implements OnDestroy {
       icon: "person",
       text: "Profile",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
     {
       icon: "logout",
       text: "Logout",
       isDivider: false,
-      route: "/home"
+      route: "home"
     },
   ]
   private subscription: Subscription;

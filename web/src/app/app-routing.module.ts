@@ -6,17 +6,23 @@ import { LoginGuard } from "./shared/services/login.guard";
 import { TasksComponent } from "./features/task/components/tasks/tasks.component";
 import { ProjectCreateComponent } from "./features/project/project-create/project-create.component";
 import { ProjectsComponent } from "./features/project/projects/projects.component";
+import { RegisterComponent } from "./features/user/components/register/register.component";
+import { BaseAppComponent } from "./shared/components/base-app/base-app.component";
+import { LogoutGuard } from "./shared/services/logout.guard";
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, data: {title: "Login"}},
-  {path: 'home', canActivate: [LoginGuard], component: HomeComponent, data: {title: "Home"}},
-  {path: 'tasks', canActivate: [LoginGuard], component: TasksComponent, data: {title: "Tasks"}},
-  {path: 'projects', canActivate: [LoginGuard], component: ProjectsComponent, data: {title: "Projects"}},
+  // TODO: Redirect user to app, if already logged in
+  {path: 'login', component: LoginComponent, canActivate: [LogoutGuard], data: {title: "Login"}},
+  {path: 'register', component: RegisterComponent, canActivate: [LogoutGuard], data: {title: "Register"}},
   {
-    path: 'projects/create', canActivate: [LoginGuard], component: ProjectCreateComponent, data: {
-      title: "Create Project"
-    }
-  },
+    path: "app", component: BaseAppComponent, canActivate: [LoginGuard],
+    children: [
+      {path: 'home', component: HomeComponent, data: {title: "Home"}},
+      {path: 'tasks', component: TasksComponent, data: {title: "Tasks"}},
+      {path: 'projects', component: ProjectsComponent, data: {title: "Projects"}},
+      {path: 'projects/create', component: ProjectCreateComponent, data: {title: "Create Project"}}
+    ]
+  }
 ];
 
 @NgModule({
