@@ -8,9 +8,9 @@ describe('FwAlertComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FwAlertComponent ]
+      declarations: [FwAlertComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FwAlertComponent);
     component = fixture.componentInstance;
