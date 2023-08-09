@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -63,9 +64,16 @@ public class FWUserController {
     @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<Map> authenticateUser(@RequestBody FWUserDTORequest loginDto) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsername(), loginDto.getPassword()));
-
+        Authentication authentication = null;
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    loginDto.getUsername(), loginDto.getPassword()));
+        } catch (InternalAuthenticationServiceException ex) {
+            // TODO: Cover the situation, when password is false
+            Map<String, String> notFoundBody = new HashMap<>();
+            notFoundBody.put("msg", "Username or password wrong");
+            return ResponseEntity.status(401).body(notFoundBody);
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         FWUserDetails fwUser = (FWUserDetails) authentication.getPrincipal();
@@ -74,9 +82,7 @@ public class FWUserController {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("token", token);
         responseBody.put("msg", "User signed-in successfully!.");
-        return new ResponseEntity<>(HttpStatus.OK).ok()
-                .header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername()))
-                .body(responseBody);
+        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername())).body(responseBody);
     }
 
 }
