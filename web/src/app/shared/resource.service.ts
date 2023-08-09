@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ResourceModel } from './ResourceModel';
@@ -7,11 +7,16 @@ import { ResourceModel } from './ResourceModel';
   providedIn: 'root',
 })
 export abstract class ResourceService<T extends ResourceModel<T>> {
+  private apiBase = "http://127.0.0.1:8080/api/v1/"
+  private apiURL = "";
+
   constructor(
     private httpClient: HttpClient,
     private tConstructor: { new(m: Partial<T>, ...args: unknown[]): T },
-    private apiURL: string
-  ) { }
+    private apiPath: string
+  ) {
+    this.apiURL = this.apiBase + apiPath;
+  }
 
   public create(resource: Partial<T> & { toJson: () => T }): Observable<T> {
     return this.httpClient

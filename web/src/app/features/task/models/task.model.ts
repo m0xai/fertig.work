@@ -1,12 +1,12 @@
 import { ResourceModel } from 'src/app/shared/ResourceModel';
-import { UserModel } from "../../user/models/user";
+import { User } from "../../user/models/user";
 
 export class Task extends ResourceModel<Task> {
   public name?: string;
   public description?: string;
   public isDone?: boolean;
   public isDraft?: boolean;
-  public created?: UserModel
+  public created?: User
 
   constructor(model?: Partial<Task>) {
     super(model);

@@ -34,16 +34,21 @@
         <!--          <a class="header__site-name" routerLink="/home" routerLinkActive="active">Fertig Work</a>-->
         <nav class="header__nav">
           <a routerLink="/login" routerLinkActive="active">Login</a>
-          <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+          <a routerLink="app/tasks" routerLinkActive="active">Tasks</a>
           <a (click)="logout()">Logout</a>
         </nav>
         <span class="example-spacer"></span>
         <button aria-label="Example icon-button with heart icon" class="example-icon favorite-icon" mat-icon-button>
           <mat-icon>favorite</mat-icon>
         </button>
-        <button aria-label="Example icon-button with share icon" class="example-icon" mat-icon-button>
-          <mat-icon>share</mat-icon>
+        <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon" class="example-icon"
+                mat-icon-button>
+          <mat-icon>add</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Task</button>
+          <button mat-menu-item>Project</button>
+        </mat-menu>
       </mat-toolbar-row>
       <mat-toolbar-row>
         {{ title }}

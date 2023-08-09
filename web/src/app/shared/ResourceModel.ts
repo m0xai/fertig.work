@@ -9,12 +9,6 @@ export abstract class ResourceModel<T> implements IResource {
     if (model) {
       Object.assign(this, model);
     }
-    if (this.createdAt) {
-      this.createdAt = new Date(this.createdAt);
-    }
-    if (this.updatedAt) {
-      this.updatedAt = new Date(this.updatedAt);
-    }
   }
 
   getId(): number {
@@ -23,5 +17,14 @@ export abstract class ResourceModel<T> implements IResource {
 
   public toJson(): any {
     return JSON.parse(JSON.stringify(this));
+  }
+
+  public isValid(): boolean {
+    for (const member in this) {
+      if (this[member] == null) {
+        return false;
+      }
+    }
+    return true;
   }
 }
