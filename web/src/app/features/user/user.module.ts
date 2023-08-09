@@ -9,9 +9,10 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { SharedModule } from "../../shared/shared.module";
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent, LogoutComponent],
+  declarations: [LoginComponent, LogoutComponent, RegisterComponent],
   imports: [CommonModule, BrowserModule, FormsModule, RouterModule, MatCardModule, MatInputModule, MatButtonModule, ReactiveFormsModule, SharedModule],
 })
 export class UserModule {
