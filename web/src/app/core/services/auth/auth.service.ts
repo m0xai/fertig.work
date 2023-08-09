@@ -60,6 +60,6 @@ export class AuthService {
   }
 
   private removeAuthToken() {
-    this.cookieService.delete("jwt");
+    this.cookieService.delete("jwt", "/");
   }
 }
