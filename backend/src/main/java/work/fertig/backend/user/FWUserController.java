@@ -54,8 +54,9 @@ public class FWUserController {
     }
 
     @PostMapping("/register")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     public ResponseEntity<FWUserDTOResponse> createUser(@Valid @RequestBody FWUserDTORequest request) {
+        // TODO: return error, when email/username is invalid/used with modifying FWUserDTORequest
         FWUserDTOResponse fwUserDTOResponse = fwUserService.create(request);
         return new ResponseEntity<>(fwUserDTOResponse, HttpStatus.CREATED);
     }

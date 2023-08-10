@@ -1,0 +1,13 @@
+.register-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.register-form-fields {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  max-width: 600px;
+}

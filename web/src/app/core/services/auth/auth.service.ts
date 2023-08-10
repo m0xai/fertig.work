@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import ICredentials from './models/ICredentials';
@@ -13,21 +14,36 @@ import { User } from "../../../features/user/models/user";
 export class AuthService {
   baseUrl = "http://localhost:8080/api/v1/"
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private errorService: ErrorService) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router,
+              private errorService: ErrorService, private snackBar: MatSnackBar) {
   }
 
   // We don't use resourceService, since we have JWT logic here.
   register(user: User) {
-    const registerUrl = this.baseUrl + "users"
+    const registerUrl = this.baseUrl + "register"
     return this.http.post(registerUrl, user, {observe: "response"})
       .subscribe(
         (response: HttpResponse<any>) => {
           if (response.ok) {
-            console.log(response)
+            this.snackBar.open('Registration successful! You can now log in.', 'Close', {
+              verticalPosition: "top",
+              horizontalPosition: "center",
+              duration: 5000,
+              panelClass: 'success-snackbar'
+            });
+            // Redirect to login page
+            this.router.navigate(['/login']);
+          } else {
+            console.log("Elessss")
           }
         }, (error) => {
-          this.errorService.setError(error.error.msg)
-          console.warn(error)
+          this.errorService.setError(error.message)
+          this.snackBar.open(`Registration failed. Error: ${error.error.message}`, 'Close', {
+            verticalPosition: "top",
+            horizontalPosition: "center",
+            duration: 5000,
+            panelClass: 'error-snackbar'
+          });
         }
       );
   }

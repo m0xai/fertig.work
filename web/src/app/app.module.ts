@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from "./shared/shared.module";
 import { FeaturesModule } from "./features/features.module";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FeaturesModule } from "./features/features.module";
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
     CoreModule,
     FeaturesModule,
     SharedModule,
