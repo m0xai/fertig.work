@@ -3,3 +3,4 @@ Todo:
   [] Add first tests to service
   [] Create a shared navbar in core module
   [] Use interceptors to log some activities.
+  [] Native look and feel

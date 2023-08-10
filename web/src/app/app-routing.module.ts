@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './features/user/components/login/login.component';
 import { HomeComponent } from './features/home/components/home/home.component';
-import { LoginGuard } from "./shared/services/login.guard";
+import { LoginGuard } from "./shared/services/guards/login.guard";
 import { TasksComponent } from "./features/task/components/tasks/tasks.component";
 import { ProjectCreateComponent } from "./features/project/project-create/project-create.component";
 import { ProjectsComponent } from "./features/project/projects/projects.component";
 import { RegisterComponent } from "./features/user/components/register/register.component";
 import { BaseAppComponent } from "./shared/components/base-app/base-app.component";
-import { LogoutGuard } from "./shared/services/logout.guard";
+import { LogoutGuard } from "./shared/services/guards/logout.guard";
 
 const routes: Routes = [
   // TODO: Redirect user to app, if already logged in
