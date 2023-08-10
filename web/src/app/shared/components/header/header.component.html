@@ -1,5 +1,5 @@
 <mat-drawer-container id="main-container">
-  <mat-drawer #drawer mode="side" opened>
+  <mat-drawer #drawer>
     <div id="base-sidenav">
       <h1>Fertig Work</h1>
       <nav id="base-sidenav__navbar">
@@ -24,15 +24,18 @@
     </div>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="main-content-wrapper h-100">
     <mat-toolbar color="accent">
       <mat-toolbar-row>
-        <button (click)="drawer.toggle()" aria-label="Example icon-button with menu icon" class="example-icon"
-                mat-icon-button>
-          <mat-icon>menu</mat-icon>
+        <button
+          (click)="drawer.toggle()"
+          *ngIf="drawer.mode === 'over'"
+          mat-icon-button
+        >
+          <mat-icon *ngIf="!drawer.opened"> menu</mat-icon>
+          <mat-icon *ngIf="drawer.opened"> close</mat-icon>
         </button>
-        <!--          <a class="header__site-name" routerLink="/home" routerLinkActive="active">Fertig Work</a>-->
-        <nav class="header__nav">
+        <nav aria-labelledby="base-sidenav" class="header__nav">
           <a routerLink="/login" routerLinkActive="active">Login</a>
           <a routerLink="app/tasks" routerLinkActive="active">Tasks</a>
           <a (click)="logout()">Logout</a>

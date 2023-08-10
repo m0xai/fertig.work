@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import './app/shared/styles/_utils.css';
 
+* {
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
 html, body {
   height: 100%;
 }
