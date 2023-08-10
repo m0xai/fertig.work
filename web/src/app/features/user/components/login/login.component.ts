@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   getErrorMessage(fieldName: string) {
-    if (this.credentials.get(fieldName)!.hasError('required')) {
+    if (this.credentials.get(fieldName)?.hasError('required')) {
       return 'You must enter a value';
     }
     return "Please enter a valid " + fieldName;
