@@ -1,12 +1,12 @@
 import { ResourceModel } from 'src/app/shared/ResourceModel';
-import { User } from "../../user/models/user";
 
 export class Task extends ResourceModel<Task> {
   public name?: string;
   public description?: string;
   public isDone?: boolean;
   public isDraft?: boolean;
-  public created?: User
+  public createdBy?: number;
+  public taskList?: number;
 
   constructor(model?: Partial<Task>) {
     super(model);
@@ -16,13 +16,13 @@ export class Task extends ResourceModel<Task> {
 export enum ETaskPriority {
   VERYLOW = "Very Low",
   LOW = "Low",
-  NORMAL = "Normal",
+  NORMAL = "NORMAL",
   HIGH = "High",
   VERYHIGH = "Very High"
 }
 
 export enum ETaskStatus {
-  OPEN = "Open",
+  OPEN = "OPEN",
   REVIEW = "Review",
   APPROVED = "Approved",
   REJECTED = "Rejected",
