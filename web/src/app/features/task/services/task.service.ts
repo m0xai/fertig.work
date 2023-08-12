@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Task } from '../models/task.model';
 import { ResourceService } from 'src/app/shared/resource.service';
+import { Task } from "../models/task.model";
 
 @Injectable({
   providedIn: 'root',
