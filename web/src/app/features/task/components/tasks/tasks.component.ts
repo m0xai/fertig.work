@@ -16,13 +16,15 @@ export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   public taskPriority = Object.values(ETaskPriority);
   public taskStatus = Object.values(ETaskStatus);
+
   taskForm = new FormGroup({
-    name: new FormControl("", [Validators.required]),
-    description: new FormControl(""),
+    name: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
+    description: new FormControl("", {nonNullable: true}),
     // TaskList should be in request, but not editable
-    // taskList: new FormControl()
-    priority: new FormControl(ETaskPriority.NORMAL),
-    status: new FormControl(ETaskStatus.OPEN)
+    taskList: new FormControl<number>(0, {nonNullable: true}),
+    createdBy: new FormControl<number>(0, {nonNullable: true}),
+    priority: new FormControl(ETaskPriority.NORMAL, {nonNullable: true}),
+    status: new FormControl(ETaskStatus.OPEN, {nonNullable: true})
   })
 
   constructor(private taskService: TaskService, private http: HttpClient, private route: ActivatedRoute, private titleService: TitleService) {
