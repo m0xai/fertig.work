@@ -41,6 +41,14 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  submitNewTask() {
+    // TODO: This fields filled manually, for now
+    this.taskForm.value.createdBy = this.tasks[0].createdBy
+    this.taskForm.value.taskList = this.tasks[0].taskList
+    this.taskService.create(new Task(this.taskForm.value)).subscribe((resp) => console.log(resp))
+    // new Task(...this.taskForm.value, this.tasks[0].taskListId)
+  }
+
   getErrorMessage() {
     return "Hoppla!"
   }

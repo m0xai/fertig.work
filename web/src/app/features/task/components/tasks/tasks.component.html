@@ -31,6 +31,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <button (click)="submitNewTask()" [disabled]="!taskForm.valid" mat-raised-button>Submit</button>
     </form>
   </mat-drawer>
 
