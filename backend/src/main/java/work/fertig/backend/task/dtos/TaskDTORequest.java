@@ -30,13 +30,13 @@ public class TaskDTORequest implements TaskDTO {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     @NotNull(message = "User id cannot be blank.")
-    private Long createdById;
+    private Long createdBy;
     @NotNull(message = "Status field cannot left blank.")
     private TaskStatus status;
     @NotNull(message = "Priority field cannot be blank.")
     private TaskPriority priority;
     // Get only id of taskList from client
-    private Long taskListId;
+    private Long taskList;
 
     private TaskDTORequest() {
     }

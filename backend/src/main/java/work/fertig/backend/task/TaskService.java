@@ -27,11 +27,11 @@ public class TaskService {
 
     public TaskDTOResponse create(TaskDTORequest request) {
         // Takes a request without
-        FWUser createdBy = this.getUser(request.getCreatedById());
-        if (request.getTaskListId() == null) {
+        FWUser createdBy = this.getUser(request.getCreatedBy());
+        if (request.getTaskList() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TaskList(parent) id field cannot be null");
         }
-        TaskList taskList = this.getTaskList(request.getTaskListId());
+        TaskList taskList = this.getTaskList(request.getTaskList());
         Task taskEntity = request.convertToEntity(createdBy, taskList);
         if (taskEntity == null) {
             throw new NullPointerException("A task, which converted to the entity is NULL");
@@ -61,8 +61,8 @@ public class TaskService {
             task.setDescription(taskDTORequest.getDescription());
             task.setIsDone(taskDTORequest.getIsDone());
             task.setIsDraft(taskDTORequest.getIsDraft());
-            task.setCreatedBy(this.getUser(taskDTORequest.getCreatedById()));
-            task.setTaskList(this.getTaskList(taskDTORequest.getTaskListId()));
+            task.setCreatedBy(this.getUser(taskDTORequest.getCreatedBy()));
+            task.setTaskList(this.getTaskList(taskDTORequest.getTaskList()));
             return TaskDTOResponse.fromTask(taskRepository.save(task));
         } else {
             throw new TaskNotFoundException(id);

@@ -7,7 +7,6 @@ import lombok.Data;
 import work.fertig.backend.task.Task;
 import work.fertig.backend.task.enums.TaskPriority;
 import work.fertig.backend.task.enums.TaskStatus;
-import work.fertig.backend.user.dtos.FWUserDTOResponse;
 
 import java.sql.Timestamp;
 
@@ -22,7 +21,7 @@ public class TaskDTOResponse implements TaskDTO {
     private Boolean isDraft;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private FWUserDTOResponse createdBy;
+    private Long createdBy;
     private TaskStatus status;
     private TaskPriority priority;
     private Long taskList;
@@ -37,7 +36,7 @@ public class TaskDTOResponse implements TaskDTO {
                 .createdAt(task.getCreatedAt())
                 .updatedAt(task.getUpdatedAt())
                 // We don't want to respond with user's password etc. sensitive information
-                .createdBy(FWUserDTOResponse.fromEntity(task.getCreatedBy()))
+                .createdBy(task.getCreatedBy().getId())
                 .status(task.getStatus())
                 .priority(task.getPriority())
                 .taskList(task.getTaskList().getId())
