@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [TasksComponent, TaskDetailComponent],
@@ -22,6 +24,8 @@ import { MatSelectModule } from "@angular/material/select";
     ReactiveFormsModule,
     MatSelectModule,
     FormsModule,
+    MatListModule,
+    MatIconModule,
   ],
   exports: [TasksComponent],
 })

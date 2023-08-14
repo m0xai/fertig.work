@@ -14,6 +14,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class TasksComponent implements OnInit {
   tasks: Task[] = [];
+  notes = [{name: "kerem", updated: false}, {name: "derya", updated: true}]
+  folders = [{name: "kFerem", updated: false}, {name: "dFerya", updated: true}]
   public taskPriority = Object.values(ETaskPriority);
   public taskStatus = Object.values(ETaskStatus);
 
