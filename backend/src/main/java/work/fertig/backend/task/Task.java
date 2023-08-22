@@ -45,7 +45,7 @@ public class Task extends BaseEntity {
     private TaskStatus status;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(columnDefinition = "2")
+    @Column(columnDefinition = "varchar(20) default 'NORMAL'")
     private TaskPriority priority;
 
     @ManyToOne(fetch = FetchType.EAGER)
