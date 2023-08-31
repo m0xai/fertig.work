@@ -42,8 +42,38 @@
 
     <!--    Make a list of taskLists, into tasks, under taskList title, have 3 tabs: active, draft, done -->
     <!--  https://trello.com/c/nrJ7MbHt  -->
-    <ng-container *ngFor="let task of tasks">
-      <app-task-detail [task]="task"/>
-    </ng-container>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" mat-table>
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef mat-header-cell>No.</th>
+        <td *matCellDef="let element" mat-cell>{{element.position}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell>Name</th>
+        <td *matCellDef="let element" mat-cell>{{element.name}}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th *matHeaderCellDef mat-header-cell>Weight</th>
+        <td *matCellDef="let element" mat-cell>{{element.weight}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th *matHeaderCellDef mat-header-cell>Symbol</th>
+        <td *matCellDef="let element" mat-cell>{{element.symbol}}</td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr
+        (click)="clickedRows.add(row)"
+        *matRowDef="let row; columns: displayedColumns;"
+        [class.demo-row-is-clicked]="clickedRows.has(row)"
+        mat-row
+      ></tr>
+    </table>
   </mat-drawer-content>
 </mat-drawer-container>

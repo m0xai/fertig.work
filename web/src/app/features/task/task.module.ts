@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
   declarations: [TasksComponent, TaskDetailComponent],
@@ -26,6 +27,7 @@ import { MatIconModule } from "@angular/material/icon";
     FormsModule,
     MatListModule,
     MatIconModule,
+    MatTableModule,
   ],
   exports: [TasksComponent],
 })

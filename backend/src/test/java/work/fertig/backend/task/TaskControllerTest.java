@@ -40,13 +40,13 @@ class TaskControllerTest {
     void setUp() {
         this.userId = fwUserRepository.findAll().get(0).getId();
         this.taskListId = this.taskListRepository.findAll().get(0).getId();
-        taskRepository.save(Task.builder().name("Task 1").description("Derya").createdBy(FWUser.builder().id(this.userId).build()).taskList(TaskList.builder().id(this.taskListId).build()).build());
+        taskRepository.save(Task.builder().name("Task 1").description("Test task's description text").createdBy(FWUser.builder().id(this.userId).build()).taskList(TaskList.builder().id(this.taskListId).build()).build());
         List<Task> tasks = taskRepository.findAll();
         this.taskId = tasks.get(0).getId();
     }
 
     @Test
-    @WithMockUser(username = "derya", password = "1299")
+    @WithMockUser(username = "kerem", password = "1299")
     void getSingleTask() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tasks/{id}/", taskId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
