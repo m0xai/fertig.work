@@ -11,12 +11,15 @@ import { MatListModule } from "@angular/material/list";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatMenuModule } from "@angular/material/menu";
 import { BaseAppComponent } from './components/base-app/base-app.component';
+import { FormDialogComponent } from './components/form-dialog/form-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FwAlertComponent,
-    BaseAppComponent
+    BaseAppComponent,
+    FormDialogComponent
   ],
   exports: [
     HeaderComponent,
@@ -33,7 +36,8 @@ import { BaseAppComponent } from './components/base-app/base-app.component';
     MatListModule,
     MatBadgeModule,
     MatMenuModule,
-    RouterOutlet
+    RouterOutlet,
+    MatDialogModule
   ]
 })
 export class SharedModule {

@@ -12,9 +12,11 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
+import { TaskEditComponent } from './components/task-edit/task-edit.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [TasksComponent, TaskDetailComponent],
+  declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -28,6 +30,7 @@ import { MatTableModule } from "@angular/material/table";
     MatListModule,
     MatIconModule,
     MatTableModule,
+    MatDialogModule
   ],
   exports: [TasksComponent],
 })
