@@ -1,6 +1,7 @@
 package work.fertig.backend.user;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,12 @@ public class FWUserController {
     @GetMapping("/users")
     public List<FWUser> getAllUsers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/users/{id}/")
+    public ResponseEntity<FWUserDTOResponse> getSingleUser(@PathVariable @NotNull Long id) {
+        FWUserDTOResponse user = this.fwUserService.get(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/register")
