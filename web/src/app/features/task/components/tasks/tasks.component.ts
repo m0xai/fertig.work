@@ -50,14 +50,7 @@ export class TasksComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle(this.route.snapshot.data["title"])
-        this.getTasks();
         this.getAllTaskListOfProject()
-    }
-
-    getTasks() {
-        this.taskService.fetch().subscribe((tasks: Task[]) => {
-            this.tasks = [...tasks];
-        });
     }
 
     getAllTaskListOfProject() {
