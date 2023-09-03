@@ -20,9 +20,14 @@ public class TaskListController {
     @Autowired
     TaskListService taskListService;
 
-    @PostMapping("/tasklists")
+    @PostMapping("/tasklists/")
     public ResponseEntity<TaskListDTOResponse> create(@Valid @RequestBody TaskListDTORequest request) {
         return new ResponseEntity<>(taskListService.create(request), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/tasklists/")
+    public ResponseEntity<List<TaskListDTOResponse>> getSingleTask() {
+        return new ResponseEntity<>(taskListService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/tasklists/{id}/")

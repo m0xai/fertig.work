@@ -26,6 +26,12 @@ public class TaskListService {
         return TaskListDTOResponse.fromTaskList(taskList);
     }
 
+    public List<TaskListDTOResponse> getAll() {
+        // TODO: Change this with findAllByProjectId(), after implemention of project
+        List<TaskList> taskListList = taskListRepository.findAll();
+        return taskListList.stream().map(TaskListDTOResponse::fromTaskList).toList();
+    }
+
     public TaskListDTOResponse get(Long id) {
         Optional<TaskList> oTaskList = taskListRepository.findById(id);
         if (oTaskList.isEmpty()) {
