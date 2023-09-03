@@ -1,9 +1,7 @@
 package work.fertig.backend.tasklist;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.Task;
 import work.fertig.backend.task.TaskRepository;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
@@ -42,12 +40,5 @@ public class TaskListService {
             return new ArrayList<>();
         }
         return tasks.stream().map(TaskDTOResponse::fromTask).toList();
-    }
-
-    private List<Task> getTaskItems(List<Long> ids) {
-        if (ids.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No list of tasks were given.");
-        }
-        return taskRepository.findAllById(ids);
     }
 }
