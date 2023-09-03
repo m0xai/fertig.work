@@ -1,6 +1,6 @@
 <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input #input (keyup)="applySearch($event)" matInput placeholder="Ex. Mia">
+    <input (keyup)="applySearch($event)" matInput placeholder="Ex. Ideas">
 </mat-form-field>
 <table [dataSource]="dataSource" aria-describedby="Task list table" class="mat-elevation-z2 tasks-table"
        mat-table>
