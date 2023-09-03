@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserModule } from './user/user.module';
-import { TaskModule } from './task/task.module';
 import { ProjectModule } from './project/projects.module';
 import { HomeModule } from './home/home.module';
+import { TaskModule } from './task/task.module';
+import { TaskListModule } from "./task-list/task-list.module";
 
 
 @NgModule({
@@ -12,10 +13,11 @@ import { HomeModule } from './home/home.module';
     CommonModule,
     UserModule,
     HomeModule,
+    ProjectModule,
     TaskModule,
-    ProjectModule
+    TaskListModule
   ],
-  exports: [HomeModule]
+  exports: [HomeModule, TaskModule, TaskListModule]
 })
 export class FeaturesModule {
 }

@@ -14,6 +14,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { TaskListModule } from "../task-list/task-list.module";
 
 @NgModule({
   declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent],
@@ -30,9 +31,10 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatListModule,
     MatIconModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    TaskListModule
   ],
-  exports: [TasksComponent],
+  exports: [TasksComponent, TaskDetailComponent, TaskEditComponent],
 })
 export class TaskModule {
 }
