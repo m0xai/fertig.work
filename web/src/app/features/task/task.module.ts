@@ -14,27 +14,28 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { MatDialogModule } from "@angular/material/dialog";
-import { TaskListModule } from "../task-list/task-list.module";
+import { TasksTableComponent } from './components/tasks-table/tasks-table.component';
+import { TaskListOverviewComponent } from "./components/task-list-overview/task-list-overview.component";
+import { TaskListDetailComponent } from "./components/task-list-detail/task-list-detail.component";
 
 @NgModule({
-  declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    FormsModule,
-    MatListModule,
-    MatIconModule,
-    MatTableModule,
-    MatDialogModule,
-    TaskListModule
-  ],
-  exports: [TasksComponent, TaskDetailComponent, TaskEditComponent],
+    declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent, TaskListOverviewComponent, TaskListDetailComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        FormsModule,
+        MatListModule,
+        MatIconModule,
+        MatTableModule,
+        MatDialogModule,
+    ],
+    exports: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent],
 })
 export class TaskModule {
 }
