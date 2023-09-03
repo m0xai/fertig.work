@@ -13,6 +13,7 @@ import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.FWUserRepository;
 import work.fertig.backend.user.exceptions.UserNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,14 @@ public class TaskService {
             throw new TaskNotFoundException(id);
         }
         return TaskDTOResponse.fromTask(task.get());
+    }
+
+    public List<TaskDTOResponse> getTasksByTaskList(Long id) {
+        List<Task> tasks = taskRepository.findAllByTaskListId(id);
+        if (tasks.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return tasks.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
     public TaskDTOResponse update(Long id, TaskDTORequest taskDTORequest) {

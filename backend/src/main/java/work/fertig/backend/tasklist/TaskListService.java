@@ -2,14 +2,11 @@ package work.fertig.backend.tasklist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import work.fertig.backend.task.Task;
 import work.fertig.backend.task.TaskRepository;
-import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
 import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,11 +37,4 @@ public class TaskListService {
         return TaskListDTOResponse.fromTaskList(oTaskList.get());
     }
 
-    public List<TaskDTOResponse> getTasksByTaskList(Long id) {
-        List<Task> tasks = taskRepository.findAllByTaskListId(id);
-        if (tasks.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return tasks.stream().map(TaskDTOResponse::fromTask).toList();
-    }
 }

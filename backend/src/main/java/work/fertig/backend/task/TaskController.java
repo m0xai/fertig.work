@@ -29,6 +29,11 @@ public class TaskController {
         return new ResponseEntity<>(taskService.get(id), HttpStatus.OK);
     }
 
+    @GetMapping("/tasks/from-list/{id}/")
+    public ResponseEntity<List<TaskDTOResponse>> getTasksByList(@Valid @PathVariable Long id) {
+        List<TaskDTOResponse> tasks = taskService.getTasksByTaskList(id);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 
     @PostMapping("/tasks/")
     public ResponseEntity<TaskDTOResponse> createSingleTask(@Valid @RequestBody TaskDTORequest submittedTask) {
@@ -36,8 +41,8 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}/")
-    public ResponseEntity<TaskDTOResponse> updateTutorial(@PathVariable @NotNull long id,
-                                                          @RequestBody TaskDTORequest taskDTORequest) {
+    public ResponseEntity<TaskDTOResponse> updateTask(@PathVariable @NotNull long id,
+                                                      @RequestBody TaskDTORequest taskDTORequest) {
         TaskDTOResponse updatedData = null;
         try {
             updatedData = taskService.update(id, taskDTORequest);
