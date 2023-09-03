@@ -34,7 +34,7 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 
   public getById(id: number): Observable<T> {
     return this.httpClient
-      .get<T>(`${this.apiURL}/${id}`)
+      .get<T>(`${this.apiURL}${id}/`)
       .pipe(map((result) => new this.tConstructor(result)));
   }
 
