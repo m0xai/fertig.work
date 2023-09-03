@@ -1,0 +1,12 @@
+<p>task-list works!</p>
+
+<h2>{{taskList?.title}}</h2>
+<mat-form-field class="example-form-field">
+    <mat-label>Clearable input</mat-label>
+    <input [(ngModel)]="searchInTaskList" matInput type="text">
+    <button (click)="searchInTaskList=''" *ngIf="searchInTaskList" aria-label="Clear" mat-icon-button matSuffix>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+
+<app-tasks-table [tasks]="tasksOfList"/>
