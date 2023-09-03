@@ -7,12 +7,12 @@ import { ResourceModel } from './ResourceModel';
   providedIn: 'root',
 })
 export abstract class ResourceService<T extends ResourceModel<T>> {
+  public apiURL = "";
   private apiBase = "http://127.0.0.1:8080/api/v1/"
-  private apiURL = "";
 
   constructor(
-    private httpClient: HttpClient,
-    private tConstructor: { new(m: Partial<T>, ...args: unknown[]): T },
+    public httpClient: HttpClient,
+    public tConstructor: { new(m: Partial<T>, ...args: unknown[]): T },
     private apiPath: string
   ) {
     this.apiURL = this.apiBase + apiPath;
