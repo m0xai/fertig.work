@@ -23,11 +23,6 @@ export interface PeriodicElement {
 })
 export class TasksComponent implements OnInit {
     tasks: Task[] = [];
-    notes = [{name: "This is just a note text to show on screeen", updated: false}, {
-        name: "This is just another note" +
-            " text to show on screeen", updated: true
-    }]
-    folders = [{name: "Folder A", updated: false}, {name: "Folder B", updated: true}]
     public taskPriority = Object.values(ETaskPriority);
     public taskStatus = Object.values(ETaskStatus);
 
@@ -50,15 +45,8 @@ export class TasksComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle(this.route.snapshot.data["title"])
-        this.getAllTaskListOfProject()
     }
 
-    getAllTaskListOfProject() {
-        // TODO: Fetch task lists by their project id
-        this.taskListService.fetch().subscribe((items) => {
-            this.taskLists = [...items]
-        });
-    }
 
     submitNewTask() {
         // TODO: This fields filled manually, for now
