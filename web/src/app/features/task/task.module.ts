@@ -17,9 +17,10 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { TasksTableComponent } from './components/tasks-table/tasks-table.component';
 import { TaskListOverviewComponent } from "./components/task-list-overview/task-list-overview.component";
 import { TaskListDetailComponent } from "./components/task-list-detail/task-list-detail.component";
+import { TaskCreateComponent } from "./components/task-create/task-create.component";
 
 @NgModule({
-    declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent, TaskListOverviewComponent, TaskListDetailComponent],
+    declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent, TaskListOverviewComponent, TaskListDetailComponent, TaskCreateComponent],
     imports: [
         CommonModule,
         RouterModule,
