@@ -19,7 +19,6 @@ export class TaskListDetailComponent implements OnInit {
 
     getTasksByList() {
         this.taskService.getTasksByList(this.taskList?.id).subscribe((items) => {
-            console.log(items)
             this.tasksOfList = items;
         })
     }
@@ -27,5 +26,4 @@ export class TaskListDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getTasksByList()
     }
-
 }
