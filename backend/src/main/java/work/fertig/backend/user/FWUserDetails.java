@@ -1,13 +1,12 @@
 package work.fertig.backend.user;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class FWUserDetails implements UserDetails {
 
@@ -58,5 +57,13 @@ public class FWUserDetails implements UserDetails {
     public String getUsername() {
         // TODO Auto-generated method stub
         return fw_user.getUsername();
+    }
+
+    public Long getId() {
+        return fw_user.getId();
+    }
+
+    public String getEmail() {
+        return fw_user.getEmail();
     }
 }
