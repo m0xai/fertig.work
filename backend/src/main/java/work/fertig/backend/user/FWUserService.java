@@ -35,16 +35,25 @@ public class FWUserService {
         return FWUserDTOResponse.fromEntity(savedUser);
     }
 
-    public FWUserDTOResponse get(Long id) {
+    private FWUser getUserEntity(Long id) {
         if (!fwUserRepository.existsById(id)) {
             throw new UserNotFoundException("A user with id: " + id + " not found");
         }
-        FWUser oUser = fwUserRepository.getById(id);
-        return FWUserDTOResponse.fromEntity(oUser);
+        return fwUserRepository.getById(id);
     }
 
-    public FWUserDTOResponse getCurrentUser() {
+    /**
+     * Response to the getting particular user from database
+     *
+     * @param id Identifier of the user
+     * @return a FWUser object in response format
+     */
+    public FWUserDTOResponse get(Long id) {
+        return FWUserDTOResponse.fromEntity(this.getUserEntity(id));
+    }
+
+    public FWUser getCurrentUser() {
         FWUserDetails fwUserDetails = (FWUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return this.get(fwUserDetails.getId());
+        return this.getUserEntity(fwUserDetails.getId());
     }
 }

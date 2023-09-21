@@ -46,7 +46,8 @@ public class FWUserController {
     @RequestMapping("/user")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<FWUserDTOResponse> user() {
-        return new ResponseEntity<>(fwUserService.getCurrentUser(), HttpStatus.OK);
+        FWUserDTOResponse fwUserDTOResponse = FWUserDTOResponse.fromEntity(fwUserService.getCurrentUser());
+        return new ResponseEntity<>(fwUserDTOResponse, HttpStatus.OK);
     }
 
     @GetMapping("/users")
