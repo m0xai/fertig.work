@@ -45,14 +45,8 @@ public class FWUserController {
 
     @RequestMapping("/user")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Map<String, String>> user() {
-        Map<String, String> currentUser = new HashMap<>();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        FWUserDetails userDetails = (FWUserDetails) authentication.getPrincipal();
-        currentUser.put("id", userDetails.getId().toString());
-        currentUser.put("username", userDetails.getUsername());
-        currentUser.put("email", userDetails.getEmail());
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    public ResponseEntity<FWUserDTOResponse> user() {
+        return new ResponseEntity<>(fwUserService.getCurrentUser(), HttpStatus.OK);
     }
 
     @GetMapping("/users")
@@ -98,5 +92,4 @@ public class FWUserController {
         responseBody.put("msg", "User signed-in successfully!.");
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername())).body(responseBody);
     }
-
 }

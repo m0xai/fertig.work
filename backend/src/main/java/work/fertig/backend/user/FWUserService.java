@@ -1,6 +1,7 @@
 package work.fertig.backend.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import work.fertig.backend.user.dtos.FWUserDTORequest;
@@ -40,5 +41,10 @@ public class FWUserService {
         }
         FWUser oUser = fwUserRepository.getById(id);
         return FWUserDTOResponse.fromEntity(oUser);
+    }
+
+    public FWUserDTOResponse getCurrentUser() {
+        FWUserDetails fwUserDetails = (FWUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return this.get(fwUserDetails.getId());
     }
 }
