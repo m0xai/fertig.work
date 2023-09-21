@@ -10,8 +10,7 @@ import work.fertig.backend.tasklist.TaskList;
 import work.fertig.backend.tasklist.TaskListRepository;
 import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 import work.fertig.backend.user.FWUser;
-import work.fertig.backend.user.FWUserRepository;
-import work.fertig.backend.user.exceptions.UserNotFoundException;
+import work.fertig.backend.user.FWUserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +23,16 @@ public class TaskService {
     @Autowired
     private TaskListRepository taskListRepository;
     @Autowired
-    private FWUserRepository fwUserRepository;
+    private FWUserService fwUserService;
 
     public TaskDTOResponse create(TaskDTORequest request) {
         // Takes a request without
-        FWUser createdBy = this.getUser(request.getCreatedBy());
         if (request.getTaskList() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TaskList(parent) id field cannot be null");
         }
         TaskList taskList = this.getTaskList(request.getTaskList());
-        Task taskEntity = request.convertToEntity(createdBy, taskList);
+        FWUser fwUser = this.fwUserService.getCurrentUser();
+        Task taskEntity = request.convertToEntity(fwUser, taskList);
         if (taskEntity == null) {
             throw new NullPointerException("A task, which converted to the entity is NULL");
         }
@@ -70,7 +69,7 @@ public class TaskService {
             task.setDescription(taskDTORequest.getDescription());
             task.setIsDone(taskDTORequest.getIsDone());
             task.setIsDraft(taskDTORequest.getIsDraft());
-            task.setCreatedBy(this.getUser(taskDTORequest.getCreatedBy()));
+            task.setCreatedBy(fwUserService.getCurrentUser());
             task.setTaskList(this.getTaskList(taskDTORequest.getTaskList()));
             return TaskDTOResponse.fromTask(taskRepository.save(task));
         } else {
@@ -80,16 +79,6 @@ public class TaskService {
 
     public void delete(Long id) {
         taskRepository.deleteById(id);
-    }
-
-    // TODO: Move this into UserUtil class
-    private FWUser getUser(Long userId) {
-        // Client sends created by user's id not the whole FWUser entity
-        Optional<FWUser> createdBy = fwUserRepository.findById(userId);
-        if (createdBy.isEmpty()) {
-            throw new UserNotFoundException("An user with ID: " + String.valueOf(userId) + " not found.");
-        }
-        return createdBy.get();
     }
 
     private TaskList getTaskList(Long taskListId) {

@@ -29,8 +29,6 @@ public class TaskDTORequest implements TaskDTO {
     private Boolean isDraft;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    @NotNull(message = "User id cannot be blank.")
-    private Long createdBy;
     @NotNull(message = "Status field cannot left blank.")
     private TaskStatus status;
     @NotNull(message = "Priority field cannot be blank.")
