@@ -11,14 +11,16 @@ export class TasksTableComponent {
     displayedColumns: string[] = ["isDone", 'name', "status", "priority", "actions"];
     dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
 
+    @Input({required: true}) set searchText(value: string) {
+        this.applySearch(value)
+    }
+
     @Input({required: true}) set tasks(value: Task[]) {
+        // Note, changes may not fire setter: https://stackoverflow.com/a/34799257
         this.dataSource = new MatTableDataSource<Task>(value)
     }
 
-    applySearch(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-        console.log("DS: ", filterValue, this.dataSource);
+    applySearch(searchText: string) {
+        this.dataSource.filter = searchText.trim().toLowerCase();
     }
-
 }

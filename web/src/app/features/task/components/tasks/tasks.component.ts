@@ -9,53 +9,45 @@ import { TaskListService } from "../../services/task-list.service";
 import { TaskList } from "../../models/task-list.model";
 
 export interface PeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
 }
 
 
 @Component({
-    selector: 'app-tasks',
-    templateUrl: './tasks.component.html',
-    styleUrls: ['./tasks.component.css'],
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent implements OnInit {
-    tasks: Task[] = [];
-    public taskPriority = Object.values(ETaskPriority);
-    public taskStatus = Object.values(ETaskStatus);
+  tasks: Task[] = [];
+  public taskPriority = Object.values(ETaskPriority);
+  public taskStatus = Object.values(ETaskStatus);
 
 
-    taskForm = new FormGroup({
-        name: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
-        description: new FormControl("", {nonNullable: true}),
-        // TaskListModel should be in request, but not editable
-        taskList: new FormControl<number>(0, {nonNullable: true}),
-        createdBy: new FormControl<number>(0, {nonNullable: true}),
-        priority: new FormControl(ETaskPriority.NORMAL, {nonNullable: true}),
-        status: new FormControl(ETaskStatus.OPEN, {nonNullable: true})
-    })
+  taskForm = new FormGroup({
+    name: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
+    description: new FormControl("", {nonNullable: true}),
+    // TaskListModel should be in request, but not editable
+    taskList: new FormControl<number>(0, {nonNullable: true}),
+    createdBy: new FormControl<number>(0, {nonNullable: true}),
+    priority: new FormControl(ETaskPriority.NORMAL, {nonNullable: true}),
+    status: new FormControl(ETaskStatus.OPEN, {nonNullable: true})
+  })
 
-    // TODO: get TaskLists first, then use get by taskListId
-    taskLists: TaskList[] = []
+  // TODO: get TaskLists first, then use get by taskListId
+  taskLists: TaskList[] = []
 
-    constructor(private taskService: TaskService, private taskListService: TaskListService, private http: HttpClient, private route: ActivatedRoute, private titleService: TitleService) {
-    }
+  constructor(private taskService: TaskService, private taskListService: TaskListService, private http: HttpClient, private route: ActivatedRoute, private titleService: TitleService) {
+  }
 
-    ngOnInit() {
-        this.titleService.setTitle(this.route.snapshot.data["title"])
-    }
+  ngOnInit() {
+    this.titleService.setTitle(this.route.snapshot.data["title"])
+  }
 
-
-    submitNewTask() {
-        // TODO: This fields filled manually, for now
-        this.taskForm.value.createdBy = this.tasks[0].createdBy
-        this.taskForm.value.taskList = this.tasks[0].taskList
-        this.taskService.create(new Task(this.taskForm.value)).subscribe((resp) => console.log(resp))
-    }
-
-    getErrorMessage() {
-        return "Hoppla!"
-    }
+  getErrorMessage() {
+    return "Hoppla!"
+  }
 }
