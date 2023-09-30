@@ -4,26 +4,26 @@ import { TaskService } from "../../services/task.service";
 import { Task } from 'src/app/features/task/models/task.model';
 
 @Component({
-    selector: 'app-task-list',
-    templateUrl: './task-list-detail.component.html',
-    styleUrls: ['./task-list-detail.component.css']
+  selector: 'app-task-list-detail',
+  templateUrl: './task-list-detail.component.html',
+  styleUrls: ['./task-list-detail.component.css']
 })
 export class TaskListDetailComponent implements OnInit {
-    @Input({required: true}) taskList: TaskList | undefined;
-    public searchInTaskList = "";
+  @Input({required: true}) taskList: TaskList | undefined;
+  public searchInTaskList = "";
 
-    tasksOfList: Task[] = []
+  tasksOfList: Task[] = []
 
-    constructor(private taskService: TaskService) {
-    }
+  constructor(private taskService: TaskService) {
+  }
 
-    getTasksByList() {
-        this.taskService.getTasksByList(this.taskList?.id).subscribe((items) => {
-            this.tasksOfList = items;
-        })
-    }
+  getTasksByList() {
+    this.taskService.getTasksByList(this.taskList?.id).subscribe((items) => {
+      this.tasksOfList = items;
+    })
+  }
 
-    ngOnInit(): void {
-        this.getTasksByList()
-    }
+  ngOnInit(): void {
+    this.getTasksByList()
+  }
 }
