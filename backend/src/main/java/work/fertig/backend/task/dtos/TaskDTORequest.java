@@ -23,7 +23,6 @@ public class TaskDTORequest implements TaskDTO {
     private Long id;
     @NotBlank(message = "A name for the task is required.")
     private String name;
-    @NotBlank(message = "A description for the task is required.")
     private String description;
     private Boolean isDone;
     private Boolean isDraft;
