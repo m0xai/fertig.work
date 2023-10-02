@@ -12,7 +12,7 @@ import work.fertig.backend.task.dtos.TaskDTOResponse;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class TaskController {
 
@@ -52,7 +52,7 @@ public class TaskController {
         return new ResponseEntity<>(updatedData, HttpStatus.OK);
     }
 
-    @DeleteMapping("/tasks/{id}")
+    @DeleteMapping("/tasks/{id}/")
     public ResponseEntity<String> deleteSingleTask(@PathVariable Long id) {
         taskService.delete(id);
         return new ResponseEntity<>("Task with ID: " + id + " deleted successfully.", HttpStatus.OK);
