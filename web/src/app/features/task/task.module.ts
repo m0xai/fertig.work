@@ -12,31 +12,29 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
-import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { MatDialogModule } from "@angular/material/dialog";
-import { TasksTableComponent } from './components/tasks-table/tasks-table.component';
-import { TaskListOverviewComponent } from "./components/task-list-overview/task-list-overview.component";
-import { TaskListDetailComponent } from "./components/task-list-detail/task-list-detail.component";
-import { TaskCreateComponent } from "./components/task-create/task-create.component";
+import { SharedTaskModule } from "../../shared/modules/shared-task/shared-task.module";
 
 @NgModule({
-    declarations: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent, TaskListOverviewComponent, TaskListDetailComponent, TaskCreateComponent],
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        FormsModule,
-        MatListModule,
-        MatIconModule,
-        MatTableModule,
-        MatDialogModule,
-    ],
-    exports: [TasksComponent, TaskDetailComponent, TaskEditComponent, TasksTableComponent],
+  // The imports and exports of this module's component can be found in shared-task modules
+  declarations: [TasksComponent, TaskDetailComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatInputModule,
+    MatSelectModule,
+    MatListModule,
+    MatIconModule,
+    MatTableModule,
+    MatDialogModule,
+    SharedTaskModule
+  ],
+  exports: [TasksComponent, TaskDetailComponent],
 })
 export class TaskModule {
 }

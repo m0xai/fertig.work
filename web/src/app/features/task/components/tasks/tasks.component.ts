@@ -5,8 +5,8 @@ import { TaskService } from '../../services/task.service';
 import { ActivatedRoute } from "@angular/router";
 import { TitleService } from "../../../../shared/services/title.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { TaskListService } from "../../services/task-list.service";
-import { TaskList } from "../../models/task-list.model";
+import { TaskListService } from "../../../task-list/services/task-list.service";
+import { TaskList } from "../../../task-list/models/task-list.model";
 
 export interface PeriodicElement {
   name: string;

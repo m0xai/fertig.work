@@ -21,9 +21,9 @@ export class TaskEditComponent {
 
   openDialog() {
     this.dialog.open(FormDialogComponent, {
-      data: {
-        name: this.task?.name
-      },
+      data: this.task,
+      minHeight: "600px",
+      minWidth: "600px"
     });
   }
 }
