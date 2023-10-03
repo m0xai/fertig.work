@@ -15,6 +15,8 @@ import {
   TaskListDetailComponent
 } from "../../../features/task-list/componenets/task-list-detail/task-list-detail.component";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSortModule } from "@angular/material/sort";
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { MatButtonModule } from "@angular/material/button";
     MatInputModule,
     FormsModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSortModule
   ],
   declarations: [TasksTableComponent, TaskCreateComponent, TaskEditComponent, TaskListOverviewComponent, TaskListDetailComponent],
   exports: [TasksTableComponent, TaskCreateComponent, TaskEditComponent, TaskListOverviewComponent, TaskListDetailComponent]

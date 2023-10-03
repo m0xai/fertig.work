@@ -1,26 +1,41 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Task } from "../../models/task.model";
 import { MatTableDataSource } from "@angular/material/table";
+import { TaskService } from "../../services/task.service";
+import { MatSort } from "@angular/material/sort";
 
 @Component({
-    selector: 'app-tasks-table',
-    templateUrl: './tasks-table.component.html',
-    styleUrls: ['./tasks-table.component.css']
+  selector: 'app-tasks-table',
+  templateUrl: './tasks-table.component.html',
+  styleUrls: ['./tasks-table.component.css']
 })
 export class TasksTableComponent {
-    displayedColumns: string[] = ["isDone", 'name', "status", "priority", "actions"];
-    dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
+  displayedColumns: string[] = ["isDone", 'name', "status", "priority", "actions"];
+  dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
+  @ViewChild(MatSort) private sort!: MatSort;
 
-    @Input({required: true}) set searchText(value: string) {
-        this.applySearch(value)
-    }
+  constructor(private taskService: TaskService) {
+  }
 
-    @Input({required: true}) set tasks(value: Task[]) {
-        // Note, changes may not fire setter: https://stackoverflow.com/a/34799257
-        this.dataSource = new MatTableDataSource<Task>(value)
-    }
 
-    applySearch(searchText: string) {
-        this.dataSource.filter = searchText.trim().toLowerCase();
-    }
+  @Input({required: true}) set searchText(value: string) {
+    this.applySearch(value)
+  }
+
+  @Input({required: true}) set tasks(value: Task[]) {
+    // Note, changes may not fire setter: https://stackoverflow.com/a/34799257
+    this.dataSource = new MatTableDataSource<Task>(value)
+    this.dataSource.sort = this.sort
+  }
+
+  applySearch(searchText: string) {
+    this.dataSource.filter = searchText.trim().toLowerCase();
+  }
+
+  updateTaskStatus(element: Task) {
+    console.log(element)
+    this.taskService.update(element).subscribe((response) => {
+      console.log("Resp: ", response)
+    })
+  }
 }

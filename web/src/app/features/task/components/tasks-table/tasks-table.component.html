@@ -1,37 +1,39 @@
 <table [dataSource]="dataSource" aria-describedby="Task list table" class="mat-elevation-z2 tasks-table"
-       mat-table>
-    <ng-container matColumnDef="isDone">
-        <th *matHeaderCellDef mat-header-cell>Is Done?</th>
-        <td *matCellDef="let element" mat-cell>{{element.isDone}}</td>
-    </ng-container>
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>Name</th>
-        <td *matCellDef="let element" mat-cell>{{element.name}}</td>
-    </ng-container>
+       mat-table matSort matSortActive="createdAt" matSortDirection="asc">
+  <ng-container matColumnDef="isDone">
+    <th *matHeaderCellDef mat-header-cell>Is Done?</th>
+    <td *matCellDef="let element" mat-cell>
+      <mat-checkbox (change)="updateTaskStatus(element)" [(ngModel)]="element.isDone"></mat-checkbox>
+    </td>
+  </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
+    <td *matCellDef="let element" mat-cell>{{element.name}}</td>
+  </ng-container>
 
-    <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell>Status</th>
-        <td *matCellDef="let element" mat-cell>{{element.status}}</td>
-    </ng-container>
+  <ng-container matColumnDef="status">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
+    <td *matCellDef="let element" mat-cell>{{element.status}}</td>
+  </ng-container>
 
-    <ng-container matColumnDef="priority">
-        <th *matHeaderCellDef mat-header-cell>Priority</th>
-        <td *matCellDef="let element" mat-cell>{{element.priority}}</td>
-    </ng-container>
+  <ng-container matColumnDef="priority">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>Priority</th>
+    <td *matCellDef="let element" mat-cell>{{element.priority}}</td>
+  </ng-container>
 
-    <!-- This column can be omitted, the dialog would open, when user clicks a task  -->
-    <ng-container matColumnDef="actions">
-        <th *matHeaderCellDef mat-header-cell>Actions</th>
-        <td *matCellDef="let element" mat-cell>
-            <app-task-edit [task]="element"/>
-        </td>
-    </ng-container>
+  <!-- This column can be omitted, the dialog would open, when user clicks a task  -->
+  <ng-container matColumnDef="actions">
+    <th *matHeaderCellDef mat-header-cell>Actions</th>
+    <td *matCellDef="let element" mat-cell>
+      <app-task-edit [task]="element"/>
+    </td>
+  </ng-container>
 
-    <tr *matNoDataRow class="mat-row">
-        <td class="mat-cell text-center" colspan="5">No tasks found in this list.</td>
-    </tr>
+  <tr *matNoDataRow class="mat-row">
+    <td class="mat-cell text-center" colspan="5">No tasks found in this list.</td>
+  </tr>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>
