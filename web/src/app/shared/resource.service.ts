@@ -32,11 +32,6 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
             .pipe(map((result) => result.map((i) => new this.tConstructor(i))));
     }
 
-  public getById(id: number): Observable<T> {
-    return this.httpClient
-      .get<T>(`${this.apiURL}${id}/`)
-      .pipe(map((result) => new this.tConstructor(result)));
-  }
     public getById(id: number): Observable<T> {
         return this.httpClient
             .get<T>(`${this.apiURL}${id}/`)
@@ -49,7 +44,7 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
             .pipe(map((result) => new this.tConstructor(result)));
     }
 
-  public delete(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiURL}/${id}`);
-  }
+    public delete(id: number): void {
+        this.httpClient.delete<void>(`${this.apiURL}${id}/`).subscribe();
+    }
 }
