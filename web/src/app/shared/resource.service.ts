@@ -44,7 +44,7 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 			.pipe(map((result) => new this.tConstructor(result)));
 	}
 
-	public delete(id: number): void {
-		this.httpClient.delete<void>(`${this.apiURL}${id}/`).subscribe();
+	public delete(id: number): Observable<T> {
+		return this.httpClient.delete<T>(`${this.apiURL}${id}/`);
 	}
 }

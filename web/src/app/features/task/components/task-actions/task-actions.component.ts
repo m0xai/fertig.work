@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Task } from "../../models/task.model";
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../../../../shared/components/form-dialog/form-dialog.component";
@@ -15,6 +15,7 @@ export interface DialogData {
 })
 export class TaskActionsComponent {
 	@Input({ required: true }) task?: Task;
+	@Output() taskDeleted = new EventEmitter<Task>();
 
 	constructor(
 		public dialog: MatDialog,
@@ -31,7 +32,8 @@ export class TaskActionsComponent {
 
 	deleteTask() {
 		if (this.task?.id) {
-			this.taskResourceService.delete(this.task.id);
+			this.taskResourceService.delete(this.task.id).subscribe(() => {});
+			this.taskDeleted.emit(this.task);
 		} else {
 			console.error("Task couldn't deleted.");
 			// Set error notification, after implementing notification service

@@ -5,6 +5,6 @@
         <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Ideas">
     </mat-form-field>
 </div>
-<app-tasks-table [searchText]="searchInTaskList" [tasks]="tasksOfList"/>
+<app-tasks-table (taskDeleted)="onTaskDeleted($event)" [searchText]="searchInTaskList" [tasks]="tasksOfList"/>
 <!--Here comes new Task dialog-->
 <app-task-create [taskListId]="taskList?.id"/>

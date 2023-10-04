@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { Task } from "../../models/task.model";
 import { MatTableDataSource } from "@angular/material/table";
 import { TaskResourceService } from "../../services/task-resource.service";
@@ -10,14 +10,9 @@ import { MatSort } from "@angular/material/sort";
 	styleUrls: ["./tasks-table.component.css"],
 })
 export class TasksTableComponent {
-	displayedColumns: string[] = [
-		"isDone",
-		"name",
-		"status",
-		"priority",
-		"actions",
-	];
+	displayedColumns: string[] = ["isDone", "name", "status", "priority", "actions"];
 	dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
+	@Output() taskDeleted = new EventEmitter<Task>();
 	@ViewChild(MatSort) private sort!: MatSort;
 
 	constructor(private taskResourceService: TaskResourceService) {}
@@ -32,6 +27,7 @@ export class TasksTableComponent {
 		this.dataSource.sort = this.sort;
 	}
 
+	@Output()
 	applySearch(searchText: string) {
 		this.dataSource.filter = searchText.trim().toLowerCase();
 	}
@@ -41,5 +37,10 @@ export class TasksTableComponent {
 		this.taskResourceService.update(element).subscribe((response) => {
 			console.log("Resp: ", response);
 		});
+	}
+
+	onTaskDeleted(task: Task) {
+		// Just a bridge between task-actions(child) and (task-list-detail(parent)
+		this.taskDeleted.emit(task);
 	}
 }
