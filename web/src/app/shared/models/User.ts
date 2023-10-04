@@ -1,4 +1,3 @@
-import { ResourceModel } from '../ResourceModel';
+import { ResourceModel } from "../ResourceModel";
 
-export default class FWUser extends ResourceModel<FWUser> {
-}
+export default class FWUser extends ResourceModel<FWUser> {}

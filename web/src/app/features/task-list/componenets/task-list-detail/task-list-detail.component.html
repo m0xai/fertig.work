@@ -1,9 +1,9 @@
 <div>
-  <h2>{{taskList?.title}}</h2>
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Ideas">
-  </mat-form-field>
+    <h2>{{taskList?.title}}</h2>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Ideas">
+    </mat-form-field>
 </div>
 <app-tasks-table [searchText]="searchInTaskList" [tasks]="tasksOfList"/>
 <!--Here comes new Task dialog-->

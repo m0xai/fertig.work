@@ -2,15 +2,15 @@
 @import './app/shared/styles/_utils.css';
 
 * {
-  overflow: hidden !important;
-  box-sizing: border-box;
+    overflow: hidden !important;
+    box-sizing: border-box;
 }
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

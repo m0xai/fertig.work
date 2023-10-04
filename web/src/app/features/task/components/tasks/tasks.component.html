@@ -1,46 +1,47 @@
 <mat-drawer-container autosize class="tasks-drawer">
-  <mat-drawer #drawer class="tasks-drawer__sidenav" mode="over" position="end">
-    <h2>Auto-resizing sidenav</h2>
-    <!--Move this form to create-task component-->
-    <form [formGroup]="taskForm">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input formControlName="name" matInput placeholder="Task Name" required>
-        <mat-error *ngIf="taskForm.get('name')?.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea formControlName="description" matInput placeholder="Give descriptive information about the task"
-                  required
-        ></textarea>
-        <mat-error *ngIf="taskForm.get('description')?.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Priority</mat-label>
-        <mat-select formControlName="priority" required>
-          <mat-option *ngFor="let priority of taskPriority" [value]="priority">
-            {{priority}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status" required>
-          <mat-option *ngFor="let status of taskStatus" [value]="status">
-            {{status}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
-  </mat-drawer>
+    <mat-drawer #drawer class="tasks-drawer__sidenav" mode="over" position="end">
+        <h2>Auto-resizing sidenav</h2>
+        <!--Move this form to create-task component-->
+        <form [formGroup]="taskForm">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput placeholder="Task Name" required>
+                <mat-error *ngIf="taskForm.get('name')?.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput
+                          placeholder="Give descriptive information about the task"
+                          required
+                ></textarea>
+                <mat-error *ngIf="taskForm.get('description')?.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority" required>
+                    <mat-option *ngFor="let priority of taskPriority" [value]="priority">
+                        {{priority}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" required>
+                    <mat-option *ngFor="let status of taskStatus" [value]="status">
+                        {{status}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-drawer>
 
-  <mat-drawer-content>
-    <button (click)="drawer.toggle()" mat-button type="button">
-      Add
-    </button>
+    <mat-drawer-content>
+        <button (click)="drawer.toggle()" mat-button type="button">
+            Add
+        </button>
 
-    <app-task-list-overview/>
-    <!--    Make a list of taskLists, into tasks, under taskList title, have 3 tabs: active, draft, done -->
-    <!--  https://trello.com/c/nrJ7MbHt  -->
-  </mat-drawer-content>
+        <app-task-list-overview/>
+        <!--    Make a list of taskLists, into tasks, under taskList title, have 3 tabs: active, draft, done -->
+        <!--  https://trello.com/c/nrJ7MbHt  -->
+    </mat-drawer-content>
 </mat-drawer-container>

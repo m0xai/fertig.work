@@ -1,28 +1,28 @@
 <p>login works!</p>
 
 <mat-card class="login-card-wrapper">
-  <mat-card-title>Login</mat-card-title>
-  <form (ngSubmit)="login()" [formGroup]="credentials">
-    <mat-card-content>
-      <mat-form-field class="login-field-wrapper">
-        <mat-label>Username</mat-label>
-        <input formControlName="username" matInput name="username" type="text">
-        <mat-error *ngIf="credentials.get('username')?.invalid">
-          {{getErrorMessage("username")}}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="login-field-wrapper">
-        <mat-label>Password</mat-label>
-        <input formControlName="password" matInput name="password" type="password">
-        <mat-error *ngIf="credentials.get('password')?.invalid">{{getErrorMessage("password")}}</mat-error>
-        <mat-hint align="end">{{credentials.get('password')?.value?.length}}/10</mat-hint>
-      </mat-form-field>
-      <app-fw-alert *ngIf="errorService.errorMessage$ | async as errorMessage" [alertMessage]="errorMessage"
-                    alertType="error"
-                    class="error-message"/>
-    </mat-card-content>
-    <mat-card-actions>
-      <button [disabled]="!credentials.valid" color="primary" mat-raised-button type="submit">Login</button>
-    </mat-card-actions>
-  </form>
+    <mat-card-title>Login</mat-card-title>
+    <form (ngSubmit)="login()" [formGroup]="credentials">
+        <mat-card-content>
+            <mat-form-field class="login-field-wrapper">
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput name="username" type="text">
+                <mat-error *ngIf="credentials.get('username')?.invalid">
+                    {{getErrorMessage("username")}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-field-wrapper">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput name="password" type="password">
+                <mat-error *ngIf="credentials.get('password')?.invalid">{{getErrorMessage("password")}}</mat-error>
+                <mat-hint align="end">{{credentials.get('password')?.value?.length}}/10</mat-hint>
+            </mat-form-field>
+            <app-fw-alert *ngIf="errorService.errorMessage$ | async as errorMessage" [alertMessage]="errorMessage"
+                          alertType="error"
+                          class="error-message"/>
+        </mat-card-content>
+        <mat-card-actions>
+            <button [disabled]="!credentials.valid" color="primary" mat-raised-button type="submit">Login</button>
+        </mat-card-actions>
+    </form>
 </mat-card>

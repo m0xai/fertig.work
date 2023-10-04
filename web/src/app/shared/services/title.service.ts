@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: "root",
 })
 export class TitleService {
-  private titleSubject = new Subject<string>();
-  title$ = this.titleSubject.asObservable();
+	private titleSubject = new Subject<string>();
+	title$ = this.titleSubject.asObservable();
 
-  setTitle(title: string) {
-    this.titleSubject.next(title);
-  }
+	setTitle(title: string) {
+		this.titleSubject.next(title);
+	}
 }

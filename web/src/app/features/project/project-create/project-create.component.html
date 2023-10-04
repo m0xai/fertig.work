@@ -1,39 +1,39 @@
 <p>project-create works!</p>
 <button (click)="isLinear = !isLinear" id="toggle-linear" mat-raised-button>
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button>
 <mat-stepper #stepper [linear]="isLinear">
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Project Details</ng-template>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input formControlName="firstCtrl" matInput placeholder="Last name, First name" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Project Members">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input formControlName="secondCtrl" matInput placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button (click)="stepper.reset()" mat-button>Reset</button>
-    </div>
-  </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Project Details</ng-template>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input formControlName="firstCtrl" matInput placeholder="Last name, First name" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Project Members">
+        <form [formGroup]="secondFormGroup">
+            <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input formControlName="secondCtrl" matInput placeholder="Ex. 1 Main St, New York, NY"
+                       required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button (click)="stepper.reset()" mat-button>Reset</button>
+        </div>
+    </mat-step>
 </mat-stepper>

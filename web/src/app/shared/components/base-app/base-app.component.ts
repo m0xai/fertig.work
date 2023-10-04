@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-base-app',
-  templateUrl: './base-app.component.html',
-  styleUrls: ['./base-app.component.css']
+	selector: "app-base-app",
+	templateUrl: "./base-app.component.html",
+	styleUrls: ["./base-app.component.css"],
 })
-export class BaseAppComponent {
-
-}
+export class BaseAppComponent {}

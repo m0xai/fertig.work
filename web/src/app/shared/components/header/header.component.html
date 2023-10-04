@@ -1,63 +1,64 @@
 <mat-drawer-container id="main-container">
-  <mat-drawer #drawer>
-    <div id="base-sidenav">
-      <h1>Fertig Work</h1>
-      <nav id="base-sidenav__navbar">
-        <mat-nav-list class="base-sidenav__navbar__menu">
-          <ng-container *ngFor="let item of menuItems">
-            <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
-               class="base-sidenav__menu-item__link"
-               routerLinkActive="active">
-              <mat-list-item>
-                <div class="base-sidenav__menu-item">
-                  <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
-                  {{item.text}}
-                </div>
-              </mat-list-item>
-            </a>
-            <ng-template #dividerItem>
-              <mat-divider [ngClass]="item?.class"/>
-            </ng-template>
-          </ng-container>
-        </mat-nav-list>
-      </nav>
-    </div>
-  </mat-drawer>
+    <mat-drawer #drawer>
+        <div id="base-sidenav">
+            <h1>Fertig Work</h1>
+            <nav id="base-sidenav__navbar">
+                <mat-nav-list class="base-sidenav__navbar__menu">
+                    <ng-container *ngFor="let item of menuItems">
+                        <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
+                           class="base-sidenav__menu-item__link"
+                           routerLinkActive="active">
+                            <mat-list-item>
+                                <div class="base-sidenav__menu-item">
+                                    <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
+                                    {{item.text}}
+                                </div>
+                            </mat-list-item>
+                        </a>
+                        <ng-template #dividerItem>
+                            <mat-divider [ngClass]="item?.class"/>
+                        </ng-template>
+                    </ng-container>
+                </mat-nav-list>
+            </nav>
+        </div>
+    </mat-drawer>
 
-  <div class="main-content-wrapper h-100">
-    <mat-toolbar color="accent">
-      <mat-toolbar-row>
-        <button
-          (click)="drawer.toggle()"
-          *ngIf="drawer.mode === 'over'"
-          mat-icon-button
-        >
-          <mat-icon *ngIf="!drawer.opened"> menu</mat-icon>
-          <mat-icon *ngIf="drawer.opened"> close</mat-icon>
-        </button>
-        <nav aria-labelledby="base-sidenav" class="header__nav">
-          <a routerLink="/login" routerLinkActive="active">Login</a>
-          <a routerLink="app/tasks" routerLinkActive="active">Tasks</a>
-          <a (click)="logout()">Logout</a>
-        </nav>
-        <span class="example-spacer"></span>
-        <button aria-label="Example icon-button with heart icon" class="example-icon favorite-icon" mat-icon-button>
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon" class="example-icon"
-                mat-icon-button>
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>Task</button>
-          <button mat-menu-item>Project</button>
-        </mat-menu>
-      </mat-toolbar-row>
-      <mat-toolbar-row>
-        {{ title }}
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <!-- Application's content    -->
-    <ng-content class="main-content"/>
-  </div>
+    <div class="main-content-wrapper h-100">
+        <mat-toolbar color="accent">
+            <mat-toolbar-row>
+                <button
+                        (click)="drawer.toggle()"
+                        *ngIf="drawer.mode === 'over'"
+                        mat-icon-button
+                >
+                    <mat-icon *ngIf="!drawer.opened"> menu</mat-icon>
+                    <mat-icon *ngIf="drawer.opened"> close</mat-icon>
+                </button>
+                <nav aria-labelledby="base-sidenav" class="header__nav">
+                    <a routerLink="/login" routerLinkActive="active">Login</a>
+                    <a routerLink="app/tasks" routerLinkActive="active">Tasks</a>
+                    <a (click)="logout()">Logout</a>
+                </nav>
+                <span class="example-spacer"></span>
+                <button aria-label="Example icon-button with heart icon" class="example-icon favorite-icon"
+                        mat-icon-button>
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <button [matMenuTriggerFor]="menu" aria-label="Example icon-button with share icon" class="example-icon"
+                        mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Task</button>
+                    <button mat-menu-item>Project</button>
+                </mat-menu>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                {{ title }}
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <!-- Application's content    -->
+        <ng-content class="main-content"/>
+    </div>
 </mat-drawer-container>
