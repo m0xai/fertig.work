@@ -18,15 +18,14 @@ export class TaskCreateComponent {
     this.createTaskFromInput(this.newTaskNameInput);
   }
 
-  private createTaskFromInput(input: string) {
-    if (input && this.taskListId) {
-      const newTask = Task.create().withName(input).withPriority(ETaskPriority.NORMAL).withStatus(ETaskStatus.OPEN).withTaskList(this.taskListId).build();
-      this.taskService.create(newTask).subscribe((value) => {
-        console.log("Task Created: ", value)
-      }, (error) => {
-        console.warn("Error oldu su an", error)
-      })
-    }
-  }
+    private createTaskFromInput(input: string) {
+        if (input && this.taskListId) {
+            const newTask = Task.create().withName(input).withPriority(ETaskPriority.NORMAL).withStatus(ETaskStatus.OPEN).withTaskList(this.taskListId).build();
             this.taskResourceService.create(newTask).subscribe((value) => {
+                console.log("Task Created: ", value)
+            }, (error) => {
+                console.warn("Error oldu su an", error)
+            })
+        }
+    }
 }

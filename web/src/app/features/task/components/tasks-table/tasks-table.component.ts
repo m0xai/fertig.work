@@ -32,11 +32,10 @@ export class TasksTableComponent {
     this.dataSource.filter = searchText.trim().toLowerCase();
   }
 
-  updateTaskStatus(element: Task) {
-    console.log(element)
-    this.taskService.update(element).subscribe((response) => {
-      console.log("Resp: ", response)
-    })
-  }
+    updateTaskStatus(element: Task) {
+        console.log(element)
         this.taskResourceService.update(element).subscribe((response) => {
+            console.log("Resp: ", response)
+        })
+    }
 }

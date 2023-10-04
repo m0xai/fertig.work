@@ -17,12 +17,11 @@ export class TaskListDetailComponent implements OnInit {
     constructor(private taskResourceService: TaskResourceService) {
     }
 
-  getTasksByList() {
-    this.taskService.getTasksByList(this.taskList?.id).subscribe((items) => {
-      this.tasksOfList = items;
-    })
-  }
+    getTasksByList() {
         this.taskResourceService.getTasksByList(this.taskList?.id).subscribe((items) => {
+            this.tasksOfList = items;
+        })
+    }
 
   ngOnInit(): void {
     this.getTasksByList()

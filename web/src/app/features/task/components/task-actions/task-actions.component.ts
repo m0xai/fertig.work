@@ -28,14 +28,13 @@ export class TaskActionsComponent {
     });
   }
 
-  deleteTask() {
-    if (this.task?.id) {
-      this.taskService.delete(this.task.id)
-    } else {
-      console.error("Deryamcikkk")
-      // Set error notification, after implementing notification service
-    }
-  }
+    deleteTask() {
+        if (this.task?.id) {
             this.taskResourceService.delete(this.task.id)
+        } else {
+            console.error("Deryamcikkk")
+            // Set error notification, after implementing notification service
+        }
+    }
 }
 
