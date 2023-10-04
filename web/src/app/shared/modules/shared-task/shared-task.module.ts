@@ -6,7 +6,7 @@ import {
   TaskListOverviewComponent
 } from "../../../features/task-list/componenets/task-list-overview/task-list-overview.component";
 import { MatTableModule } from "@angular/material/table";
-import { TaskEditComponent } from "../../../features/task/components/task-edit/task-edit.component";
+import { TaskActionsComponent } from "../../../features/task/components/task-actions/task-actions.component";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
@@ -31,8 +31,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatCheckboxModule,
     MatSortModule
   ],
-  declarations: [TasksTableComponent, TaskCreateComponent, TaskEditComponent, TaskListOverviewComponent, TaskListDetailComponent],
-  exports: [TasksTableComponent, TaskCreateComponent, TaskEditComponent, TaskListOverviewComponent, TaskListDetailComponent]
+  declarations: [TasksTableComponent, TaskCreateComponent, TaskActionsComponent, TaskListOverviewComponent, TaskListDetailComponent],
+  exports: [TasksTableComponent, TaskCreateComponent, TaskActionsComponent, TaskListOverviewComponent, TaskListDetailComponent]
 })
 export class SharedTaskModule {
 }
