@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../../../../shared/components/form-dialog/form-dialog.component";
-import { TaskService } from "../../services/task.service";
+import { TaskResourceService } from "../../services/task-resource.service";
 
 
 export interface DialogData {
@@ -17,8 +17,8 @@ export interface DialogData {
 export class TaskActionsComponent {
   @Input({required: true}) task?: Task;
 
-  constructor(public dialog: MatDialog, private taskService: TaskService) {
-  }
+    constructor(public dialog: MatDialog, private taskResourceService: TaskResourceService) {
+    }
 
   openDialog() {
     this.dialog.open(FormDialogComponent, {
@@ -36,5 +36,6 @@ export class TaskActionsComponent {
       // Set error notification, after implementing notification service
     }
   }
+            this.taskResourceService.delete(this.task.id)
 }
 

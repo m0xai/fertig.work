@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TaskList } from "../../models/task-list.model";
-import { TaskService } from "../../../task/services/task.service";
+import { TaskResourceService } from "../../../task/services/task-resource.service";
 import { Task } from 'src/app/features/task/models/task.model';
 
 @Component({
@@ -14,14 +14,15 @@ export class TaskListDetailComponent implements OnInit {
 
   tasksOfList: Task[] = []
 
-  constructor(private taskService: TaskService) {
-  }
+    constructor(private taskResourceService: TaskResourceService) {
+    }
 
   getTasksByList() {
     this.taskService.getTasksByList(this.taskList?.id).subscribe((items) => {
       this.tasksOfList = items;
     })
   }
+        this.taskResourceService.getTasksByList(this.taskList?.id).subscribe((items) => {
 
   ngOnInit(): void {
     this.getTasksByList()

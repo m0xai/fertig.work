@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ETaskPriority, ETaskStatus, Task } from '../../models/task.model';
-import { TaskService } from '../../services/task.service';
+import { TaskResourceService } from '../../services/task-resource.service';
 import { ActivatedRoute } from "@angular/router";
 import { TitleService } from "../../../../shared/services/title.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -40,8 +40,8 @@ export class TasksComponent implements OnInit {
   // TODO: get TaskLists first, then use get by taskListId
   taskLists: TaskList[] = []
 
-  constructor(private taskService: TaskService, private taskListService: TaskListService, private http: HttpClient, private route: ActivatedRoute, private titleService: TitleService) {
-  }
+    constructor(private taskResourceService: TaskResourceService, private taskListService: TaskListService, private http: HttpClient, private route: ActivatedRoute, private titleService: TitleService) {
+    }
 
   ngOnInit() {
     this.titleService.setTitle(this.route.snapshot.data["title"])

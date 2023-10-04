@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ResourceService } from './resource.service';
 
 describe('ResourceService', () => {
-  let service: ResourceService;
+  let service: ResourceService<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

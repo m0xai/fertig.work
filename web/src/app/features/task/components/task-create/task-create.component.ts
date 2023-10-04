@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TaskService } from "../../services/task.service";
+import { TaskResourceService } from "../../services/task-resource.service";
 import { ETaskPriority, ETaskStatus, Task } from "../../models/task.model";
 
 @Component({
@@ -11,8 +11,8 @@ export class TaskCreateComponent {
   @Input({required: true}) taskListId?: number;
   newTaskNameInput = "";
 
-  constructor(private taskService: TaskService) {
-  }
+    constructor(private taskResourceService: TaskResourceService) {
+    }
 
   addTaskToList() {
     this.createTaskFromInput(this.newTaskNameInput);
@@ -28,4 +28,5 @@ export class TaskCreateComponent {
       })
     }
   }
+            this.taskResourceService.create(newTask).subscribe((value) => {
 }

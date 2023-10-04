@@ -7,7 +7,7 @@ import { map, Observable } from "rxjs";
 @Injectable({
     providedIn: 'root',
 })
-export class TaskService extends ResourceService<Task> {
+export class TaskResourceService extends ResourceService<Task> {
     constructor(private http: HttpClient) {
         super(http, Task, 'tasks/');
     }

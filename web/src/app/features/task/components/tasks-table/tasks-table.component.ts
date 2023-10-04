@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Task } from "../../models/task.model";
 import { MatTableDataSource } from "@angular/material/table";
-import { TaskService } from "../../services/task.service";
+import { TaskResourceService } from "../../services/task-resource.service";
 import { MatSort } from "@angular/material/sort";
 
 @Component({
@@ -14,8 +14,8 @@ export class TasksTableComponent {
   dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
   @ViewChild(MatSort) private sort!: MatSort;
 
-  constructor(private taskService: TaskService) {
-  }
+    constructor(private taskResourceService: TaskResourceService) {
+    }
 
 
   @Input({required: true}) set searchText(value: string) {
@@ -38,4 +38,5 @@ export class TasksTableComponent {
       console.log("Resp: ", response)
     })
   }
+        this.taskResourceService.update(element).subscribe((response) => {
 }
