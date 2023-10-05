@@ -13,6 +13,10 @@ import { TaskListDetailComponent } from "../../../features/task-list/componenets
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSortModule } from "@angular/material/sort";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatCardModule } from "@angular/material/card";
+import { SharedModule } from "../../shared.module";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
 	imports: [
@@ -25,6 +29,10 @@ import { MatSortModule } from "@angular/material/sort";
 		MatButtonModule,
 		MatCheckboxModule,
 		MatSortModule,
+		MatMenuModule,
+		MatCardModule,
+		SharedModule,
+		MatDialogModule,
 	],
 	declarations: [
 		TasksTableComponent,

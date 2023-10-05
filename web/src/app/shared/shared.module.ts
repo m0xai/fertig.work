@@ -13,6 +13,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { BaseAppComponent } from "./components/base-app/base-app.component";
 import { FormDialogComponent } from "./components/form-dialog/form-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -20,8 +21,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 		FwAlertComponent,
 		BaseAppComponent,
 		FormDialogComponent,
+		ConfirmDialogComponent,
 	],
-	exports: [HeaderComponent, FwAlertComponent],
+	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
 	imports: [
 		CommonModule,
 		RouterLink,

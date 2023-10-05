@@ -3,6 +3,7 @@ import { Task } from "../../models/task.model";
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../../../../shared/components/form-dialog/form-dialog.component";
 import { TaskResourceService } from "../../services/task-resource.service";
+import { ConfirmDialogComponent } from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 
 export interface DialogData {
 	animal: "panda" | "unicorn" | "lion";
@@ -28,6 +29,22 @@ export class TaskActionsComponent {
 			minHeight: "600px",
 			minWidth: "6 fw00px",
 		});
+	}
+
+	confirmDeleteTask() {
+		this.dialog
+			.open(ConfirmDialogComponent, {
+				autoFocus: "dialog",
+				data: {
+					itemType: "Task",
+				},
+			})
+			.afterClosed()
+			.subscribe((result) => {
+				if (result) {
+					this.deleteTask();
+				}
+			});
 	}
 
 	deleteTask() {
