@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 
@@ -53,8 +54,14 @@ public class TaskController {
     }
 
     @DeleteMapping("/tasks/{id}/")
-    public ResponseEntity<String> deleteSingleTask(@PathVariable Long id) {
-        taskService.delete(id);
-        return new ResponseEntity<>("Task with ID: " + id + " deleted successfully.", HttpStatus.OK);
+    public ResponseEntity deleteSingleTask(@PathVariable Long id) {
+        try {
+            taskService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (TaskNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Task with ID: " + id + " not found and hence cannot" +
+                    " be " +
+                    "deleted.");
+        }
     }
 }
