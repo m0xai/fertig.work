@@ -29,4 +29,8 @@ export class TaskListDetailComponent implements OnInit {
 	onTaskDeleted(task: Task) {
 		this.tasksOfList = this.tasksOfList.filter((t) => t.id != task.id);
 	}
+
+	onTaskAdded(task: Task) {
+		this.tasksOfList = [...this.tasksOfList, task];
+	}
 }

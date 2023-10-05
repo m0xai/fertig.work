@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TaskResourceService } from "../../services/task-resource.service";
 import { ETaskPriority, ETaskStatus, Task } from "../../models/task.model";
 
@@ -9,6 +9,7 @@ import { ETaskPriority, ETaskStatus, Task } from "../../models/task.model";
 })
 export class TaskCreateComponent {
 	@Input({ required: true }) taskListId?: number;
+	@Output() taskAdded = new EventEmitter<Task>();
 	newTaskNameInput = "";
 
 	constructor(private taskResourceService: TaskResourceService) {}
@@ -17,7 +18,7 @@ export class TaskCreateComponent {
 		this.createTaskFromInput(this.newTaskNameInput);
 	}
 
-	private createTaskFromInput(input: string) {
+	createTaskFromInput(input: string) {
 		if (input && this.taskListId) {
 			const newTask = Task.create()
 				.withName(input)
@@ -27,7 +28,8 @@ export class TaskCreateComponent {
 				.build();
 			this.taskResourceService.create(newTask).subscribe(
 				(value) => {
-					console.log("Task Created: ", value);
+					this.taskAdded.emit(value); // Notify parent(task-list-detail) about newly created task
+					this.newTaskNameInput = "";
 				},
 				(error) => {
 					console.warn("Error oldu su an", error);

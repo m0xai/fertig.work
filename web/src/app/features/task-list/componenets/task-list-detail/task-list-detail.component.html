@@ -7,4 +7,4 @@
 </div>
 <app-tasks-table (taskDeleted)="onTaskDeleted($event)" [searchText]="searchInTaskList" [tasks]="tasksOfList"/>
 <!--Here comes new Task dialog-->
-<app-task-create [taskListId]="taskList?.id"/>
+<app-task-create (taskAdded)="onTaskAdded($event)" [taskListId]="taskList?.id"/>
