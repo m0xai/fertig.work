@@ -1,2 +1,12 @@
-.tasks-table {
+.mat-column-isDone {
+    width: 20px;
+}
+
+.mat-column-actions {
+    width: 128px;
+    text-align: center;
+}
+
+.mat-column-priority, .mat-column-status {
+    width: 120px;
 }

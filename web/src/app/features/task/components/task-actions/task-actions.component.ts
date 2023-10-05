@@ -27,7 +27,7 @@ export class TaskActionsComponent {
 		this.dialog.open(FormDialogComponent, {
 			data: this.task,
 			minHeight: "600px",
-			minWidth: "6 fw00px",
+			minWidth: "600px",
 		});
 	}
 

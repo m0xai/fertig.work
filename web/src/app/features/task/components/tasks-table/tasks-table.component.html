@@ -1,7 +1,7 @@
 <table [dataSource]="dataSource" aria-describedby="Task list table" class="mat-elevation-z2 tasks-table"
        mat-table matSort matSortActive="createdAt" matSortDirection="asc">
     <ng-container matColumnDef="isDone">
-        <th *matHeaderCellDef mat-header-cell>Is Done?</th>
+        <th *matHeaderCellDef mat-header-cell>Done?</th>
         <td *matCellDef="let element" mat-cell>
             <mat-checkbox (change)="updateTaskStatus(element)" [(ngModel)]="element.isDone"></mat-checkbox>
         </td>
