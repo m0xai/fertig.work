@@ -4,6 +4,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../../../../shared/components/form-dialog/form-dialog.component";
 import { TaskResourceService } from "../../services/task-resource.service";
 import { ConfirmDialogComponent } from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {
+	NotificationService,
+	NotificationType,
+} from "../../../../shared/services/notification/notification.service";
 
 export interface DialogData {
 	animal: "panda" | "unicorn" | "lion";
@@ -20,6 +24,7 @@ export class TaskActionsComponent {
 
 	constructor(
 		public dialog: MatDialog,
+		public notificationService: NotificationService,
 		private taskResourceService: TaskResourceService,
 	) {}
 
@@ -49,7 +54,12 @@ export class TaskActionsComponent {
 
 	deleteTask() {
 		if (this.task?.id) {
-			this.taskResourceService.delete(this.task.id).subscribe(() => {});
+			this.taskResourceService.delete(this.task.id).subscribe(() => {
+				this.notificationService.showNotification(
+					"Task successfully deleted.",
+					NotificationType.success,
+				);
+			});
 			this.taskDeleted.emit(this.task);
 		} else {
 			console.error("Task couldn't deleted.");

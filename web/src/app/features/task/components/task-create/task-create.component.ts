@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TaskResourceService } from "../../services/task-resource.service";
 import { ETaskPriority, ETaskStatus, Task } from "../../models/task.model";
+import {
+	NotificationService,
+	NotificationType,
+} from "../../../../shared/services/notification/notification.service";
 
 @Component({
 	selector: "app-task-create",
@@ -12,7 +16,10 @@ export class TaskCreateComponent {
 	@Output() taskAdded = new EventEmitter<Task>();
 	newTaskNameInput = "";
 
-	constructor(private taskResourceService: TaskResourceService) {}
+	constructor(
+		private taskResourceService: TaskResourceService,
+		private notificationService: NotificationService,
+	) {}
 
 	addTaskToList() {
 		this.createTaskFromInput(this.newTaskNameInput);
@@ -30,8 +37,16 @@ export class TaskCreateComponent {
 				(value) => {
 					this.taskAdded.emit(value); // Notify parent(task-list-detail) about newly created task
 					this.newTaskNameInput = "";
+					this.notificationService.showNotification(
+						"Success! The new task added in the list.",
+						NotificationType.success,
+					);
 				},
 				(error) => {
+					this.notificationService.showNotification(
+						"Error while creating a task: " + error,
+						NotificationType.error,
+					);
 					console.warn("Error oldu su an", error);
 				},
 			);

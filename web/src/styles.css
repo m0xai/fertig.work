@@ -14,3 +14,19 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.notify-success {
+    --mdc-snackbar-container-color: #198754 !important;
+}
+
+.notify-info {
+    --mdc-snackbar-container-color: #0dcaf0 !important;
+}
+
+.notify-warning {
+    --mdc-snackbar-container-color: #ffc107 !important;
+}
+
+.notify-error {
+    --mdc-snackbar-container-color: #dc3545 !important;
+}
