@@ -34,6 +34,7 @@ export class NotificationService {
 
 	private setTypeOfNotification(type: NotificationType): MatSnackBarConfig {
 		const config = {
+			duration: this.duration,
 			horizontalPosition: "end" as MatSnackBarHorizontalPosition,
 			verticalPosition: "top" as MatSnackBarVerticalPosition,
 			panelClass: [""],
