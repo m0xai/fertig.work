@@ -14,6 +14,10 @@ import { BaseAppComponent } from "./components/base-app/base-app.component";
 import { FormDialogComponent } from "./components/form-dialog/form-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
+import { FormDialogEditableComponent } from "./components/form-dialog-editable/form-dialog-editable.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { ViewModeDirective } from "./directives/view-mode/view-mode.directive";
+import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
 
 @NgModule({
 	declarations: [
@@ -22,6 +26,9 @@ import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dial
 		BaseAppComponent,
 		FormDialogComponent,
 		ConfirmDialogComponent,
+		FormDialogEditableComponent,
+		EditModeDirective,
+		ViewModeDirective,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
 	imports: [
@@ -37,6 +44,7 @@ import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dial
 		MatMenuModule,
 		RouterOutlet,
 		MatDialogModule,
+		ReactiveFormsModule,
 	],
 })
 export class SharedModule {}
