@@ -1,7 +1,6 @@
-<h1 mat-dialog-title>Edit {{data.name}}</h1>
-<div mat-dialog-content>
-    <p>{{ data.name}}</p>
-    <p>{{ data.description}}</p>
-    <p>{{ data.createdBy}}</p>
-    <p>{{ data.isDone}}</p>
-</div>
+<app-form-dialog-editable (update)="updateField(0, 'name')">
+    <ng-template appViewMode>{{task?.name}}</ng-template>
+    <ng-template appEditMode>
+        <input [formControl]="getFormField('name')">
+    </ng-template>
+</app-form-dialog-editable>
