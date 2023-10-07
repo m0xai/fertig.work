@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Task } from "src/app/features/task/models/task.model";
+import { ETaskPriority, ETaskStatus, Task } from "src/app/features/task/models/task.model";
 import { UserService } from "../../../features/user/services/user.service";
 import { FormControl, FormGroup } from "@angular/forms";
 
@@ -12,7 +12,10 @@ import { FormControl, FormGroup } from "@angular/forms";
 export class FormDialogComponent implements OnInit, OnDestroy {
 	createdBy = this.userService.getById(this.data?.createdBy!);
 	public formGroup: FormGroup | any;
-	public task: Task | null = null;
+	public task: Task = Task.create().build();
+	protected readonly ETaskPriority = ETaskPriority;
+	protected readonly Object = Object;
+	protected readonly ETaskStatus = ETaskStatus;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: Task,
@@ -24,6 +27,8 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 			this.task = Task.create()
 				.withName(this.data.name!)
 				.withDescription(this.data.description!)
+				.withPriority(this.data.priority!)
+				.withStatus(this.data.status!)
 				.withTaskList(this.data.taskList!)
 				.build();
 		}
@@ -39,6 +44,8 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 		this.formGroup = new FormGroup<any>({
 			name: new FormControl(this.task?.name, { nonNullable: true }),
 			description: new FormControl(this.task?.description),
+			priority: new FormControl(this.task?.priority),
+			status: new FormControl(this.task?.status),
 		});
 	}
 
@@ -46,7 +53,7 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 		return this.formGroup.get(field);
 	}
 
-	updateField(index: number, field: string) {
+	updateField(field: string) {
 		const control: FormControl = this.formGroup.get(field);
 		if (control.valid) {
 			console.log("control is valid", { ...this.data, [field]: control.value });

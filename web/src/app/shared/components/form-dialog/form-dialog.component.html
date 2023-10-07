@@ -1,6 +1,48 @@
-<app-form-dialog-editable (update)="updateField(0, 'name')">
-    <ng-template appViewMode>{{task?.name}}</ng-template>
-    <ng-template appEditMode>
-        <input [formControl]="getFormField('name')">
-    </ng-template>
-</app-form-dialog-editable>
+<div class="form-dialog-wrapper">
+    <app-form-dialog-editable (update)="updateField('name')" [ngClass]="'clickable-field clickable-input'">
+        <ng-template appViewMode><span class="h1">{{task.name}}</span></ng-template>
+        <ng-template appEditMode>
+            <input [formControl]="getFormField('name')" [ngClass]="'text-field-input'" appFocusable class="w-100"
+                   type="text">
+        </ng-template>
+    </app-form-dialog-editable>
+    <h3 class="mt-4">Description</h3>
+    <app-form-dialog-editable (update)="updateField('description')" [ngClass]="'clickable-field clickable-textarea'">
+        <ng-template appViewMode>
+            <mat-icon>description</mat-icon>
+            {{ task.description }}
+        </ng-template>
+        <ng-template appEditMode>
+            <mat-form-field>
+                <textarea [formControl]="getFormField('description')" appFocusable class="w-100" matInput
+                          type="text"></textarea>
+            </mat-form-field>
+        </ng-template>
+    </app-form-dialog-editable>
+    <app-form-dialog-editable (update)="updateField('priority')" [ngClass]="'clickable-field clickable-select'">
+        <ng-template appViewMode>
+            {{ task.priority }}
+        </ng-template>
+        <ng-template appEditMode>
+            <mat-form-field>
+                <mat-select [formControl]="getFormField('priority')" class="w-100">
+                    <mat-option *ngFor="let level of Object.keys(ETaskPriority)"
+                                [value]="level">{{ level }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </app-form-dialog-editable>
+    <app-form-dialog-editable (update)="updateField('status')" [ngClass]="'clickable-field clickable-select'">
+        <ng-template appViewMode>
+            {{ task.status }}
+        </ng-template>
+        <ng-template appEditMode>
+            <mat-form-field>
+                <mat-select [formControl]="getFormField('status')" class="w-100">
+                    <mat-option *ngFor="let status of Object.keys(ETaskStatus)"
+                                [value]="status">{{ status }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </app-form-dialog-editable>
+</div>

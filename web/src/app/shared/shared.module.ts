@@ -18,6 +18,9 @@ import { FormDialogEditableComponent } from "./components/form-dialog-editable/f
 import { ReactiveFormsModule } from "@angular/forms";
 import { ViewModeDirective } from "./directives/view-mode/view-mode.directive";
 import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { FocusableDirective } from './directives/focusable/focusable.directive';
 
 @NgModule({
 	declarations: [
@@ -29,6 +32,7 @@ import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
 		FormDialogEditableComponent,
 		EditModeDirective,
 		ViewModeDirective,
+  FocusableDirective,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
 	imports: [
@@ -45,6 +49,8 @@ import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
 		RouterOutlet,
 		MatDialogModule,
 		ReactiveFormsModule,
+		MatInputModule,
+		MatSelectModule,
 	],
 })
 export class SharedModule {}

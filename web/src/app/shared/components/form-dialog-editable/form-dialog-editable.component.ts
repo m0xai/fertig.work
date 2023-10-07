@@ -34,7 +34,7 @@ export class FormDialogEditableComponent implements OnInit {
 	}
 
 	private viewModeHandler() {
-		fromEvent(this.element, "dblclick")
+		fromEvent(this.element, "click")
 			.pipe(untilDestroyed(this))
 			.subscribe(() => {
 				this.mode = "edit";
