@@ -21,6 +21,7 @@ import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { FocusableDirective } from './directives/focusable/focusable.directive';
+import { OpenableDirective } from './directives/openable/openable.directive';
 
 @NgModule({
 	declarations: [
@@ -33,6 +34,7 @@ import { FocusableDirective } from './directives/focusable/focusable.directive';
 		EditModeDirective,
 		ViewModeDirective,
   FocusableDirective,
+  OpenableDirective,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
 	imports: [

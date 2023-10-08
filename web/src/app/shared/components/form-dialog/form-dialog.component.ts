@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ETaskPriority, ETaskStatus, Task } from "src/app/features/task/models/task.model";
 import { UserService } from "../../../features/user/services/user.service";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
 	selector: "app-form-dialog",
@@ -43,7 +43,7 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 		this.test();
 		this.formGroup = new FormGroup<any>({
 			name: new FormControl(this.task?.name, { nonNullable: true }),
-			description: new FormControl(this.task?.description),
+			description: new FormControl(this.task?.description, Validators.max(1000)),
 			priority: new FormControl(this.task?.priority),
 			status: new FormControl(this.task?.status),
 		});

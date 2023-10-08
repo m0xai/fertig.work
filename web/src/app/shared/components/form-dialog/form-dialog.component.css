@@ -40,13 +40,39 @@
 .clickable-textarea {
     display: block;
     background-color: rgba(0, 0, 0, .05);
-    min-height: 5rem;
+    min-height: 104px;
+    width: 100%;
 }
 
 .clickable-textarea:focus {
     background-color: unset;
 }
 
+.task-edit-selectables {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.task-edit-selectable {
+    display: flex;
+    flex-direction: column;
+}
+
 .clickable-select {
-    background-color: red;
+    width: 212px;
+    height: 62px;
+    margin: .2rem 0;
+    display: inline-block;
+}
+
+.clickable-select-text {
+    background-color: rgba(0, 0, 0, 0.12);
+    font-size: 1rem;
+    padding-left: 1rem;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
 }
