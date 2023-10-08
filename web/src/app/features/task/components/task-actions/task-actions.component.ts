@@ -54,16 +54,25 @@ export class TaskActionsComponent {
 
 	deleteTask() {
 		if (this.task?.id) {
-			this.taskResourceService.delete(this.task.id).subscribe(() => {
-				this.notificationService.showNotification(
-					"Task successfully deleted.",
-					NotificationType.success,
-				);
-			});
-			this.taskDeleted.emit(this.task);
-		} else {
-			console.error("Task couldn't deleted.");
-			// Set error notification, after implementing notification service
+			this.taskResourceService.delete(this.task.id).subscribe(
+				() => this.deleteTaskAction(),
+				(error) => this.deleteTaskError(error),
+			);
 		}
+	}
+
+	deleteTaskAction() {
+		this.notificationService.showNotification(
+			"Task successfully deleted.",
+			NotificationType.success,
+		);
+		this.taskDeleted.emit(this.task);
+	}
+
+	deleteTaskError(error: any) {
+		this.notificationService.showNotification(
+			"An error occurred while deleting a task: ",
+			error,
+		);
 	}
 }
