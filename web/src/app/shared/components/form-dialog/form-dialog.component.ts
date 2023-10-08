@@ -32,7 +32,6 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 				.withTaskList(this.data.taskList!)
 				.build();
 		}
-		this.createdBy.subscribe((user) => console.log(user));
 	}
 
 	ngOnDestroy() {
