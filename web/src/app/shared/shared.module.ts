@@ -20,8 +20,9 @@ import { ViewModeDirective } from "./directives/view-mode/view-mode.directive";
 import { EditModeDirective } from "./directives/edit-mode/edit-mode.directive";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { FocusableDirective } from './directives/focusable/focusable.directive';
-import { OpenableDirective } from './directives/openable/openable.directive';
+import { FocusableDirective } from "./directives/focusable/focusable.directive";
+import { OpenableDirective } from "./directives/openable/openable.directive";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
 	declarations: [
@@ -33,8 +34,8 @@ import { OpenableDirective } from './directives/openable/openable.directive';
 		FormDialogEditableComponent,
 		EditModeDirective,
 		ViewModeDirective,
-  FocusableDirective,
-  OpenableDirective,
+		FocusableDirective,
+		OpenableDirective,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
 	imports: [
@@ -53,6 +54,7 @@ import { OpenableDirective } from './directives/openable/openable.directive';
 		ReactiveFormsModule,
 		MatInputModule,
 		MatSelectModule,
+		MatTooltipModule,
 	],
 })
 export class SharedModule {}

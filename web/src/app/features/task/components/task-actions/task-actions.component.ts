@@ -29,10 +29,17 @@ export class TaskActionsComponent {
 	) {}
 
 	openDialog() {
-		this.dialog.open(FormDialogComponent, {
+		const dialogRef = this.dialog.open(FormDialogComponent, {
 			data: this.task,
 			minHeight: "600px",
 			minWidth: "600px",
+		});
+		// Close dialog button in the dialog clicked
+		dialogRef.componentInstance.closeDialogOutput.subscribe(() => {
+			dialogRef.close();
+		});
+		dialogRef.afterClosed().subscribe(() => {
+			dialogRef.componentInstance.closeDialogOutput.unsubscribe();
 		});
 	}
 

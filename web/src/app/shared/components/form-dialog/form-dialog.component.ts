@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ETaskPriority, ETaskStatus, Task } from "src/app/features/task/models/task.model";
 import { UserService } from "../../../features/user/services/user.service";
@@ -10,7 +10,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 	styleUrls: ["./form-dialog.component.css"],
 })
 export class FormDialogComponent implements OnInit, OnDestroy {
-	createdBy = this.userService.getById(this.data?.createdBy!);
+	@Output() closeDialogOutput = new EventEmitter();
+	@Output() taskFieldUpdated = new EventEmitter();
 	public formGroup: FormGroup | any;
 	public task: Task = Task.create().build();
 	protected readonly ETaskPriority = ETaskPriority;
@@ -59,5 +60,9 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 			// Set new field value for the frontend form
 			this.task = { ...this.task, [field]: control.value } as Task;
 		}
+	}
+
+	closeDialog() {
+		this.closeDialogOutput.emit();
 	}
 }

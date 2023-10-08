@@ -1,4 +1,14 @@
 <div class="form-dialog-wrapper">
+    <div class="form-dialog-header w-100 d-flex justify-content-between">
+        <h1>View/Edit Task</h1>
+        <div class="d-flex">
+            <mat-icon class="me-2"
+                      matTooltip="To edit any field, click on it, the new value will be saved after clicking outside of field.">
+                help_outline
+            </mat-icon>
+            <mat-icon (click)="closeDialog()">close</mat-icon>
+        </div>
+    </div>
     <app-form-dialog-editable (update)="updateField('name')" [ngClass]="'clickable-field clickable-input'">
         <ng-template appViewMode><span class="h1">{{task.name}}</span></ng-template>
         <ng-template appEditMode>
