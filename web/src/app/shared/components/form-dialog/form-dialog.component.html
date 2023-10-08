@@ -12,7 +12,7 @@
     </div>
     <app-form-dialog-editable (update)="updateField('description')" [ngClass]="'clickable-field clickable-textarea'">
         <ng-template appViewMode>
-            {{ task.description }}
+            <span>{{ task.description }}</span>
         </ng-template>
         <ng-template appEditMode>
             <mat-form-field class="w-100">
