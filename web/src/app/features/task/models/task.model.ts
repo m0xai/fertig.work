@@ -10,6 +10,10 @@ export class Task extends ResourceModel<Task> {
 	public taskList?: number;
 	public status?: ETaskStatus;
 
+	constructor(model?: Partial<Task>) {
+		super(model);
+	}
+
 	public static create() {
 		return new Task();
 	}
