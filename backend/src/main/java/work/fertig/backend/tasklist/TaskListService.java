@@ -2,6 +2,7 @@ package work.fertig.backend.tasklist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import work.fertig.backend.task.TaskNotFoundException;
 import work.fertig.backend.task.TaskRepository;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
@@ -30,11 +31,19 @@ public class TaskListService {
     }
 
     public TaskListDTOResponse get(Long id) {
+        try {
+            return TaskListDTOResponse.fromTaskList(this.getEntity(id));
+        } catch (TaskNotFoundException ex) {
+            throw new TaskListNotFoundException(id);
+        }
+    }
+
+    public TaskList getEntity(Long id) throws TaskNotFoundException {
         Optional<TaskList> oTaskList = taskListRepository.findById(id);
         if (oTaskList.isEmpty()) {
             throw new TaskListNotFoundException(id);
         }
-        return TaskListDTOResponse.fromTaskList(oTaskList.get());
+        return oTaskList.get();
     }
 
 }

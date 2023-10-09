@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
+import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
 import java.util.List;
 
@@ -51,6 +52,18 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(updatedData, HttpStatus.OK);
+    }
+
+    @PatchMapping("/tasks/{id}/")
+    public ResponseEntity<TaskDTOResponse> partialUpdateTask(@PathVariable @NotNull long id,
+                                                             @Valid @RequestBody TaskDTORequest body) {
+        try {
+            TaskDTOResponse updatedTask = this.taskService.update(id, body);
+            return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+        } catch (TaskListNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Task with ID: " + id + " couldn't updated due " +
+                    "to: " + ex);
+        }
     }
 
     @DeleteMapping("/tasks/{id}/")
