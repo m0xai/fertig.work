@@ -1,8 +1,8 @@
-import { ViewModeDirective } from './view-mode.directive';
+import { ViewModeDirective } from "./view-mode.directive";
 
-describe('ViewModeDirective', () => {
-  it('should create an instance', () => {
-    const directive = new ViewModeDirective();
-    expect(directive).toBeTruthy();
-  });
+describe("ViewModeDirective", () => {
+	it("should create an instance", () => {
+		const directive = new ViewModeDirective();
+		expect(directive).toBeTruthy();
+	});
 });

@@ -6,8 +6,7 @@ import { Component, Input } from "@angular/core";
 	styleUrls: ["./fw-alert.component.css"],
 })
 export class FwAlertComponent {
-	@Input({ required: true }) alertType: "none" | "warn" | "error" | "info" =
-		"none";
+	@Input({ required: true }) alertType: "none" | "warn" | "error" | "info" = "none";
 	@Input() alertMessage: string = "";
 
 	public hideAlert() {

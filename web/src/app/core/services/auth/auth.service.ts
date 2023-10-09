@@ -25,41 +25,31 @@ export class AuthService {
 	// We don't use resourceService, since we have JWT logic here.
 	register(user: User) {
 		const registerUrl = this.baseUrl + "register";
-		return this.http
-			.post(registerUrl, user, { observe: "response" })
-			.subscribe(
-				(response: HttpResponse<any>) => {
-					if (response.ok) {
-						this.snackBar.open(
-							"Registration successful! You can now log in.",
-							"Close",
-							{
-								verticalPosition: "top",
-								horizontalPosition: "center",
-								duration: 5000,
-								panelClass: "success-snackbar",
-							},
-						);
-						// Redirect to login page
-						this.router.navigate(["/login"]);
-					} else {
-						console.log("Elessss");
-					}
-				},
-				(error) => {
-					this.errorService.setError(error.message);
-					this.snackBar.open(
-						`Registration failed. Error: ${error.error.message}`,
-						"Close",
-						{
-							verticalPosition: "top",
-							horizontalPosition: "center",
-							duration: 5000,
-							panelClass: "error-snackbar",
-						},
-					);
-				},
-			);
+		return this.http.post(registerUrl, user, { observe: "response" }).subscribe(
+			(response: HttpResponse<any>) => {
+				if (response.ok) {
+					this.snackBar.open("Registration successful! You can now log in.", "Close", {
+						verticalPosition: "top",
+						horizontalPosition: "center",
+						duration: 5000,
+						panelClass: "success-snackbar",
+					});
+					// Redirect to login page
+					this.router.navigate(["/login"]);
+				} else {
+					console.log("Elessss");
+				}
+			},
+			(error) => {
+				this.errorService.setError(error.message);
+				this.snackBar.open(`Registration failed. Error: ${error.error.message}`, "Close", {
+					verticalPosition: "top",
+					horizontalPosition: "center",
+					duration: 5000,
+					panelClass: "error-snackbar",
+				});
+			},
+		);
 	}
 
 	authenticate(credentials?: ICredentials, callback?: Function) {
@@ -68,20 +58,18 @@ export class AuthService {
 		});
 		const loginUrl = this.baseUrl + "login";
 
-		this.http
-			.post(loginUrl, credentials, { headers, observe: "response" })
-			.subscribe(
-				(response: HttpResponse<any>) => {
-					if (response.ok) {
-						const jwt = response.body["token"];
-						this.saveAuthToken(jwt);
-					}
-					return callback?.call(null);
-				},
-				(error) => {
-					this.errorService.setError(error.error.msg);
-				},
-			);
+		this.http.post(loginUrl, credentials, { headers, observe: "response" }).subscribe(
+			(response: HttpResponse<any>) => {
+				if (response.ok) {
+					const jwt = response.body["token"];
+					this.saveAuthToken(jwt);
+				}
+				return callback?.call(null);
+			},
+			(error) => {
+				this.errorService.setError(error.error.msg);
+			},
+		);
 	}
 
 	logout() {

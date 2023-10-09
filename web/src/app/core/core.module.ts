@@ -6,8 +6,6 @@ import { AuthInterceptor } from "./services/auth/auth-interceptor";
 @NgModule({
 	declarations: [],
 	imports: [CommonModule],
-	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-	],
+	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
 export class CoreModule {}

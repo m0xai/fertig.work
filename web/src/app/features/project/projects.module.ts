@@ -9,12 +9,6 @@ import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent],
-	imports: [
-		CommonModule,
-		MatStepperModule,
-		ReactiveFormsModule,
-		MatInputModule,
-		MatButtonModule,
-	],
+	imports: [CommonModule, MatStepperModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
 })
 export class ProjectModule {}

@@ -25,8 +25,6 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 	}
 
 	public fetch(): Observable<T[]> {
-		//? Headers only set for other requests, that require authentication
-		//   .set('withCredentials', 'true');
 		return this.httpClient
 			.get<T[]>(this.apiURL)
 			.pipe(map((result) => result.map((i) => new this.tConstructor(i))));
@@ -44,11 +42,7 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 			.pipe(map((result) => new this.tConstructor(result)));
 	}
 
-	public partialUpdate(
-		resource: Partial<T> & {
-			toJson: () => T;
-		},
-	): Observable<T> {
+	public partialUpdate(resource: Partial<T> & { toJson: () => T }): Observable<T> {
 		return this.httpClient
 			.patch<T>(`${this.apiURL}${resource.id}/`, resource.toJson())
 			.pipe(map((result) => new this.tConstructor(result)));

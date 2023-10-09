@@ -8,14 +8,7 @@ import { TaskListModule } from "./task-list/task-list.module";
 
 @NgModule({
 	declarations: [],
-	imports: [
-		CommonModule,
-		UserModule,
-		HomeModule,
-		ProjectModule,
-		TaskModule,
-		TaskListModule,
-	],
+	imports: [CommonModule, UserModule, HomeModule, ProjectModule, TaskModule, TaskListModule],
 	exports: [HomeModule],
 })
 export class FeaturesModule {}

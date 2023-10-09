@@ -8,13 +8,7 @@ import { SharedTaskModule } from "../../shared/modules/shared-task/shared-task.m
 @NgModule({
 	// The imports and exports of this module's component can be found in shared-task modules
 	declarations: [],
-	imports: [
-		CommonModule,
-		MatInputModule,
-		FormsModule,
-		MatListModule,
-		SharedTaskModule,
-	],
+	imports: [CommonModule, MatInputModule, FormsModule, MatListModule, SharedTaskModule],
 	exports: [],
 })
 export class TaskListModule {}
