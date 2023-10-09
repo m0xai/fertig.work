@@ -44,6 +44,16 @@ export abstract class ResourceService<T extends ResourceModel<T>> {
 			.pipe(map((result) => new this.tConstructor(result)));
 	}
 
+	public partialUpdate(
+		resource: Partial<T> & {
+			toJson: () => T;
+		},
+	): Observable<T> {
+		return this.httpClient
+			.patch<T>(`${this.apiURL}${resource.id}/`, resource.toJson())
+			.pipe(map((result) => new this.tConstructor(result)));
+	}
+
 	public delete(id: number): Observable<T> {
 		return this.httpClient.delete<T>(`${this.apiURL}${id}/`);
 	}

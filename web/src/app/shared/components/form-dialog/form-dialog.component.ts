@@ -57,7 +57,9 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 		const control: FormControl = this.formGroup.get(field);
 		if (control.valid) {
 			console.log("control is valid", { ...this.data, [field]: control.value });
-			// Set new field value for the frontend form
+
+			const tmpTask = { ...this.data, [field]: control.value };
+			this.taskFieldUpdated.emit(tmpTask);
 			this.task = { ...this.task, [field]: control.value } as Task;
 		}
 	}

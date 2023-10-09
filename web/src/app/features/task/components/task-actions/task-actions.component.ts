@@ -21,6 +21,7 @@ export interface DialogData {
 export class TaskActionsComponent {
 	@Input({ required: true }) task?: Task;
 	@Output() taskDeleted = new EventEmitter<Task>();
+	@Output() taskUpdated = new EventEmitter();
 
 	constructor(
 		public dialog: MatDialog,
@@ -38,9 +39,26 @@ export class TaskActionsComponent {
 		dialogRef.componentInstance.closeDialogOutput.subscribe(() => {
 			dialogRef.close();
 		});
+		dialogRef.componentInstance.taskFieldUpdated.subscribe((updatedPart) =>
+			this.partialUpdateTask(updatedPart),
+		);
 		dialogRef.afterClosed().subscribe(() => {
 			dialogRef.componentInstance.closeDialogOutput.unsubscribe();
+			dialogRef.componentInstance.taskFieldUpdated.unsubscribe();
 		});
+	}
+
+	partialUpdateTask(inputTask: Task) {
+		// TODO:  Emit task update in task-list-detail
+		const taskToUpdate = new Task(inputTask);
+		if (taskToUpdate.getId()) {
+			this.taskResourceService.partialUpdate(taskToUpdate).subscribe((resp) => {});
+		} else {
+			this.notificationService.showNotification(
+				"Task couldn't updated, caused by invalid request",
+				NotificationType.error,
+			);
+		}
 	}
 
 	confirmDeleteTask() {
