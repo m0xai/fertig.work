@@ -69,7 +69,10 @@ public class TaskService {
             task.setDescription(taskDTORequest.getDescription());
             task.setIsDone(taskDTORequest.getIsDone());
             task.setIsDraft(taskDTORequest.getIsDraft());
+            // NOTE: This cannot change, since we have to track, who created.
             task.setCreatedBy(fwUserService.getCurrentUser());
+            task.setPriority(taskDTORequest.getPriority());
+            task.setStatus(taskDTORequest.getStatus());
             task.setTaskList(this.getTaskList(taskDTORequest.getTaskList()));
             return TaskDTOResponse.fromTask(taskRepository.save(task));
         } else {
