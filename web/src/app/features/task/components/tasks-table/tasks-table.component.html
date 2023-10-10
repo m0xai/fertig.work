@@ -26,7 +26,8 @@
     <ng-container matColumnDef="actions">
         <th *matHeaderCellDef mat-header-cell>Actions</th>
         <td *matCellDef="let element" mat-cell>
-            <app-task-actions (taskDeleted)="onTaskDeleted($event)" [task]="element"/>
+            <app-task-actions (taskDeleted)="onTaskDeleted($event)" (taskUpdated)="forwardUpdatedTask($event)"
+                              [task]="element"/>
         </td>
     </ng-container>
 

@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from "@angular/core";
 import { TaskList } from "../../models/task-list.model";
 import { TaskResourceService } from "../../../task/services/task-resource.service";
 import { Task } from "src/app/features/task/models/task.model";
+import {
+	NotificationService,
+	NotificationType,
+} from "../../../../shared/services/notification/notification.service";
 
 @Component({
 	selector: "app-task-list-detail",
@@ -14,7 +18,10 @@ export class TaskListDetailComponent implements OnInit {
 
 	tasksOfList: Task[] = [];
 
-	constructor(private taskResourceService: TaskResourceService) {}
+	constructor(
+		private taskResourceService: TaskResourceService,
+		private notificationService: NotificationService,
+	) {}
 
 	getTasksByList() {
 		this.taskResourceService.getTasksByList(this.taskList?.id).subscribe((items) => {
@@ -32,5 +39,22 @@ export class TaskListDetailComponent implements OnInit {
 
 	onTaskAdded(task: Task) {
 		this.tasksOfList = [...this.tasksOfList, task];
+	}
+
+	handleTaskUpdated(updatedTask: Task) {
+		const updatedTaskIdInList = this.tasksOfList.findIndex(
+			(item) => item.getId() == updatedTask.getId(),
+		);
+		if (updatedTaskIdInList) {
+			// TODO: do some search this may not be the optimal way to update task list
+			const tmp = [...this.tasksOfList];
+			tmp[updatedTaskIdInList] = updatedTask;
+			this.tasksOfList = tmp;
+		} else {
+			this.notificationService.showNotification(
+				"An error occurred while updating task in view.",
+				NotificationType.error,
+			);
+		}
 	}
 }

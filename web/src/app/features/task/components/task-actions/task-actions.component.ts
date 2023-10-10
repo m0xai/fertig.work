@@ -52,7 +52,16 @@ export class TaskActionsComponent {
 		// TODO:  Emit task update in task-list-detail
 		const taskToUpdate = new Task(inputTask);
 		if (taskToUpdate.getId()) {
-			this.taskResourceService.partialUpdate(taskToUpdate).subscribe((resp) => {});
+			this.taskResourceService.partialUpdate(taskToUpdate).subscribe(
+				(resp) => {
+					this.taskUpdated.emit(resp);
+				},
+				(error) =>
+					this.notificationService.showNotification(
+						"An error occurred while updaing task: " + error,
+						NotificationType.error,
+					),
+			);
 		} else {
 			this.notificationService.showNotification(
 				"Task couldn't updated, caused by invalid request",
