@@ -42,10 +42,8 @@ export class TaskListDetailComponent implements OnInit {
 	}
 
 	handleTaskUpdated(updatedTask: Task) {
-		const updatedTaskIdInList = this.tasksOfList.findIndex(
-			(item) => item.getId() == updatedTask.getId(),
-		);
-		if (updatedTaskIdInList) {
+		const updatedTaskIdInList = this.tasksOfList.findIndex((item) => item.id == updatedTask.id);
+		if (updatedTaskIdInList > -1) {
 			// TODO: do some search this may not be the optimal way to update task list
 			const tmp = [...this.tasksOfList];
 			tmp[updatedTaskIdInList] = updatedTask;

@@ -13,7 +13,7 @@ export class TasksTableComponent {
 	displayedColumns: string[] = ["isDone", "name", "status", "priority", "actions"];
 	dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>();
 	@Output() taskDeleted = new EventEmitter<Task>();
-	@Output() taskUpdated = new EventEmitter<Task>();
+	@Output() forwardUpdatedTask = new EventEmitter<Task>();
 	@ViewChild(MatSort) private sort!: MatSort;
 
 	constructor(private taskResourceService: TaskResourceService) {}
@@ -34,10 +34,7 @@ export class TasksTableComponent {
 	}
 
 	updateTaskStatus(element: Task) {
-		console.log(element);
-		this.taskResourceService.update(element).subscribe((response) => {
-			console.log("Resp: ", response);
-		});
+		this.taskResourceService.update(element).subscribe((response) => {});
 	}
 
 	onTaskDeleted(task: Task) {
@@ -45,8 +42,8 @@ export class TasksTableComponent {
 		this.taskDeleted.emit(task);
 	}
 
-	forwardUpdatedTask($event: Task) {
+	onTaskUpdate($event: Task) {
 		// This just forwards updated task to parent (task-list-detail component
-		this.taskUpdated.emit($event);
+		this.forwardUpdatedTask.emit($event);
 	}
 }

@@ -5,8 +5,8 @@
         <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Ideas">
     </mat-form-field>
 </div>
-<app-tasks-table (taskDeleted)="onTaskDeleted($event)" (taskUpdated)="handleTaskUpdated($event)"
+<app-tasks-table (forwardUpdatedTask)="handleTaskUpdated($event)" (taskDeleted)="onTaskDeleted($event)"
                  [searchText]="searchInTaskList"
-                 [tasks]="tasksOfList"/>
+                 [tasks]="tasksOfList" />
 <!--Here comes new Task dialog-->
-<app-task-create (taskAdded)="onTaskAdded($event)" [taskListId]="taskList?.id"/>
+<app-task-create (taskAdded)="onTaskAdded($event)" [taskListId]="taskList?.id" />
