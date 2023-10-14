@@ -8,10 +8,7 @@ import {
 	NotificationService,
 	NotificationType,
 } from "../../../../shared/services/notification/notification.service";
-
-export interface DialogData {
-	animal: "panda" | "unicorn" | "lion";
-}
+import { TaskDTO } from "../../dtos/task-dto";
 
 @Component({
 	selector: "app-task-actions",
@@ -21,7 +18,8 @@ export interface DialogData {
 export class TaskActionsComponent {
 	@Input({ required: true }) task?: Task;
 	@Output() taskDeleted = new EventEmitter<Task>();
-	@Output() taskUpdated = new EventEmitter();
+	@Output() taskUpdated = new EventEmitter<Task>();
+	heapTask = new Task();
 
 	constructor(
 		public dialog: MatDialog,
@@ -35,14 +33,19 @@ export class TaskActionsComponent {
 			minHeight: "600px",
 			minWidth: "600px",
 		});
+		dialogRef.afterOpened().subscribe(() => {
+			this.heapTask = dialogRef.componentInstance.task; // Set heap task from the value of loaded task into dialog
+		});
 		// Close dialog button in the dialog clicked
 		dialogRef.componentInstance.closeDialogOutput.subscribe(() => {
 			dialogRef.close();
 		});
-		dialogRef.componentInstance.taskFieldUpdated.subscribe((updatedPart) =>
-			this.partialUpdateTask(updatedPart),
-		);
-		dialogRef.afterClosed().subscribe(() => {
+		dialogRef.componentInstance.taskFieldUpdated.subscribe((updatedPart: TaskDTO) => {
+			this.heapTask = updatedPart.toEntity();
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			this.partialUpdateTask(this.heapTask); // Send PATCH requiest to backend
+			this.taskUpdated.emit(this.heapTask); // Send heapTask to update grandparent TaskListDetail component
 			dialogRef.componentInstance.closeDialogOutput.unsubscribe();
 			dialogRef.componentInstance.taskFieldUpdated.unsubscribe();
 		});
@@ -50,21 +53,12 @@ export class TaskActionsComponent {
 
 	partialUpdateTask(inputTask: Task) {
 		// TODO:  Emit task update in task-list-detail
-		const taskToUpdate = new Task(inputTask);
-		if (taskToUpdate.getId()) {
-			this.taskResourceService.partialUpdate(taskToUpdate).subscribe(
-				(resp) => {
-					this.taskUpdated.emit(resp);
-				},
-				(error) =>
-					this.notificationService.showNotification(
-						"An error occurred while updaing task: " + error,
-						NotificationType.error,
-					),
-			);
+		if (!Task.isEqual(inputTask, this.heapTask)) {
+			debugger;
+			this.taskResourceService.partialUpdate(inputTask).subscribe(() => {});
 		} else {
 			this.notificationService.showNotification(
-				"Task couldn't updated, caused by invalid request",
+				"Task changes couldn't be saved, the task object is not present.",
 				NotificationType.error,
 			);
 		}
