@@ -1,9 +1,6 @@
 package work.fertig.backend.project;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import work.fertig.backend.base.BaseEntity;
 
@@ -22,4 +19,6 @@ public class Project extends BaseEntity {
     private String description;
     private Boolean isArchived;
 
+    @OneToOne(mappedBy = "project")
+    private ProjectUsers projectUsers;
 }
