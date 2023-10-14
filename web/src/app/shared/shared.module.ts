@@ -37,7 +37,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 		FocusableDirective,
 		OpenableDirective,
 	],
-	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent],
+	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent, FormDialogComponent],
 	imports: [
 		CommonModule,
 		RouterLink,
