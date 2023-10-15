@@ -11,25 +11,23 @@ export abstract class ResourceModel<T> implements IResource {
 		}
 	}
 
-	static isEqual(obj1: any, obj2: any) {
-		const props1 = Object.getOwnPropertyNames(obj1);
-		const props2 = Object.getOwnPropertyNames(obj2);
-		if (props1.length != props2.length) {
+	static isEqual(objA: any, objB: any): boolean {
+		const keysA = Object.keys(objA);
+		const keysB = Object.keys(objB);
+
+		// Check if the number of keys is the same
+		if (keysA.length !== keysB.length) {
 			return false;
 		}
-		for (const element of props1) {
-			const val1: any = obj1[element];
-			const val2: any = obj2[element];
-			const isObjects = this.isObject(val1) && this.isObject(val2);
-			if ((isObjects && !this.isEqual(val1, val2)) || (!isObjects && val1 !== val2)) {
+
+		// Check if all keys in objA exist in objB and have the same values
+		for (const key of keysA) {
+			if (!keysB.includes(key) || objA[key] !== objB[key]) {
 				return false;
 			}
 		}
-		return true;
-	}
 
-	static isObject(object: any) {
-		return object != null && typeof object === "object";
+		return true;
 	}
 
 	getId(): number {
