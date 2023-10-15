@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import work.fertig.backend.project.dtos.ProjectDTORequest;
 import work.fertig.backend.project.dtos.ProjectDTOResponse;
+import work.fertig.backend.project.exceptions.ProjectNotFoundException;
 import work.fertig.backend.project.models.Project;
 import work.fertig.backend.project.repositories.ProjectRepository;
+import work.fertig.backend.project.services.ProjectService;
 
 import java.util.List;
 
@@ -19,6 +22,9 @@ public class ProjectController {
     @Autowired
     public final ProjectRepository repository;
 
+    @Autowired
+    private ProjectService projectService;
+
     public ProjectController(ProjectRepository repository) {
         this.repository = repository;
     }
@@ -28,12 +34,14 @@ public class ProjectController {
         return repository.findAll();
     }
 
-    @GetMapping("/projects/{projectId}/")
-    public ResponseEntity<ProjectDTOResponse> getSingleTodo(@PathVariable Long projectId) {
-        Project project = repository.findById(projectId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Project with the id: " + projectId + " not found in our database."));
-        return new ResponseEntity<>(ProjectDTOResponse.fromProject(project), HttpStatus.OK);
+    @GetMapping("/projects/{id}/")
+    public ResponseEntity<ProjectDTOResponse> getSingleTodo(@PathVariable Long id) throws ProjectNotFoundException {
+        try {
+            ProjectDTOResponse project = projectService.get(id);
+            return new ResponseEntity<>(project, HttpStatus.OK);
+        } catch (ProjectNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with ID: " + id + " not found.");
+        }
     }
 
     @PostMapping("/projects/")
