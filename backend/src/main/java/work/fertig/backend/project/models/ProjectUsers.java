@@ -1,4 +1,4 @@
-package work.fertig.backend.project;
+package work.fertig.backend.project.models;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import work.fertig.backend.project.Project;
+import work.fertig.backend.project.models.Project;
 
 import java.sql.Timestamp;
 

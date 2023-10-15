@@ -1,4 +1,4 @@
-package work.fertig.backend.project;
+package work.fertig.backend.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.project.dtos.ProjectDTOResponse;
+import work.fertig.backend.project.models.Project;
+import work.fertig.backend.project.repositories.ProjectRepository;
 
 import java.util.List;
 
