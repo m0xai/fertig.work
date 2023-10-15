@@ -2,10 +2,13 @@ package work.fertig.backend.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import work.fertig.backend.project.dtos.ProjectDTORequest;
 import work.fertig.backend.project.dtos.ProjectDTOResponse;
 import work.fertig.backend.project.exceptions.ProjectNotFoundException;
 import work.fertig.backend.project.models.Project;
 import work.fertig.backend.project.repositories.ProjectRepository;
+import work.fertig.backend.user.FWUser;
+import work.fertig.backend.user.FWUserService;
 
 import java.util.Optional;
 
