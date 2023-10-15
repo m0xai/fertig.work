@@ -23,6 +23,7 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 	loadTaskData() {
 		if (this.data) {
 			this.task = Task.create()
+				.withId(this.data.id!)
 				.withName(this.data.name!)
 				.withDescription(this.data.description!)
 				.withIsDone(this.data.isDone!)
@@ -31,6 +32,8 @@ export class FormDialogComponent implements OnInit, OnDestroy {
 				.withPriority(this.data.priority!)
 				.withStatus(this.data.status!)
 				.withTaskList(this.data.taskList!)
+				.withCreatedAt(this.data.createdAt!)
+				.withUpdatedAt(this.data.updatedAt!)
 				.build();
 		}
 	}

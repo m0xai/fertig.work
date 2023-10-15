@@ -18,6 +18,11 @@ export class Task extends ResourceModel<Task> {
 		return new Task();
 	}
 
+	public withId(value: number) {
+		this.id = value;
+		return this;
+	}
+
 	public withName(value: string) {
 		this.name = value;
 		return this;
@@ -55,6 +60,16 @@ export class Task extends ResourceModel<Task> {
 
 	public withPriority(value: ETaskPriority) {
 		this.priority = value;
+		return this;
+	}
+
+	public withCreatedAt(value: Date) {
+		this.createdAt = value;
+		return this;
+	}
+
+	public withUpdatedAt(value: Date) {
+		this.updatedAt = value;
 		return this;
 	}
 
