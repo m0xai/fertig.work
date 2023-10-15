@@ -19,6 +19,7 @@ export class TaskActionsComponent {
 	@Input({ required: true }) task?: Task;
 	@Output() taskDeleted = new EventEmitter<Task>();
 	@Output() taskUpdated = new EventEmitter<Task>();
+	persistedTask: Task = new Task();
 	heapTask = new Task();
 
 	constructor(
@@ -34,14 +35,16 @@ export class TaskActionsComponent {
 			minWidth: "600px",
 		});
 		dialogRef.afterOpened().subscribe(() => {
-			this.heapTask = dialogRef.componentInstance.task; // Set heap task from the value of loaded task into dialog
+			// Set persisted and heap tasks as input task, then change only heap task
+			this.persistedTask = dialogRef.componentInstance.task;
+			this.heapTask = dialogRef.componentInstance.task;
 		});
 		// Close dialog button in the dialog clicked
 		dialogRef.componentInstance.closeDialogOutput.subscribe(() => {
 			dialogRef.close();
 		});
 		dialogRef.componentInstance.taskFieldUpdated.subscribe((updatedPart: TaskDTO) => {
-			this.heapTask = updatedPart.toEntity();
+			this.heapTask = updatedPart.toEntity(); // Update heap task after each field change
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			this.partialUpdateTask(this.heapTask); // Send PATCH requiest to backend
