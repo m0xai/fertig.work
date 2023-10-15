@@ -22,11 +22,26 @@ public class ProjectDTOResponse implements ProjectDTO {
     private String color;
     private Timestamp startOn;
     private Long projectUsers;
+    private Long createdBy;
 
     private ProjectDTOResponse() {
     }
 
-    public static ProjectDTOResponse fromProject(Project project) {
-        return ProjectDTOResponse.builder().id(project.getId()).title(project.getTitle()).description(project.getDescription()).projectUsers(project.getProjectUsers().getId()).createdAt(project.getCreatedAt()).updatedAt(project.getUpdatedAt()).build();
+    public static ProjectDTOResponse fromEntity(Project project) {
+        // NOTE: We don't have ProjectUsers on creation yet, so set null,
+        // but if we have, then return it's id
+        // This may lead problems, make more research
+        return ProjectDTOResponse.builder()
+                .id(project.getId())
+                .title(project.getTitle())
+                .description(project.getDescription())
+                //.projectUsers()
+                .isArchived(project.getIsArchived())
+                .startOn(project.getStartOn())
+                .color(project.getColor())
+                .createdBy(project.getCreatedBy().getId())
+                .createdAt(project.getCreatedAt())
+                .updatedAt(project.getUpdatedAt())
+                .build();
     }
 }
