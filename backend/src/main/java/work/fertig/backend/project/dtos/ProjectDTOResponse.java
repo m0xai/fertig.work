@@ -19,6 +19,8 @@ public class ProjectDTOResponse implements ProjectDTO {
     private Boolean isArchived;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private String color;
+    private Timestamp startOn;
     private Long projectUsers;
 
     private ProjectDTOResponse() {
