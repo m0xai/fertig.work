@@ -29,6 +29,17 @@ public class ProjectController {
         this.repository = repository;
     }
 
+    @PostMapping("/projects/")
+    public ResponseEntity<ProjectDTOResponse> create(@Valid @RequestBody ProjectDTORequest request) throws ResponseStatusException {
+        try {
+            ProjectDTOResponse projectDTOResponse = projectService.create(request);
+            return new ResponseEntity<>(projectDTOResponse, HttpStatus.CREATED);
+        } catch (RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "An unexpected error occurred while creating a project. Error: " + ex.getMessage());
+        }
+    }
+
     @GetMapping("/projects/")
     public List<Project> getAllProjects() {
         return repository.findAll();
