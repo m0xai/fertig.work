@@ -46,7 +46,7 @@ export class TaskActionsComponent {
 		dialogRef.componentInstance.taskFieldUpdated.subscribe((updatedPart: TaskDTO) => {
 			this.heapTask = updatedPart.toEntity(); // Update heap task after each field change
 		});
-		dialogRef.afterClosed().subscribe((result) => {
+		dialogRef.afterClosed().subscribe(() => {
 			this.partialUpdateTask(this.heapTask); // Send PATCH requiest to backend
 			this.taskUpdated.emit(this.heapTask); // Send heapTask to update grandparent TaskListDetail component
 			dialogRef.componentInstance.closeDialogOutput.unsubscribe();
@@ -55,15 +55,23 @@ export class TaskActionsComponent {
 	}
 
 	partialUpdateTask(inputTask: Task) {
-		// TODO:  Emit task update in task-list-detail
-		if (!Task.isEqual(inputTask, this.heapTask)) {
-			debugger;
-			this.taskResourceService.partialUpdate(inputTask).subscribe(() => {});
+		if (!Task.isEqual(inputTask, this.persistedTask)) {
+			this.taskResourceService.partialUpdate(inputTask).subscribe({
+				next: () => {
+					this.notificationService.showNotification(
+						"Task has been updated successfully.",
+						NotificationType.success,
+					);
+				},
+				error: (e) => {
+					this.notificationService.showNotification(
+						"An error occurred, while trying to update task object: " + e.error.detail,
+						NotificationType.error,
+					);
+				},
+			});
 		} else {
-			this.notificationService.showNotification(
-				"Task changes couldn't be saved, the task object is not present.",
-				NotificationType.error,
-			);
+			// Task hasn't changed, no need to update anything
 		}
 	}
 
