@@ -24,8 +24,19 @@ export class TaskListDetailComponent implements OnInit {
 	) {}
 
 	getTasksByList() {
-		this.taskResourceService.getTasksByList(this.taskList?.id).subscribe((items) => {
-			this.tasksOfList = items;
+		this.taskResourceService.getTasksByList(this.taskList?.id).subscribe({
+			next: (items) => {
+				this.tasksOfList = items;
+			},
+			error: (e) => {
+				this.notificationService.showNotification(
+					"Cannot fetch task of list with ID: " +
+						this.taskList?.id +
+						". Error: " +
+						e.error.detail,
+					NotificationType.error,
+				);
+			},
 		});
 	}
 
