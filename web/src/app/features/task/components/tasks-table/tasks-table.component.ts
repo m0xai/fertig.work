@@ -3,6 +3,10 @@ import { Task } from "../../models/task.model";
 import { MatTableDataSource } from "@angular/material/table";
 import { TaskResourceService } from "../../services/task-resource.service";
 import { MatSort } from "@angular/material/sort";
+import {
+	NotificationService,
+	NotificationType,
+} from "../../../../shared/services/notification/notification.service";
 
 @Component({
 	selector: "app-tasks-table",
@@ -16,7 +20,10 @@ export class TasksTableComponent {
 	@Output() forwardUpdatedTask = new EventEmitter<Task>();
 	@ViewChild(MatSort) private sort!: MatSort;
 
-	constructor(private taskResourceService: TaskResourceService) {}
+	constructor(
+		private taskResourceService: TaskResourceService,
+		private notificationService: NotificationService,
+	) {}
 
 	@Input({ required: true }) set searchText(value: string) {
 		this.applySearch(value);
@@ -34,7 +41,14 @@ export class TasksTableComponent {
 	}
 
 	updateTaskStatus(element: Task) {
-		this.taskResourceService.update(element).subscribe((response) => {});
+		this.taskResourceService.update(element).subscribe({
+			next: (value) => {},
+			error: (err) =>
+				this.notificationService.showNotification(
+					"Task with ID: " + element.id + " cannot updated. Error: " + err.error.detail,
+					NotificationType.error,
+				),
+		});
 	}
 
 	onTaskDeleted(task: Task) {
