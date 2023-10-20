@@ -6,9 +6,23 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatCardModule } from "@angular/material/card";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent],
-	imports: [CommonModule, MatStepperModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
+	imports: [
+		CommonModule,
+		MatStepperModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		MatButtonModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatCardModule,
+		MatTooltipModule,
+	],
 })
 export class ProjectModule {}
