@@ -8,7 +8,10 @@ import { FormBuilder, Validators } from "@angular/forms";
 })
 export class ProjectCreateComponent {
 	firstFormGroup = this._formBuilder.group({
-		firstCtrl: ["", Validators.required],
+		title: ["", Validators.required],
+		description: "",
+		color: ["", Validators.required],
+		startOn: [new Date(), Validators.required],
 	});
 	secondFormGroup = this._formBuilder.group({
 		secondCtrl: ["", Validators.required],
