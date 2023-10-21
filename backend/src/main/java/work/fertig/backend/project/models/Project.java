@@ -27,7 +27,4 @@ public class Project extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "created_by")
     private FWUser createdBy;
-
-    @OneToOne(mappedBy = "project")
-    private ProjectUsers projectUsers;
 }
