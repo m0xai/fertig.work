@@ -25,7 +25,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
 			icon: "token",
 			text: "Projects",
 			isDivider: false,
-			route: "home",
+			route: "projects",
 		},
 		{
 			icon: "inbox",

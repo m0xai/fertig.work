@@ -10,6 +10,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatGridListModule } from "@angular/material/grid-list";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent],
@@ -23,6 +25,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 		MatNativeDateModule,
 		MatCardModule,
 		MatTooltipModule,
+		MatChipsModule,
+		MatGridListModule,
 	],
 })
 export class ProjectModule {}
