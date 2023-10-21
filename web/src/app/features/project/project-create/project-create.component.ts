@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ProjectResourceService } from "../services/project-resource.service";
+import { Project } from "../models/project.model";
 
 @Component({
 	selector: "app-project-create",
@@ -7,7 +9,8 @@ import { FormBuilder, Validators } from "@angular/forms";
 	styleUrls: ["./project-create.component.css"],
 })
 export class ProjectCreateComponent {
-	firstFormGroup = this._formBuilder.group({
+	// TODO: Set FormGroup generic type properly
+	firstFormGroup: FormGroup<any> = this._formBuilder.group({
 		title: ["", Validators.required],
 		description: "",
 		color: ["", Validators.required],
@@ -18,5 +21,18 @@ export class ProjectCreateComponent {
 	});
 	isLinear = false;
 
-	constructor(private _formBuilder: FormBuilder) {}
+	constructor(
+		private _formBuilder: FormBuilder,
+		private projectResourceService: ProjectResourceService,
+	) {}
+
+	submitCreateProjectForm() {
+		if (this.firstFormGroup.valid) {
+			this.projectResourceService.create(new Project(this.firstFormGroup.value)).subscribe({
+				// TODO: redirect users to project page after creation of project
+				next: (resp) => console.log("Sent", resp),
+				error: (err) => console.error(err),
+			});
+		}
+	}
 }
