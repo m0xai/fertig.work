@@ -8,7 +8,7 @@ import { ResourceModel } from "./ResourceModel";
 })
 export abstract class ResourceService<T extends ResourceModel<T>> {
 	public apiURL = "";
-	private apiBase = "http://127.0.0.1:8080/api/v1/";
+	public apiBase = "http://127.0.0.1:8080/api/v1/";
 
 	constructor(
 		public httpClient: HttpClient,
