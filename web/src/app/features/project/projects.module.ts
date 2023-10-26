@@ -12,6 +12,9 @@ import { MatCardModule } from "@angular/material/card";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatTableModule } from "@angular/material/table";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent],
@@ -27,6 +30,9 @@ import { MatGridListModule } from "@angular/material/grid-list";
 		MatTooltipModule,
 		MatChipsModule,
 		MatGridListModule,
+		MatAutocompleteModule,
+		MatTableModule,
+		MatIconModule,
 	],
 })
 export class ProjectModule {}
