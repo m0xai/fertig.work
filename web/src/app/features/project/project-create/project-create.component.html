@@ -40,15 +40,49 @@
     <mat-step [stepControl]="secondFormGroup" label="Project Members">
         <ng-template matStepLabel>Collaborators</ng-template>
         <form [formGroup]="secondFormGroup">
-            <mat-form-field>
-                <mat-label>Search for project user</mat-label>
-                <input formControlName="secondCtrl" matInput required>
+            <mat-form-field class="w-100">
+                <mat-label>Search for users to add in project</mat-label>
+                <input #collaboratorSearch
+                       [matAutocomplete]="auto"
+                       formControlName="secondCtrl"
+                       matInput
+                       type="text"
+                >
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="showFoundUsers" autoActiveFirstOption>
+                    <mat-option (onSelectionChange)="selectFoundUser($event.source.value)"
+                                *ngFor="let user of foundUsers"
+                                [value]="user"
+                    >
+                        {{ user.username }} - <i>{{user.email}}</i>
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button color="primary" mat-button mat-raised-button matStepperNext>Next</button>
-            </div>
         </form>
+        <table [dataSource]="selectedUsers" class="mat-elevation-z2" mat-table>
+            <ng-container matColumnDef="username">
+                <th *matHeaderCellDef mat-header-cell>Username</th>
+                <td *matCellDef="let element" mat-cell> {{element.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th *matHeaderCellDef mat-header-cell>Email</th>
+                <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="remove">
+                <th *matHeaderCellDef mat-header-cell>Remove</th>
+                <td *matCellDef="let element" mat-cell>
+                    <mat-icon (click)="removeSelectedUser(element)">delete</mat-icon>
+                </td>
+            </ng-container>
+            <tr *matNoDataRow class="mat-row">
+                <td class="mat-cell text-center" colspan="5">No users added to this project yet.</td>
+            </tr>
+            <tr *matHeaderRowDef="['username', 'email', 'remove']" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: ['username', 'email', 'remove'];" mat-row></tr>
+        </table>
+        <div class="mt-4">
+            <button mat-button matStepperPrevious>Back</button>
+            <button color="primary" mat-button mat-raised-button matStepperNext>Next</button>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
