@@ -24,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
 public class FWUserController {
 
     @Autowired
@@ -53,6 +54,11 @@ public class FWUserController {
     @GetMapping("/users")
     public List<FWUser> getAllUsers() {
         return repository.findAll();
+    }
+
+    @GetMapping(path = "/users", params = {"emailQuery"})
+    public List<FWUserDTOResponse> searchForUsers(@RequestParam String emailQuery) {
+        return fwUserService.searchByEmail(emailQuery);
     }
 
     @GetMapping("/users/{id}/")
@@ -91,6 +97,8 @@ public class FWUserController {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("token", token);
         responseBody.put("msg", "User signed-in successfully!.");
-        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername())).body(responseBody);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtAuthService.generateToken(fwUser.getUsername()))
+                .body(responseBody);
     }
 }

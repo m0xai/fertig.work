@@ -9,6 +9,8 @@ import work.fertig.backend.user.dtos.FWUserDTOResponse;
 import work.fertig.backend.user.exceptions.UserAlreadyExistsException;
 import work.fertig.backend.user.exceptions.UserNotFoundException;
 
+import java.util.List;
+
 @Service
 public class FWUserService {
     @Autowired
@@ -35,7 +37,7 @@ public class FWUserService {
         return FWUserDTOResponse.fromEntity(savedUser);
     }
 
-    private FWUser getUserEntity(Long id) {
+    public FWUser getUserEntity(Long id) {
         if (!fwUserRepository.existsById(id)) {
             throw new UserNotFoundException("A user with id: " + id + " not found");
         }
@@ -53,7 +55,15 @@ public class FWUserService {
     }
 
     public FWUser getCurrentUser() {
-        FWUserDetails fwUserDetails = (FWUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        FWUserDetails fwUserDetails = (FWUserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         return this.getUserEntity(fwUserDetails.getId());
     }
+
+    public List<FWUserDTOResponse> searchByEmail(String input) {
+        List<FWUser> foundUsers = fwUserRepository.findTop10ByEmailContaining(input);
+        return foundUsers.stream().map(FWUserDTOResponse::fromEntity).toList();
+    }
+
 }
