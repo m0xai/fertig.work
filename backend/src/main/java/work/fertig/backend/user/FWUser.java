@@ -13,7 +13,7 @@ import work.fertig.backend.base.BaseEntity;
 import java.util.Collection;
 
 @Entity
-@Table(name = "fw_users") // table user is for postgres reserved
+@Table(name = "fw_user") // table user is for postgres reserved
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,6 +40,6 @@ public class FWUser extends BaseEntity {
     private String email;
 
     @ManyToMany
-    @JoinTable(name = "fw_users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinTable(name = "fw_user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 }
