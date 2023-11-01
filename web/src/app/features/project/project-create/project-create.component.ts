@@ -75,7 +75,7 @@ export class ProjectCreateComponent implements AfterViewInit {
 		return user && user.username ? `${user.username} - ${user.email}` : "";
 	}
 
-	removeSelectedUser(element: User) {
-		console.log(element);
+	removeSelectedUser(user: User) {
+		this.selectedUsers = this.selectedUsers.filter((v: User) => v.id !== user.id);
 	}
 }
