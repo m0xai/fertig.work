@@ -19,13 +19,17 @@ public class ProjectService {
     @Autowired
     private FWUserService fwUserService;
 
-    public ProjectDTOResponse get(Long id) {
+    public Project getEntity(Long id) {
         Optional<Project> project = this.projectRepository.findById(id);
         if (project.isEmpty()) {
             throw new ProjectNotFoundException("Project with ID: " + id + " not found.");
         } else {
-            return ProjectDTOResponse.fromEntity(project.get());
+            return project.get();
         }
+    }
+
+    public ProjectDTOResponse get(Long id) {
+        return ProjectDTOResponse.fromEntity(this.getEntity(id));
     }
 
     public ProjectDTOResponse create(ProjectDTORequest request) {
