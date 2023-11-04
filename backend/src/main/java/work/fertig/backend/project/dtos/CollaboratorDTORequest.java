@@ -1,5 +1,6 @@
 package work.fertig.backend.project.dtos;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import work.fertig.backend.project.models.Collaborator;
 import work.fertig.backend.project.models.Project;
@@ -14,7 +15,9 @@ import java.sql.Timestamp;
 @Builder
 public class CollaboratorDTORequest implements CollaboratorDTO {
     private Long id;
+    @NotNull(message = "User ID field cannot be blank.")
     private Long user;
+    @NotNull(message = "Project ID field cannot be blank.")
     private Long project;
     private String role;
     private Boolean isJoined;
