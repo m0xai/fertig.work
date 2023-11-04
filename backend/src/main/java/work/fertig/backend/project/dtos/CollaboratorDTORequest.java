@@ -27,7 +27,7 @@ public class CollaboratorDTORequest implements CollaboratorDTO {
     private CollaboratorDTORequest() {
     }
 
-    private Collaborator toEntity(FWUser fwUser, Project project) {
+    public Collaborator toEntity(FWUser fwUser, Project project) {
         return Collaborator.builder()
                 .id(this.getId())
                 .user(fwUser)
