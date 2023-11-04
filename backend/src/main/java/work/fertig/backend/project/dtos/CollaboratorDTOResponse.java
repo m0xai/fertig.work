@@ -33,6 +33,8 @@ public class CollaboratorDTOResponse implements CollaboratorDTO {
                 .joinedOn(collaborator.getJoinedOn())
                 .isInvited(collaborator.getIsInvited())
                 .invitedOn(collaborator.getInvitedOn())
+                .createdAt(collaborator.getCreatedAt())
+                .updatedAt(collaborator.getUpdatedAt())
                 .build();
     }
 }
