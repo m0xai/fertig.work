@@ -27,4 +27,7 @@ public class Project extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "created_by")
     private FWUser createdBy;
+
+    // NOTE: We don't need collaborators here exactly. We can have custom JPA functions toa get them
+    // private List<Collaborator> collaborators
 }

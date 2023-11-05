@@ -9,7 +9,6 @@ import work.fertig.backend.user.FWUser;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "collaborator")
 @Getter
 @Setter
 @Builder
@@ -34,6 +33,7 @@ public class Collaborator extends BaseEntity {
     private Timestamp joinedOn;
     private Boolean isInvited;
     private Timestamp invitedOn;
+    // TODO: Add also isLeft and leftOn fields
 
     public Collaborator() {
     }
