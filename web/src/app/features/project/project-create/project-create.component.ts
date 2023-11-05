@@ -5,6 +5,8 @@ import { Project } from "../models/project.model";
 import { UserService } from "../../user/services/user.service";
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from "rxjs";
 import { User } from "../../user/models/user";
+import { CollaboratorResourceService } from "../services/collaborator-resource.service";
+import { Collaborator } from "../models/collaborator.model";
 
 @Component({
 	selector: "app-project-create",
@@ -21,7 +23,7 @@ export class ProjectCreateComponent implements AfterViewInit {
 		startOn: [new Date(), Validators.required],
 	});
 	secondFormGroup = this._formBuilder.group({
-		secondCtrl: [""],
+		secondCtrl: [],
 	});
 	isLinear = false;
 	public foundUsers: User[] = [];
@@ -30,6 +32,7 @@ export class ProjectCreateComponent implements AfterViewInit {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private projectResourceService: ProjectResourceService,
+		private collaboratorResourceService: CollaboratorResourceService,
 		private userService: UserService,
 	) {}
 
@@ -37,7 +40,17 @@ export class ProjectCreateComponent implements AfterViewInit {
 		if (this.firstFormGroup.valid) {
 			this.projectResourceService.create(new Project(this.firstFormGroup.value)).subscribe({
 				// TODO: redirect users to project page after creation of project
-				next: (resp) => console.log("Sent", resp),
+				next: (resp) => {
+					console.log("Sent", resp);
+					// TODO: Send POST request to collaborators
+					const collaborators: Collaborator[] | undefined = [];
+					this.selectedUsers.forEach((v) => {
+						collaborators.push(
+							this.collaboratorResourceService.createCollaborator(v, resp),
+						);
+					});
+					this.collaboratorResourceService.createBulk(collaborators).subscribe({});
+				},
 				error: (err) => console.error(err),
 			});
 		}
