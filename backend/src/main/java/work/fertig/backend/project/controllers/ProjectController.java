@@ -55,14 +55,9 @@ public class ProjectController {
         }
     }
 
-    @PostMapping("/projects/")
-    public Project addSingleTodo(@RequestBody Project projectToSave) {
-        return repository.save(projectToSave);
-    }
-
-    @DeleteMapping("/projects/{projectId}")
-    public void deleteSingleProject(@PathVariable Long projectId) {
-        repository.deleteById(projectId);
+    @DeleteMapping("/projects/{id}")
+    public void deleteSingleProject(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 
 }
