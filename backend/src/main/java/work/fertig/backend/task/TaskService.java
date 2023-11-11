@@ -45,6 +45,10 @@ public class TaskService {
         return taskDTOList.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
+    public List<TaskDTOResponse> getLatest10TasksByProject(Long projectId) {
+        return taskRepository.findTop10ByTaskListProjectId(projectId).stream().map(TaskDTOResponse::fromTask).toList();
+    }
+
     public TaskDTOResponse get(Long id) {
         Optional<Task> task = taskRepository.findById(id);
         if (task.isEmpty()) {

@@ -21,9 +21,9 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping("/tasks/")
-    public ResponseEntity<List<TaskDTOResponse>> getAllTasks() {
-        return new ResponseEntity<>(taskService.getAll(), HttpStatus.OK);
+    @GetMapping(value = "/tasks/", params = {"projectId"})
+    public ResponseEntity<List<TaskDTOResponse>> getTasksByProject(@RequestParam Long projectId) {
+        return new ResponseEntity<>(taskService.getLatest10TasksByProject(projectId), HttpStatus.OK);
     }
 
     @GetMapping("/tasks/{id}/")
