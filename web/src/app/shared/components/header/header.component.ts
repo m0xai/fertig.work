@@ -4,6 +4,8 @@ import { TitleService } from "../../services/title.service";
 import { Subscription } from "rxjs";
 import { MatDrawer } from "@angular/material/sidenav";
 import { BreakpointObserver } from "@angular/cdk/layout";
+import { ProjectResourceService } from "../../../features/project/services/project-resource.service";
+import { Project } from "../../../features/project/models/project.model";
 
 @Component({
 	selector: "app-header",
@@ -14,7 +16,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
 	@ViewChild(MatDrawer, { static: true })
 	drawer!: MatDrawer;
 	public title = "";
-	public menuItems = [
+	public menuItemsPre = [
 		{
 			icon: "dashboard",
 			text: "Dashboard",
@@ -39,19 +41,15 @@ export class HeaderComponent implements OnDestroy, OnInit {
 			isDivider: true,
 			class: "base-sidenav__menu__project-divider",
 		},
-
-		{
-			icon: "book",
-			text: "Project A",
-			isDivider: false,
-			route: "tasks",
-		},
-		{
-			icon: "book",
-			text: "Another Project",
-			isDivider: false,
-			route: "home",
-		},
+	];
+	private projects: Project[] = [];
+	private menuItemsProjects: Array<{
+		icon: string;
+		text: string;
+		isDivider: boolean;
+		route: string;
+	}> = [];
+	private menuItemsAfter = [
 		{
 			icon: null,
 			text: null,
@@ -77,6 +75,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
 		private auth: AuthService,
 		private titleService: TitleService,
 		private observer: BreakpointObserver,
+		private projectResourceService: ProjectResourceService,
 	) {
 		this.subscription = this.titleService.title$.subscribe((title) => {
 			this.title = title;
@@ -93,6 +92,38 @@ export class HeaderComponent implements OnDestroy, OnInit {
 				this.drawer.open();
 			}
 		});
+		this.projectResourceService.fetch().subscribe({
+			next: (response) => {
+				this.projects = response;
+				this.createMenuItemsOfProjects();
+			},
+		});
+	}
+
+	createMenuItemsOfProjects() {
+		this.projects.forEach((project) => {
+			if (project.title) {
+				this.menuItemsProjects = [
+					...this.menuItemsProjects,
+					{
+						icon: "book",
+						text: project.title,
+						isDivider: false,
+						route: "projects/" + project.getId() + "/tasks/",
+					},
+				];
+			}
+		});
+	}
+
+	mergeMenuItems(): Array<{
+		icon: string | null;
+		text: string | null;
+		isDivider: boolean;
+		route?: string | null;
+		class?: string | null;
+	}> {
+		return [...this.menuItemsPre, ...this.menuItemsProjects, ...this.menuItemsAfter];
 	}
 
 	ngOnDestroy() {
