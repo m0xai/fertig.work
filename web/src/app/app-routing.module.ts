@@ -9,6 +9,7 @@ import { ProjectsComponent } from "./features/project/projects/projects.componen
 import { RegisterComponent } from "./features/user/components/register/register.component";
 import { BaseAppComponent } from "./shared/components/base-app/base-app.component";
 import { LogoutGuard } from "./shared/services/guards/logout.guard";
+import { ProjectDetailComponent } from "./features/project/project-detail/project-detail.component";
 
 const routes: Routes = [
 	// TODO: Redirect user to app, if already logged in
@@ -31,11 +32,6 @@ const routes: Routes = [
 		children: [
 			{ path: "home", component: HomeComponent, data: { title: "Home" } },
 			{
-				path: "tasks",
-				component: TasksComponent,
-				data: { title: "Tasks" },
-			},
-			{
 				path: "projects",
 				component: ProjectsComponent,
 				data: { title: "Projects" },
@@ -44,6 +40,16 @@ const routes: Routes = [
 				path: "projects/create",
 				component: ProjectCreateComponent,
 				data: { title: "Create Project" },
+			},
+			{
+				path: "projects/:id",
+				component: ProjectDetailComponent,
+				data: { title: "Project Detail" },
+			},
+			{
+				path: "projects/:id/tasks",
+				component: TasksComponent,
+				data: { title: "Tasks" },
 			},
 		],
 	},
