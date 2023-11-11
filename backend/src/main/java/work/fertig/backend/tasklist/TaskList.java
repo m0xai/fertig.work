@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import work.fertig.backend.base.BaseEntity;
+import work.fertig.backend.project.models.Project;
 import work.fertig.backend.task.Task;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class TaskList extends BaseEntity {
 
     @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
+
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
 
     @Override
     public boolean equals(Object o) {

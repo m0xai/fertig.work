@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import work.fertig.backend.project.exceptions.ProjectNotFoundException;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
 
@@ -24,9 +26,13 @@ public class TaskListController {
         return new ResponseEntity<>(taskListService.create(request), HttpStatus.CREATED);
     }
 
-    @GetMapping("/tasklists/")
-    public ResponseEntity<List<TaskListDTOResponse>> getSingleTask() {
-        return new ResponseEntity<>(taskListService.getAll(), HttpStatus.OK);
+    @GetMapping(value = "/tasklists/", params = {"projectId"})
+    public ResponseEntity<List<TaskListDTOResponse>> getAllByProject(@RequestParam Long projectId) {
+        try {
+            return new ResponseEntity<>(taskListService.getAllByProject(projectId), HttpStatus.OK);
+        } catch (ProjectNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
     }
 
     @GetMapping("/tasklists/{id}/")
