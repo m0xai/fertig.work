@@ -15,9 +15,10 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from "@angular/material/icon";
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 @NgModule({
-	declarations: [ProjectsComponent, ProjectCreateComponent],
+	declarations: [ProjectsComponent, ProjectCreateComponent, ProjectDetailComponent],
 	imports: [
 		CommonModule,
 		MatStepperModule,

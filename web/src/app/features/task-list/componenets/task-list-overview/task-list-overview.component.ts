@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { TaskListService } from "../../services/task-list.service";
 import { TaskList } from "../../models/task-list.model";
 
@@ -8,16 +8,18 @@ import { TaskList } from "../../models/task-list.model";
 	styleUrls: ["./task-list-overview.component.css"],
 })
 export class TaskListOverviewComponent implements OnInit {
-	// fetch task list here
+	@Input({ required: true }) projectId?: number;
 	taskListList: TaskList[] = [];
 
 	constructor(private taskListService: TaskListService) {}
 
 	getAllTaskList() {
-		this.taskListService.fetch().subscribe((items) => {
-			// Swallow copy with spread operator is okay here, since we have only one level in data structure
-			this.taskListList = [...items];
-		});
+		if (this.projectId) {
+			this.taskListService.fetchByProject(this.projectId).subscribe((items) => {
+				// Swallow copy with spread operator is okay here, since we have only one level in data structure
+				this.taskListList = [...items];
+			});
+		}
 	}
 
 	ngOnInit(): void {
