@@ -58,13 +58,13 @@ export class TaskActionsComponent {
 		if (!Task.isEqual(inputTask, this.persistedTask)) {
 			this.taskResourceService.partialUpdate(inputTask).subscribe({
 				next: () => {
-					this.notificationService.showNotification(
+					this.notificationService.notify(
 						"Task has been updated successfully.",
 						NotificationType.success,
 					);
 				},
 				error: (e) => {
-					this.notificationService.showNotification(
+					this.notificationService.notify(
 						"An error occurred, while trying to update task object: " + e.error.detail,
 						NotificationType.error,
 					);
@@ -101,17 +101,11 @@ export class TaskActionsComponent {
 	}
 
 	deleteTaskAction() {
-		this.notificationService.showNotification(
-			"Task successfully deleted.",
-			NotificationType.success,
-		);
+		this.notificationService.notify("Task successfully deleted.", NotificationType.success);
 		this.taskDeleted.emit(this.task);
 	}
 
 	deleteTaskError(error: any) {
-		this.notificationService.showNotification(
-			"An error occurred while deleting a task: ",
-			error,
-		);
+		this.notificationService.notify("An error occurred while deleting a task: ", error);
 	}
 }

@@ -37,13 +37,13 @@ export class TaskCreateComponent {
 				(value) => {
 					this.taskAdded.emit(value); // Notify parent(task-list-detail) about newly created task
 					this.newTaskNameInput = "";
-					this.notificationService.showNotification(
+					this.notificationService.notify(
 						"Success! The new task added in the list.",
 						NotificationType.success,
 					);
 				},
 				(error) => {
-					this.notificationService.showNotification(
+					this.notificationService.notify(
 						"Error while creating a task: " + error,
 						NotificationType.error,
 					);

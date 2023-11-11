@@ -29,7 +29,7 @@ export class TaskListDetailComponent implements OnInit {
 				this.tasksOfList = items;
 			},
 			error: (e) => {
-				this.notificationService.showNotification(
+				this.notificationService.notify(
 					"Cannot fetch task of list with ID: " +
 						this.taskList?.id +
 						". Error: " +
@@ -60,7 +60,7 @@ export class TaskListDetailComponent implements OnInit {
 			tmp[updatedTaskIdInList] = updatedTask;
 			this.tasksOfList = tmp;
 		} else {
-			this.notificationService.showNotification(
+			this.notificationService.notify(
 				"An error occurred while updating task in view.",
 				NotificationType.error,
 			);

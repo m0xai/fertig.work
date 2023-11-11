@@ -44,7 +44,7 @@ export class TasksTableComponent {
 		this.taskResourceService.update(element).subscribe({
 			next: (value) => {},
 			error: (err) =>
-				this.notificationService.showNotification(
+				this.notificationService.notify(
 					"Task with ID: " + element.id + " cannot updated. Error: " + err.error.detail,
 					NotificationType.error,
 				),
