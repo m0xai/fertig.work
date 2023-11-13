@@ -39,7 +39,6 @@ export class ProjectCreateComponent implements AfterViewInit {
 	submitCreateProjectForm() {
 		if (this.firstFormGroup.valid) {
 			this.projectResourceService.create(new Project(this.firstFormGroup.value)).subscribe({
-				// TODO: redirect users to project page after creation of project
 				next: (resp) => {
 					console.log("Sent", resp);
 					// TODO: Send POST request to collaborators
@@ -49,7 +48,9 @@ export class ProjectCreateComponent implements AfterViewInit {
 							this.collaboratorResourceService.createCollaborator(v, resp),
 						);
 					});
-					this.collaboratorResourceService.createBulk(collaborators).subscribe({});
+					this.collaboratorResourceService.createBulk(collaborators).subscribe({
+						//next: TODO: redirect users to project page after creation of project
+					});
 				},
 				error: (err) => console.error(err),
 			});

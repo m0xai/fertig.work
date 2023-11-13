@@ -15,7 +15,8 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from "@angular/material/icon";
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { ProjectDetailComponent } from "./project-detail/project-detail.component";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent, ProjectDetailComponent],
@@ -34,6 +35,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 		MatAutocompleteModule,
 		MatTableModule,
 		MatIconModule,
+		RouterLink,
+		RouterLinkActive,
 	],
 })
 export class ProjectModule {}
