@@ -1,0 +1,43 @@
+<mat-nav-list class="base-sidenav__navbar__menu">
+    <ng-container *ngFor="let item of menuItemsPre">
+        <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
+           class="base-sidenav__menu-item__link"
+           routerLinkActive="active">
+            <mat-list-item>
+                <div class="base-sidenav__menu-item">
+                    <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
+                    {{ item.text }}
+                </div>
+            </mat-list-item>
+        </a>
+        <ng-template #dividerItem>
+            <mat-divider [ngClass]="item?.class"/>
+        </ng-template>
+    </ng-container>
+    <ng-container *ngFor="let item of menuItemsProjects">
+        <mat-list-item>
+            <div (click)="goToProjectTasks(item?.projectId)" class="base-sidenav__menu-item">
+                <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
+                {{ item.text }}
+            </div>
+        </mat-list-item>
+        <ng-template #dividerItem>
+            <!--            <mat-divider *ngIf="item.class" [ngClass]="item?.class"/>-->
+        </ng-template>
+    </ng-container>
+    <ng-container *ngFor="let item of menuItemsAfter">
+        <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
+           class="base-sidenav__menu-item__link"
+           routerLinkActive="active">
+            <mat-list-item>
+                <div class="base-sidenav__menu-item">
+                    <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
+                    {{ item.text }}
+                </div>
+            </mat-list-item>
+        </a>
+        <ng-template #dividerItem>
+            <mat-divider [ngClass]="item?.class"/>
+        </ng-template>
+    </ng-container>
+</mat-nav-list>

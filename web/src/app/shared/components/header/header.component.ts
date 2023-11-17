@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 import { MatDrawer } from "@angular/material/sidenav";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { ProjectResourceService } from "../../../features/project/services/project-resource.service";
-import { Project } from "../../../features/project/models/project.model";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-header",
@@ -16,63 +16,11 @@ export class HeaderComponent implements OnDestroy, OnInit {
 	@ViewChild(MatDrawer, { static: true })
 	drawer!: MatDrawer;
 	public title = "";
-	public menuItemsPre = [
-		{
-			icon: "dashboard",
-			text: "Dashboard",
-			isDivider: false,
-			route: "home",
-		},
-		{
-			icon: "token",
-			text: "Projects",
-			isDivider: false,
-			route: "projects",
-		},
-		{
-			icon: "inbox",
-			text: "Inbox",
-			isDivider: false,
-			route: "home",
-		},
-		{
-			icon: null,
-			text: null,
-			isDivider: true,
-			class: "base-sidenav__menu__project-divider",
-		},
-	];
-	private projects: Project[] = [];
-	private menuItemsProjects: Array<{
-		icon: string;
-		text: string;
-		isDivider: boolean;
-		route: string;
-	}> = [];
-	private menuItemsAfter = [
-		{
-			icon: null,
-			text: null,
-			isDivider: true,
-			class: "base-sidenav__menu__user-divider",
-		},
-		{
-			icon: "person",
-			text: "Profile",
-			isDivider: false,
-			route: "home",
-		},
-		{
-			icon: "logout",
-			text: "Logout",
-			isDivider: false,
-			route: "home",
-		},
-	];
 	private subscription: Subscription;
 
 	constructor(
 		private auth: AuthService,
+		private router: Router,
 		private titleService: TitleService,
 		private observer: BreakpointObserver,
 		private projectResourceService: ProjectResourceService,
@@ -85,45 +33,13 @@ export class HeaderComponent implements OnDestroy, OnInit {
 	ngOnInit() {
 		this.observer.observe(["(max-width: 800px)"]).subscribe((res) => {
 			if (res.matches) {
-				this.drawer.mode = "over";
+				this.drawer.mode = "push";
 				this.drawer.close();
 			} else {
 				this.drawer.mode = "side";
 				this.drawer.open();
 			}
 		});
-		this.projectResourceService.fetch().subscribe({
-			next: (response) => {
-				this.projects = response;
-				this.createMenuItemsOfProjects();
-			},
-		});
-	}
-
-	createMenuItemsOfProjects() {
-		this.projects.forEach((project) => {
-			if (project.title) {
-				this.menuItemsProjects = [
-					...this.menuItemsProjects,
-					{
-						icon: "book",
-						text: project.title,
-						isDivider: false,
-						route: "projects/" + project.getId() + "/tasks/",
-					},
-				];
-			}
-		});
-	}
-
-	mergeMenuItems(): Array<{
-		icon: string | null;
-		text: string | null;
-		isDivider: boolean;
-		route?: string | null;
-		class?: string | null;
-	}> {
-		return [...this.menuItemsPre, ...this.menuItemsProjects, ...this.menuItemsAfter];
 	}
 
 	ngOnDestroy() {

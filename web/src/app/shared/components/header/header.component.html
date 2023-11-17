@@ -3,23 +3,7 @@
         <div id="base-sidenav">
             <h1>Fertig Work</h1>
             <nav id="base-sidenav__navbar">
-                <mat-nav-list class="base-sidenav__navbar__menu">
-                    <ng-container *ngFor="let item of mergeMenuItems()">
-                        <a *ngIf="!item.isDivider; else dividerItem" [routerLink]="item?.route"
-                           class="base-sidenav__menu-item__link"
-                           routerLinkActive="active">
-                            <mat-list-item>
-                                <div class="base-sidenav__menu-item">
-                                    <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
-                                    {{item.text}}
-                                </div>
-                            </mat-list-item>
-                        </a>
-                        <ng-template #dividerItem>
-                            <mat-divider [ngClass]="item?.class"/>
-                        </ng-template>
-                    </ng-container>
-                </mat-nav-list>
+                <app-header-menu-items/>
             </nav>
         </div>
     </mat-drawer>
@@ -30,10 +14,9 @@
                 <button
                         (click)="drawer.toggle()"
                         *ngIf="drawer.mode === 'over'"
-                        mat-icon-button
-                >
-                    <mat-icon *ngIf="!drawer.opened"> menu</mat-icon>
-                    <mat-icon *ngIf="drawer.opened"> close</mat-icon>
+                        mat-icon-button>
+                    <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
+                    <mat-icon *ngIf="drawer.opened">close</mat-icon>
                 </button>
                 <nav aria-labelledby="base-sidenav" class="header__nav">
                     <a routerLink="/login" routerLinkActive="active">Login</a>
@@ -58,7 +41,7 @@
                 {{ title }}
             </mat-toolbar-row>
         </mat-toolbar>
-        <!-- Application's content    -->
+        <!-- Application's content -->
         <ng-content class="main-content"/>
     </div>
 </mat-drawer-container>

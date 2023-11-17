@@ -23,6 +23,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { FocusableDirective } from "./directives/focusable/focusable.directive";
 import { OpenableDirective } from "./directives/openable/openable.directive";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { HeaderMenuItemsComponent } from "./components/header/header-menu-items/header-menu-items.component";
 
 @NgModule({
 	declarations: [
@@ -36,6 +37,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 		ViewModeDirective,
 		FocusableDirective,
 		OpenableDirective,
+		HeaderMenuItemsComponent,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent, FormDialogComponent],
 	imports: [
