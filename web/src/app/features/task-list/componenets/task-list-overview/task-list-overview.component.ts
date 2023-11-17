@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { TaskListService } from "../../services/task-list.service";
 import { TaskList } from "../../models/task-list.model";
 
@@ -7,7 +7,7 @@ import { TaskList } from "../../models/task-list.model";
 	templateUrl: "./task-list-overview.component.html",
 	styleUrls: ["./task-list-overview.component.css"],
 })
-export class TaskListOverviewComponent implements OnInit {
+export class TaskListOverviewComponent implements OnChanges {
 	@Input({ required: true }) projectId?: number;
 	taskListList: TaskList[] = [];
 
@@ -22,7 +22,9 @@ export class TaskListOverviewComponent implements OnInit {
 		}
 	}
 
-	ngOnInit(): void {
-		this.getAllTaskList();
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes["projectId"]) {
+			this.getAllTaskList();
+		}
 	}
 }

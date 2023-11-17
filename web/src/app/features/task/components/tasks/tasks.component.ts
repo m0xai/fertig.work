@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ETaskPriority, ETaskStatus, Task } from "../../models/task.model";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, ParamMap } from "@angular/router";
 import { TitleService } from "../../../../shared/services/title.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
@@ -41,8 +41,11 @@ export class TasksComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.route.paramMap.subscribe((params: ParamMap) => {
+			// This will be always update projectId param of task-list-overview component and triggers onChange there
+			this.projectId = Number(params.get("id"));
+		});
 		this.titleService.setTitle(this.route.snapshot.data["title"]);
-		this.projectId = Number(this.route.snapshot.paramMap.get("id"));
 	}
 
 	getErrorMessage() {
