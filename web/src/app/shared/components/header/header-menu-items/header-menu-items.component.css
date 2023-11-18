@@ -1,0 +1,31 @@
+#base-sidenav__navbar {
+    height: 100%;
+}
+
+.base-sidenav__navbar__menu {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.base-sidenav__menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.base-sidenav__menu-item__link {
+    text-decoration: none;
+}
+
+.base-sidenav__menu-icon {
+    margin-right: 1rem;
+}
+
+.base-sidenav__menu__project-divider {
+    margin: 1rem 0;
+}
+
+.base-sidenav__menu__user-divider {
+    margin-top: auto;
+}
