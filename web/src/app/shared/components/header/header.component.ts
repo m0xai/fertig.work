@@ -4,8 +4,6 @@ import { TitleService } from "../../services/title.service";
 import { Subscription } from "rxjs";
 import { MatDrawer } from "@angular/material/sidenav";
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { ProjectResourceService } from "../../../features/project/services/project-resource.service";
-import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-header",
@@ -20,10 +18,8 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
 	constructor(
 		private auth: AuthService,
-		private router: Router,
 		private titleService: TitleService,
 		private observer: BreakpointObserver,
-		private projectResourceService: ProjectResourceService,
 	) {
 		this.subscription = this.titleService.title$.subscribe((title) => {
 			this.title = title;
