@@ -71,4 +71,12 @@ public class CollaboratorService {
                 .toList();
     }
 
+    public Boolean deleteByProjectId(Long projectId) {
+        if (!collaboratorRepository.existsByProjectId(projectId)) {
+            return false;
+        }
+        collaboratorRepository.deleteByProjectId(projectId);
+        return true;
+    }
+
 }

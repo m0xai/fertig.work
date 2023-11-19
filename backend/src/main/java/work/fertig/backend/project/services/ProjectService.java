@@ -2,10 +2,12 @@ package work.fertig.backend.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import work.fertig.backend.project.dtos.ProjectDTORequest;
 import work.fertig.backend.project.dtos.ProjectDTOResponse;
 import work.fertig.backend.project.exceptions.ProjectNotFoundException;
 import work.fertig.backend.project.models.Project;
+import work.fertig.backend.project.repositories.CollaboratorRepository;
 import work.fertig.backend.project.repositories.ProjectRepository;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.FWUserService;
@@ -18,6 +20,13 @@ public class ProjectService {
     private ProjectRepository projectRepository;
     @Autowired
     private FWUserService fwUserService;
+    // TODO: Replace this with CASCADE solution
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
+
+    public boolean existsById(Long id) {
+        return projectRepository.existsById(id);
+    }
 
     public Project getEntity(Long id) {
         Optional<Project> project = this.projectRepository.findById(id);
@@ -41,5 +50,15 @@ public class ProjectService {
         } catch (RuntimeException ex) {
             throw new RuntimeException("Failed to create new Project " + ex.getMessage());
         }
+    }
+
+    @Transactional
+    public boolean delete(Long id) {
+        if (!projectRepository.existsById(id)) {
+            return false;
+        }
+        collaboratorRepository.deleteByProjectId(id);
+        projectRepository.deleteById(id);
+        return true;
     }
 }

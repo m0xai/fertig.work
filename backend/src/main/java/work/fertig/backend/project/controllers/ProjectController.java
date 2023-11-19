@@ -13,7 +13,9 @@ import work.fertig.backend.project.models.Project;
 import work.fertig.backend.project.repositories.ProjectRepository;
 import work.fertig.backend.project.services.ProjectService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -56,9 +58,15 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/projects/{id}")
-    public void deleteSingleProject(@PathVariable Long id) {
-        repository.deleteById(id);
+    @DeleteMapping("/projects/{id}/")
+    public ResponseEntity<Map<String, String>> deleteSingleProject(@PathVariable Long id) {
+        if (!projectService.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A project with ID: " + id + " not found.");
+        } else {
+            projectService.delete(id);
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("msg", "Project with ID: " + id + " deleted successfully");
+            return ResponseEntity.ok(responseMap);
+        }
     }
-
 }

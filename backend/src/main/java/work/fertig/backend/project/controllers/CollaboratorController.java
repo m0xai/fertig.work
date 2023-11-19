@@ -30,7 +30,6 @@ public class CollaboratorController {
     @PostMapping("/collaborators/bulk/")
     public ResponseEntity<List<CollaboratorDTOResponse>> createBulk(@RequestBody List<CollaboratorDTORequest> request) {
         try {
-            System.out.println(request);
             return new ResponseEntity<>(collaboratorService.createBulk(request), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

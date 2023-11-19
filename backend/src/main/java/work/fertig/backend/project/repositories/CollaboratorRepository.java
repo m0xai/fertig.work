@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface CollaboratorRepository extends JpaRepository<Collaborator, Long> {
     List<Collaborator> findAllByProjectId(Long projectId);
+
+    void deleteByProjectId(Long projectId);
+
+    boolean existsByProjectId(Long projectId);
 }
