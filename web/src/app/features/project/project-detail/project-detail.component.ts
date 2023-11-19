@@ -7,7 +7,6 @@ import {
 	NotificationType,
 } from "../../../shared/services/notification/notification.service";
 import { TaskResourceService } from "../../task/services/task-resource.service";
-import { Task } from "../../task/models/task.model";
 
 @Component({
 	selector: "app-project-detail",
@@ -17,7 +16,6 @@ import { Task } from "../../task/models/task.model";
 export class ProjectDetailComponent implements OnInit {
 	model = new Project();
 	projectId = 0;
-	lastTasks: Task[] = [];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -36,6 +34,20 @@ export class ProjectDetailComponent implements OnInit {
 					this.notificationService.notify(err.error.detail, NotificationType.error);
 				},
 			});
+		});
+	}
+
+	deleteProject(id: number) {
+		// TODO:  Delete also Collaborators
+		console.log("Del: ", id);
+		this.projectResourceService.delete(id).subscribe({
+			next: (val) => {
+				this.router.navigateByUrl("app/projects");
+			},
+			error: (error) => {
+				console.log(error);
+				this.notificationService.notify(error.message, NotificationType.error);
+			},
 		});
 	}
 
