@@ -50,8 +50,4 @@ export class ProjectDetailComponent implements OnInit {
 			},
 		});
 	}
-
-	getCollaborators() {
-		this.taskResourceService;
-	}
 }

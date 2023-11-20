@@ -5,8 +5,20 @@
     <mat-card-subtitle>
         {{ model.description }}
     </mat-card-subtitle>
-    <mat-card-content>
-        HERE COMES SOME PROJECT INFOS
+    <mat-card-content class="project-cards-wrapper">
+        <mat-card class="project-card">
+            <h1>Overview</h1>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Latest 10 Tasks</h1>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Activities</h1>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Collaborators</h1>
+        </mat-card>
+
     </mat-card-content>
     <mat-card-actions>
         <button (click)="deleteProject(model.getId())" color="warn" mat-button>Delete Project</button>
