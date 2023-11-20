@@ -16,8 +16,8 @@
         <mat-divider class="base-sidenav__menu__project-divider"/>
 
         <ng-container *ngFor="let item of menuItemsProjects">
-            <mat-list-item>
-                <div (click)="goToProjectTasks(item?.projectId)" class="base-sidenav__menu-item">
+            <mat-list-item (click)="goToProjectTasks(item?.projectId)">
+                <div class="base-sidenav__menu-item">
                     <mat-icon class="base-sidenav__menu-icon">{{item.icon}}</mat-icon>
                     {{ item.text }}
                 </div>
