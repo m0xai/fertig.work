@@ -11,7 +11,9 @@ import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,6 +26,13 @@ public class TaskController {
     @GetMapping(value = "/tasks/", params = {"projectId"})
     public ResponseEntity<List<TaskDTOResponse>> getTasksByProject(@RequestParam Long projectId) {
         return new ResponseEntity<>(taskService.getLatest10TasksByProject(projectId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/tasks/", params = {"projectId", "count"})
+    public ResponseEntity<Map<String, Integer>> getTasksCountByProject(@RequestParam Long projectId) {
+        Map<String, Integer> response = new HashMap<>();
+        response.put("count", taskService.getTasksCountByProject(projectId));
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/tasks/{id}/")
@@ -73,8 +82,7 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (TaskNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Task with ID: " + id + " not found and hence cannot" +
-                    " be " +
-                    "deleted.");
+                    " be deleted.");
         }
     }
 }

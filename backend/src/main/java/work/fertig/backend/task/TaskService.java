@@ -45,6 +45,11 @@ public class TaskService {
         return taskDTOList.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
+    public Integer getTasksCountByProject(Long projectId) {
+        // TODO: Return error, when there is no project with the id present
+        return taskRepository.countAllByTaskListProjectId(projectId);
+    }
+
     public List<TaskDTOResponse> getLatest10TasksByProject(Long projectId) {
         return taskRepository.findTop10ByTaskListProjectId(projectId).stream().map(TaskDTOResponse::fromTask).toList();
     }
