@@ -18,9 +18,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { ProjectDetailComponent } from "./components/project-detail/project-detail.component";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MatListModule } from "@angular/material/list";
+import { ProjectEditComponent } from './components/project-edit/project-edit.component';
 
 @NgModule({
-	declarations: [ProjectsComponent, ProjectCreateComponent, ProjectDetailComponent],
+	declarations: [ProjectsComponent, ProjectCreateComponent, ProjectDetailComponent, ProjectEditComponent],
 	imports: [
 		CommonModule,
 		MatStepperModule,
