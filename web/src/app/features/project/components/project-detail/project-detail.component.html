@@ -1,0 +1,52 @@
+<mat-card class="p-4">
+    <mat-card-header>
+        <mat-card-title>{{ model.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-subtitle>
+        {{ model.description }}
+    </mat-card-subtitle>
+    <mat-card-content class="project-cards-wrapper">
+        <mat-card class="project-card bg-primary-subtle p-4">
+            <mat-card-title>
+                <h1>Overview</h1>
+            </mat-card-title>
+            <div class="overview-total-task-count d-flex flex-column align-items-center">
+                <h1>{{ tasksCount?.totalCount }}</h1>
+                <p>Total Tasks</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="mx-4 d-flex flex-column align-items-center">
+                    <h2 class="mb-0 text-success">{{ tasksCount?.doneCount}}</h2>
+                    <p class="text-success">Done</p>
+                </div>
+                <mat-divider vertical/>
+                <div class="mx-4 d-flex flex-column align-items-center">
+                    <h2 class="mb-0 text-warning">{{ tasksCount?.unDoneCount }}</h2>
+                    <p class="text-warning">Undone</p>
+                </div>
+                <mat-divider vertical/>
+                <div class="mx-4 d-flex flex-column align-items-center">
+                    <h2 class="mb-0">{{ tasksCount?.draftCount }}</h2>
+                    <p>Draft</p>
+                </div>
+            </div>
+            <p>{{ model.description }}</p>
+            <div class="d-flex justify-content-center align-items-center">
+                <mat-icon>calendar_month</mat-icon>
+                <p class="mb-0">{{ formatStartOn(model.startOn!) }}</p>
+            </div>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Latest 10 Tasks</h1>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Activities</h1>
+        </mat-card>
+        <mat-card class="project-card">
+            <h1>Collaborators</h1>
+        </mat-card>
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="deleteProject(model.getId())" color="warn" mat-button>Delete Project</button>
+    </mat-card-actions>
+</mat-card>

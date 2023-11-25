@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { ProjectResourceService } from "../services/project-resource.service";
+import { ProjectResourceService } from "../../services/project-resource.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Project } from "../models/project.model";
+import { Project } from "../../models/project.model";
 import {
 	NotificationService,
 	NotificationType,
-} from "../../../shared/services/notification/notification.service";
-import { TaskResourceService } from "../../task/services/task-resource.service";
+} from "../../../../shared/services/notification/notification.service";
+import { TaskResourceService } from "../../../task/services/task-resource.service";
 import { lightFormat } from "date-fns";
-import { TasksCount } from "../../task/models/task-count.model";
+import { TasksCount } from "../../../task/models/task-count.model";
 
 @Component({
 	selector: "app-project-detail",
@@ -56,7 +56,6 @@ export class ProjectDetailComponent implements OnInit {
 				this.router.navigateByUrl("app/projects");
 			},
 			error: (error) => {
-				console.log(error);
 				this.notificationService.notify(error.message, NotificationType.error);
 			},
 		});

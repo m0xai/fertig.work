@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ProjectsComponent } from "./projects/projects.component";
-import { ProjectCreateComponent } from "./project-create/project-create.component";
+import { ProjectsComponent } from "./components/projects/projects.component";
+import { ProjectCreateComponent } from "./components/project-create/project-create.component";
 import { MatStepperModule } from "@angular/material/stepper";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -15,8 +15,9 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from "@angular/material/icon";
-import { ProjectDetailComponent } from "./project-detail/project-detail.component";
+import { ProjectDetailComponent } from "./components/project-detail/project-detail.component";
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
 	declarations: [ProjectsComponent, ProjectCreateComponent, ProjectDetailComponent],
@@ -37,6 +38,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 		MatIconModule,
 		RouterLink,
 		RouterLinkActive,
+		MatListModule,
 	],
 })
 export class ProjectModule {}

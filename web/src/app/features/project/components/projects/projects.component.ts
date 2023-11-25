@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ProjectResourceService } from "../services/project-resource.service";
-import { Project } from "../models/project.model";
+import { ProjectResourceService } from "../../services/project-resource.service";
+import { Project } from "../../models/project.model";
 import { Router } from "@angular/router";
-import { NotificationService } from "../../../shared/services/notification/notification.service";
+import { NotificationService } from "../../../../shared/services/notification/notification.service";
 
 @Component({
 	selector: "app-projects",

@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ProjectResourceService } from "../services/project-resource.service";
-import { Project } from "../models/project.model";
-import { UserService } from "../../user/services/user.service";
+import { ProjectResourceService } from "../../services/project-resource.service";
+import { Project } from "../../models/project.model";
+import { UserService } from "../../../user/services/user.service";
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from "rxjs";
-import { User } from "../../user/models/user";
-import { CollaboratorResourceService } from "../services/collaborator-resource.service";
-import { Collaborator } from "../models/collaborator.model";
+import { User } from "../../../user/models/user";
+import { CollaboratorResourceService } from "../../services/collaborator-resource.service";
+import { Collaborator } from "../../models/collaborator.model";
 
 @Component({
 	selector: "app-project-create",

@@ -4,12 +4,12 @@ import { LoginComponent } from "./features/user/components/login/login.component
 import { HomeComponent } from "./features/home/components/home/home.component";
 import { LoginGuard } from "./shared/services/guards/login.guard";
 import { TasksComponent } from "./features/task/components/tasks/tasks.component";
-import { ProjectCreateComponent } from "./features/project/project-create/project-create.component";
-import { ProjectsComponent } from "./features/project/projects/projects.component";
+import { ProjectCreateComponent } from "./features/project/components/project-create/project-create.component";
+import { ProjectsComponent } from "./features/project/components/projects/projects.component";
 import { RegisterComponent } from "./features/user/components/register/register.component";
 import { BaseAppComponent } from "./shared/components/base-app/base-app.component";
 import { LogoutGuard } from "./shared/services/guards/logout.guard";
-import { ProjectDetailComponent } from "./features/project/project-detail/project-detail.component";
+import { ProjectDetailComponent } from "./features/project/components/project-detail/project-detail.component";
 
 const routes: Routes = [
 	// TODO: Redirect user to app, if already logged in

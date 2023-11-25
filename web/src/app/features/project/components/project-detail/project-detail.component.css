@@ -14,3 +14,9 @@
     background: #F00;
     flex: 0 0 50%;
 }
+
+.overview-total-task-count > h1 {
+    font-size: xxx-large;
+}
+
+
