@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import work.fertig.backend.project.services.ProjectService;
 import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.TaskList;
@@ -12,9 +13,7 @@ import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 import work.fertig.backend.user.FWUser;
 import work.fertig.backend.user.FWUserService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -24,6 +23,8 @@ public class TaskService {
     private TaskListRepository taskListRepository;
     @Autowired
     private FWUserService fwUserService;
+    @Autowired
+    private ProjectService projectService;
 
     public TaskDTOResponse create(TaskDTORequest request) {
         // Takes a request without
@@ -45,9 +46,15 @@ public class TaskService {
         return taskDTOList.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
-    public Integer getTasksCountByProject(Long projectId) {
-        // TODO: Return error, when there is no project with the id present
-        return taskRepository.countAllByTaskListProjectId(projectId);
+    public Map<String, Integer> getTasksCountByProject(Long projectId) {
+        if (projectService.getEntity(projectId) == null) {
+            throw new RuntimeException("There isn't any project found with ID: " + projectId + ".");
+        }
+        Map<String, Integer> countDetails = new HashMap<>();
+        countDetails.put("totalCount", taskRepository.countAllByTaskListProjectId(projectId));
+        countDetails.put("doneCount", taskRepository.countAllByIsDoneTrueAndTaskListProjectId(projectId));
+        countDetails.put("draftCount", taskRepository.countAllByIsDraftTrueAndTaskListProjectId(projectId));
+        return countDetails;
     }
 
     public List<TaskDTOResponse> getLatest10TasksByProject(Long projectId) {

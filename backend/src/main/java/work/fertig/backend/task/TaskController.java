@@ -11,7 +11,6 @@ import work.fertig.backend.task.dtos.TaskDTORequest;
 import work.fertig.backend.task.dtos.TaskDTOResponse;
 import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +29,11 @@ public class TaskController {
 
     @GetMapping(value = "/tasks/", params = {"projectId", "count"})
     public ResponseEntity<Map<String, Integer>> getTasksCountByProject(@RequestParam Long projectId) {
-        Map<String, Integer> response = new HashMap<>();
-        response.put("count", taskService.getTasksCountByProject(projectId));
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(taskService.getTasksCountByProject(projectId), HttpStatus.OK);
+        } catch (RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
     }
 
     @GetMapping("/tasks/{id}/")

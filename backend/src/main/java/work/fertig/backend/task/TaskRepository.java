@@ -12,4 +12,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTop10ByTaskListProjectId(Long id);
 
     Integer countAllByTaskListProjectId(Long id);
+
+    Integer countAllByIsDoneTrueAndTaskListProjectId(Long id);
+
+    Integer countAllByIsDraftTrueAndTaskListProjectId(Long id);
+
 }
