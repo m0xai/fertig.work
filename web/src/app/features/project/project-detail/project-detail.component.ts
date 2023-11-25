@@ -7,6 +7,8 @@ import {
 	NotificationType,
 } from "../../../shared/services/notification/notification.service";
 import { TaskResourceService } from "../../task/services/task-resource.service";
+import { lightFormat } from "date-fns";
+import { TasksCount } from "../../task/models/task-count.model";
 
 @Component({
 	selector: "app-project-detail",
@@ -16,6 +18,7 @@ import { TaskResourceService } from "../../task/services/task-resource.service";
 export class ProjectDetailComponent implements OnInit {
 	model = new Project();
 	projectId = 0;
+	tasksCount: TasksCount | undefined;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -29,17 +32,25 @@ export class ProjectDetailComponent implements OnInit {
 		this.route.paramMap.subscribe((paramMap) => {
 			this.projectId = +paramMap.get("id")!;
 			this.projectResourceService.getById(+paramMap.get("id")!).subscribe({
-				next: (val) => (this.model = val),
+				next: (val) => {
+					this.model = val;
+				},
 				error: (err) => {
 					this.notificationService.notify(err.error.detail, NotificationType.error);
 				},
 			});
 		});
+
+		this.taskResourceService.getTasksCountByProject(this.projectId).subscribe({
+			next: (data: TasksCount) => {
+				this.tasksCount = data;
+			},
+			error: (err) => this.notificationService.notify(err, NotificationType.error),
+		});
 	}
 
 	deleteProject(id: number) {
 		// TODO:  Delete also Collaborators
-		console.log("Del: ", id);
 		this.projectResourceService.delete(id).subscribe({
 			next: (val) => {
 				this.router.navigateByUrl("app/projects");
@@ -49,5 +60,12 @@ export class ProjectDetailComponent implements OnInit {
 				this.notificationService.notify(error.message, NotificationType.error);
 			},
 		});
+	}
+
+	formatStartOn(date: Date) {
+		if (date) {
+			return lightFormat(new Date(date), "dd.MM.yyyy");
+		}
+		return "";
 	}
 }

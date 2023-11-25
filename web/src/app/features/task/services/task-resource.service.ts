@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ResourceService } from "src/app/shared/resource.service";
 import { Task } from "../models/task.model";
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable, of } from "rxjs";
+import { TasksCount } from "../models/task-count.model";
 
 @Injectable({
 	providedIn: "root",
@@ -19,5 +20,23 @@ export class TaskResourceService extends ResourceService<Task> {
 		return this.httpClient
 			.get<Task[]>(`${this.apiURL}from-list/${id}/`)
 			.pipe(map((result) => result.map((i) => new this.tConstructor(i))));
+	}
+
+	public getTasksCountByProject(id: number | undefined): Observable<TasksCount> {
+		if (id == undefined) {
+			Error("Project ID were not provided.");
+		}
+		return this.httpClient.get<TasksCount>(`${this.apiURL}?projectId=${id}&count=1`).pipe(
+			map((response) => this.setUnDoneCount(response)),
+			catchError((err) => {
+				return of(err);
+			}),
+		);
+	}
+
+	private setUnDoneCount(countsObj: TasksCount): TasksCount {
+		const tmp = { ...countsObj };
+		tmp.unDoneCount = tmp.totalCount - tmp.doneCount;
+		return tmp;
 	}
 }
