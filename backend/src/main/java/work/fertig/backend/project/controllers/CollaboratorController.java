@@ -52,7 +52,7 @@ public class CollaboratorController {
     }
 
     @Data
-    class CollaboratorDTORequestList {
+    static class CollaboratorDTORequestList {
         private List<CollaboratorDTORequest> items = new ArrayList<>();
     }
 }

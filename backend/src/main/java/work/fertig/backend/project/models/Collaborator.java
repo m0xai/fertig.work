@@ -24,7 +24,7 @@ public class Collaborator extends BaseEntity {
     @JoinColumn(name = "fw_user", referencedColumnName = "id")
     private FWUser user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "project", referencedColumnName = "id")
     private Project project;
 
