@@ -36,6 +36,19 @@ public class TaskController {
         }
     }
 
+    @GetMapping(value = "/takss/", params = {"projectId", "count"})
+    public ResponseEntity<List<TaskDTOResponse>> getLatestNTask(@RequestParam Long projectId,
+                                                                @RequestParam Integer count) {
+        if (count <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Count param has to be greater than 0.");
+        }
+        try {
+            return new ResponseEntity<>(taskService.getLatestNTasksByProject(projectId, count), HttpStatus.OK);
+        } catch (RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
+    }
+
     @GetMapping("/tasks/{id}/")
     public ResponseEntity<TaskDTOResponse> getSingleTask(@PathVariable @NotNull Long id) {
         return new ResponseEntity<>(taskService.get(id), HttpStatus.OK);

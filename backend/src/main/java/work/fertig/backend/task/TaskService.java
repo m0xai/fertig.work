@@ -1,6 +1,8 @@
 package work.fertig.backend.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,8 +59,13 @@ public class TaskService {
         return countDetails;
     }
 
-    public List<TaskDTOResponse> getLatest10TasksByProject(Long projectId) {
-        return taskRepository.findTop10ByTaskListProjectId(projectId).stream().map(TaskDTOResponse::fromTask).toList();
+    public List<TaskDTOResponse> getLatestNTasksByProject(Long projectId, Integer n) throws RuntimeException {
+        if (projectService.getEntity(projectId) == null) {
+            throw new RuntimeException("There isn't any project found with ID: " + projectId + ".");
+        }
+        Pageable pageable = PageRequest.of(0, n);
+        List<Task> latestTasks = taskRepository.findLatestNByTaskListProjectIdOrderByCreatedAtDesc(projectId, pageable);
+        return latestTasks.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
     public TaskDTOResponse get(Long id) {
