@@ -48,7 +48,7 @@ public class TaskService {
         return taskDTOList.stream().map(TaskDTOResponse::fromTask).toList();
     }
 
-    public Map<String, Integer> getTasksCountByProject(Long projectId) {
+    public Map<String, Integer> getTaskStatsByProject(Long projectId) {
         if (projectService.getEntity(projectId) == null) {
             throw new RuntimeException("There isn't any project found with ID: " + projectId + ".");
         }

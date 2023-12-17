@@ -24,13 +24,13 @@ public class TaskController {
 
     @GetMapping(value = "/tasks/", params = {"projectId"})
     public ResponseEntity<List<TaskDTOResponse>> getTasksByProject(@RequestParam Long projectId) {
-        return new ResponseEntity<>(taskService.getLatest10TasksByProject(projectId), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.getLatestNTasksByProject(projectId, 20), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/tasks/", params = {"projectId", "count"})
+    @GetMapping(value = "/tasks/", params = {"projectId", "stats"})
     public ResponseEntity<Map<String, Integer>> getTasksCountByProject(@RequestParam Long projectId) {
         try {
-            return new ResponseEntity<>(taskService.getTasksCountByProject(projectId), HttpStatus.OK);
+            return new ResponseEntity<>(taskService.getTaskStatsByProject(projectId), HttpStatus.OK);
         } catch (RuntimeException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
