@@ -13,4 +13,6 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
     void deleteByProjectId(Long projectId);
 
     boolean existsByProjectId(Long projectId);
+
+    Integer countAllByProjectId(Long projectId);
 }
