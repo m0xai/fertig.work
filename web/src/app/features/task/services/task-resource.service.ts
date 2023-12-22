@@ -34,6 +34,15 @@ export class TaskResourceService extends ResourceService<Task> {
 		);
 	}
 
+	public getLatest10Tasks(id: number | undefined) {
+		if (id === undefined) {
+			throw new Error("Project ID were not provided.");
+		}
+		return this.httpClient
+			.get<Task[]>(`${this.apiURL}?projectId=${id}&count=10`)
+			.pipe(map((result) => result.map((i) => new this.tConstructor(i))));
+	}
+
 	private setUnDoneCount(countsObj: TasksCount): TasksCount {
 		const tmp = { ...countsObj };
 		tmp.unDoneCount = tmp.totalCount - tmp.doneCount;

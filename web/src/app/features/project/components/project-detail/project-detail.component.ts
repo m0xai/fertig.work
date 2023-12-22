@@ -9,6 +9,7 @@ import {
 import { TaskResourceService } from "../../../task/services/task-resource.service";
 import { lightFormat } from "date-fns";
 import { TasksCount } from "../../../task/models/task-count.model";
+import { Task } from "src/app/features/task/models/task.model";
 
 @Component({
 	selector: "app-project-detail",
@@ -19,6 +20,7 @@ export class ProjectDetailComponent implements OnInit {
 	model = new Project();
 	projectId = 0;
 	tasksCount: TasksCount | undefined;
+	latest10Taks: Task[] = [];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -46,6 +48,22 @@ export class ProjectDetailComponent implements OnInit {
 				this.tasksCount = data;
 			},
 			error: (err) => this.notificationService.notify(err, NotificationType.error),
+		});
+
+		this.getLatest10Tasks(this.projectId);
+	}
+
+	getLatest10Tasks(id: number) {
+		this.taskResourceService.getLatest10Tasks(id).subscribe({
+			next: (val) => {
+				this.latest10Taks = val;
+				console.log(val);
+			},
+			error: (err) =>
+				this.notificationService.notify(
+					"Latest 10 tasks couldn't fetched. Details: " + err,
+					NotificationType.error,
+				),
 		});
 	}
 
