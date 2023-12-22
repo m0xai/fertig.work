@@ -26,7 +26,7 @@ export class TaskResourceService extends ResourceService<Task> {
 		if (id == undefined) {
 			Error("Project ID were not provided.");
 		}
-		return this.httpClient.get<TasksCount>(`${this.apiURL}?projectId=${id}&count=1`).pipe(
+		return this.httpClient.get<TasksCount>(`${this.apiURL}?projectId=${id}&stats`).pipe(
 			map((response) => this.setUnDoneCount(response)),
 			catchError((err) => {
 				return of(err);
