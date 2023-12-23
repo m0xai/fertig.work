@@ -17,7 +17,7 @@ export class CollaboratorResourceService extends ResourceService<Collaborator> {
 	public createCollaborator(user: User, project: Project) {
 		// TODO: Fill this information before release with latest Collaborator changes
 		return new Collaborator({
-			user: user.getId(),
+			user: user,
 			project: project.getId(),
 			role: "Basic",
 			isJoined: true,

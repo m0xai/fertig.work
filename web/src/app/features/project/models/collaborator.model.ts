@@ -1,7 +1,8 @@
 import { ResourceModel } from "../../../shared/ResourceModel";
+import { User } from "../../user/models/user";
 
 export class Collaborator extends ResourceModel<Collaborator> {
-	public user?: number;
+	public user?: User;
 	public project?: number;
 	public role?: string;
 	public isJoined?: boolean;
