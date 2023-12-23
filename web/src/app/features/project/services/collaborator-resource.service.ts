@@ -36,4 +36,10 @@ export class CollaboratorResourceService extends ResourceService<Collaborator> {
 				}),
 			);
 	}
+
+	public list(projectId: number): Observable<Collaborator[]> {
+		return this.httpClient
+			.get<Collaborator[]>(`${this.apiURL}?projectId=${projectId}`)
+			.pipe(map((result) => result.map((value) => new this.tConstructor(value))));
+	}
 }
