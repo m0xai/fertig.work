@@ -50,6 +50,11 @@
         </mat-card>
         <mat-card class="project-card">
             <h1>Collaborators</h1>
+            <mat-list>
+                <mat-list-item
+                        *ngFor="let collaborator of projectCollaborators">{{ collaborator.user?.username }}
+                </mat-list-item>
+            </mat-list>
         </mat-card>
     </mat-card-content>
     <mat-card-actions>

@@ -10,6 +10,8 @@ import { TaskResourceService } from "../../../task/services/task-resource.servic
 import { lightFormat } from "date-fns";
 import { TasksCount } from "../../../task/models/task-count.model";
 import { Task } from "src/app/features/task/models/task.model";
+import { CollaboratorResourceService } from "../../services/collaborator-resource.service";
+import { Collaborator } from "../../models/collaborator.model";
 
 @Component({
 	selector: "app-project-detail",
@@ -21,11 +23,13 @@ export class ProjectDetailComponent implements OnInit {
 	projectId = 0;
 	tasksCount: TasksCount | undefined;
 	latest10Taks: Task[] = [];
+	projectCollaborators: Collaborator[] = [];
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private projectResourceService: ProjectResourceService,
+		private collaboratorResourceService: CollaboratorResourceService,
 		private notificationService: NotificationService,
 		private taskResourceService: TaskResourceService,
 	) {}
@@ -50,7 +54,10 @@ export class ProjectDetailComponent implements OnInit {
 			error: (err) => this.notificationService.notify(err, NotificationType.error),
 		});
 
-		this.getLatest10Tasks(this.projectId);
+		if (this.projectId) {
+			this.getLatest10Tasks(this.projectId);
+			this.getProjectCollaborators(this.projectId);
+		}
 	}
 
 	getLatest10Tasks(id: number) {
@@ -84,5 +91,16 @@ export class ProjectDetailComponent implements OnInit {
 			return lightFormat(new Date(date), "dd.MM.yyyy");
 		}
 		return "";
+	}
+
+	private getProjectCollaborators(projectId: number) {
+		return this.collaboratorResourceService.list(projectId).subscribe({
+			next: (v) => (this.projectCollaborators = v),
+			error: (e) =>
+				this.notificationService.notify(
+					"An error occurred while getting",
+					NotificationType.error,
+				),
+		});
 	}
 }
