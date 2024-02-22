@@ -39,4 +39,9 @@ public class TaskListController {
     public ResponseEntity<TaskListDTOResponse> getSingleTaskList(@PathVariable @NotNull Long id) {
         return new ResponseEntity<>(taskListService.get(id), HttpStatus.OK);
     }
+
+    @PutMapping("/tasklists/{id}")
+    public ResponseEntity<TaskListDTOResponse> updateTaskList(@RequestParam TaskListDTORequest request) {
+        return new ResponseEntity<>(taskListService.update(request), HttpStatus.OK);
+    }
 }
