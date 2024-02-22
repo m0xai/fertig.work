@@ -25,18 +25,6 @@ public class TaskListService {
     @Autowired
     ProjectService projectService;
 
-    public TaskListDTOResponse create(TaskListDTORequest request) {
-        try {
-            Project project = projectService.getEntity(request.getProject());
-            TaskList convertedTaskList = request.convertToEntity(project);
-            TaskList taskList = taskListRepository.save(convertedTaskList);
-            return TaskListDTOResponse.fromTaskList(taskList);
-        } catch (ProjectNotFoundException projectNotFoundException) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Project with ID: " + request.getProject() + " " +
-                    "not found.");
-        }
-    }
-
     public List<TaskListDTOResponse> getAllByProject(Long projectId) {
         if (projectService.getEntity(projectId) != null) {
             return taskListRepository.getAllByProjectId(projectId)
@@ -63,4 +51,23 @@ public class TaskListService {
         return oTaskList.get();
     }
 
+    public TaskListDTOResponse create(TaskListDTORequest request) {
+        return getTaskListDTOResponse(request);
+    }
+
+    public TaskListDTOResponse update(TaskListDTORequest request) {
+        return getTaskListDTOResponse(request);
+    }
+
+    private TaskListDTOResponse getTaskListDTOResponse(TaskListDTORequest request) {
+        try {
+            Project project = projectService.getEntity(request.getProject());
+            TaskList convertedTaskList = request.convertToEntity(project);
+            TaskList taskList = taskListRepository.save(convertedTaskList);
+            return TaskListDTOResponse.fromTaskList(taskList);
+        } catch (ProjectNotFoundException projectNotFoundException) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Project with ID: " + request.getProject() + " " +
+                    "not found.");
+        }
+    }
 }
