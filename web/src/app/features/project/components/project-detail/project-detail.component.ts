@@ -64,7 +64,6 @@ export class ProjectDetailComponent implements OnInit {
 		this.taskResourceService.getLatest10Tasks(id).subscribe({
 			next: (val) => {
 				this.latest10Taks = val;
-				console.log(val);
 			},
 			error: (err) =>
 				this.notificationService.notify(
@@ -75,10 +74,10 @@ export class ProjectDetailComponent implements OnInit {
 	}
 
 	deleteProject(id: number) {
-		// TODO:  Delete also Collaborators
+		// TODO:  Delete also Collaborators, while deleting a project in backend
 		this.projectResourceService.delete(id).subscribe({
 			next: (val) => {
-				this.router.navigateByUrl("app/projects");
+				if (val !== undefined) this.router.navigateByUrl("app/projects");
 			},
 			error: (error) => {
 				this.notificationService.notify(error.message, NotificationType.error);
