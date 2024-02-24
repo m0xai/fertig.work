@@ -11,8 +11,11 @@ import org.springframework.web.server.ResponseStatusException;
 import work.fertig.backend.project.exceptions.ProjectNotFoundException;
 import work.fertig.backend.tasklist.dtos.TaskListDTORequest;
 import work.fertig.backend.tasklist.dtos.TaskListDTOResponse;
+import work.fertig.backend.tasklist.exceptions.TaskListNotFoundException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -41,7 +44,21 @@ public class TaskListController {
     }
 
     @PutMapping("/tasklists/{id}")
-    public ResponseEntity<TaskListDTOResponse> updateTaskList(@RequestParam TaskListDTORequest request) {
-        return new ResponseEntity<>(taskListService.update(request), HttpStatus.OK);
+    public ResponseEntity<TaskListDTOResponse> updateTaskList(@PathVariable Long id,
+                                                              @RequestParam TaskListDTORequest request) {
+        return new ResponseEntity<>(taskListService.update(id, request), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/tasklists/{id")
+    public ResponseEntity<Map<String, String>> deleteTaskList(@PathVariable Long id) {
+        try {
+            taskListService.delete(id);
+            var response = new HashMap<String, String>();
+            response.put("msg", "TaskList with ID: " + id + " deleted " +
+                    "succesfully.");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (TaskListNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
     }
 }
