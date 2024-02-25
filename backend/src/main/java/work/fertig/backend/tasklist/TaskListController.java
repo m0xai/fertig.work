@@ -43,13 +43,13 @@ public class TaskListController {
         return new ResponseEntity<>(taskListService.get(id), HttpStatus.OK);
     }
 
-    @PutMapping("/tasklists/{id}")
+    @PutMapping("/tasklists/{id}/")
     public ResponseEntity<TaskListDTOResponse> updateTaskList(@PathVariable Long id,
                                                               @RequestParam TaskListDTORequest request) {
         return new ResponseEntity<>(taskListService.update(id, request), HttpStatus.OK);
     }
 
-    @DeleteMapping("/tasklists/{id")
+    @DeleteMapping("/tasklists/{id}/")
     public ResponseEntity<Map<String, String>> deleteTaskList(@PathVariable Long id) {
         try {
             taskListService.delete(id);
