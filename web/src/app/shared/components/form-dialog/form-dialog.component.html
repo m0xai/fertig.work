@@ -10,7 +10,7 @@
         </div>
     </div>
     <app-form-dialog-editable (update)="updateField('name')" [ngClass]="'clickable-field clickable-input'">
-        <ng-template appViewMode><span class="h1">{{task.name}}</span></ng-template>
+        <ng-template appViewMode><span class="h1">{{ task.name }}</span></ng-template>
         <ng-template appEditMode>
             <input [formControl]="getFormField('name')" [ngClass]="'text-field-input'" appFocusable class="w-100"
                    type="text">
@@ -43,7 +43,8 @@
                     <mat-form-field>
                         <mat-select [formControl]="getFormField('priority')" appFocusable appOpenable class="w-100">
                             <mat-option *ngFor="let level of Object.keys(ETaskPriority)"
-                                        [value]="level">{{ level }}</mat-option>
+                                        [value]="level">{{ level }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </ng-template>
@@ -59,7 +60,8 @@
                     <mat-form-field>
                         <mat-select [formControl]="getFormField('status')" appFocusable appOpenable class="w-100">
                             <mat-option *ngFor="let status of Object.keys(ETaskStatus)"
-                                        [value]="status">{{ status }}</mat-option>
+                                        [value]="status">{{ status }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </ng-template>

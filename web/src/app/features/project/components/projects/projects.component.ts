@@ -3,6 +3,7 @@ import { ProjectResourceService } from "../../services/project-resource.service"
 import { Project } from "../../models/project.model";
 import { Router } from "@angular/router";
 import { NotificationService } from "../../../../shared/services/notification/notification.service";
+import { TitleService } from "../../../../shared/services/title.service";
 
 @Component({
 	selector: "app-projects",
@@ -13,12 +14,14 @@ export class ProjectsComponent implements OnInit {
 	projectList: Project[] = [];
 
 	constructor(
+		private titleService: TitleService,
 		private projectResourceService: ProjectResourceService,
 		private router: Router,
 		private notificationService: NotificationService,
 	) {}
 
 	ngOnInit() {
+		this.titleService.setTitle("Projects");
 		this.projectResourceService.fetch().subscribe({
 			next: (value) => {
 				this.projectList = value;

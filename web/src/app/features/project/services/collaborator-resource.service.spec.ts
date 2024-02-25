@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { CollaboratorResourceService } from './collaborator-resource.service';
+import { CollaboratorResourceService } from "./collaborator-resource.service";
 
-describe('CollaboratorResourceService', () => {
-  let service: CollaboratorResourceService;
+describe("CollaboratorResourceService", () => {
+	let service: CollaboratorResourceService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CollaboratorResourceService);
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({});
+		service = TestBed.inject(CollaboratorResourceService);
+	});
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+	it("should be created", () => {
+		expect(service).toBeTruthy();
+	});
 });

@@ -9,17 +9,17 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
-        <td *matCellDef="let element" mat-cell>{{element.name}}</td>
+        <td *matCellDef="let element" mat-cell>{{ element.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
-        <td *matCellDef="let element" mat-cell>{{element.status}}</td>
+        <td *matCellDef="let element" mat-cell>{{ element.status }}</td>
     </ng-container>
 
     <ng-container matColumnDef="priority">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Priority</th>
-        <td *matCellDef="let element" mat-cell>{{element.priority}}</td>
+        <td *matCellDef="let element" mat-cell>{{ element.priority }}</td>
     </ng-container>
 
     <!-- This column can be omitted, the dialog would open, when user clicks a task  -->
@@ -27,7 +27,7 @@
         <th *matHeaderCellDef mat-header-cell>Actions</th>
         <td *matCellDef="let element" mat-cell>
             <app-task-actions (taskDeleted)="onTaskDeleted($event)" (taskUpdated)="onTaskUpdate($event)"
-                              [task]="element" />
+                              [task]="element"/>
         </td>
     </ng-container>
 

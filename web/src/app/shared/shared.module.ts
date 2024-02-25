@@ -24,7 +24,7 @@ import { FocusableDirective } from "./directives/focusable/focusable.directive";
 import { OpenableDirective } from "./directives/openable/openable.directive";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { HeaderMenuItemsComponent } from "./components/header/header-menu-items/header-menu-items.component";
-import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
+import { ContentLayoutComponent } from "./components/content-layout/content-layout.component";
 
 @NgModule({
 	declarations: [
@@ -39,7 +39,7 @@ import { ContentLayoutComponent } from './components/content-layout/content-layo
 		FocusableDirective,
 		OpenableDirective,
 		HeaderMenuItemsComponent,
-  ContentLayoutComponent,
+		ContentLayoutComponent,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent, FormDialogComponent],
 	imports: [
