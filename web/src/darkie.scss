@@ -1,0 +1,7 @@
+@use '@angular/material' as mat;
+
+@include mat.private-form-field-density(-4);
+@include mat.select-density(-2);
+@include mat.icon-button-density(-2);
+@include mat.icon-density(-2);
+@include mat.datepicker-density(-2);

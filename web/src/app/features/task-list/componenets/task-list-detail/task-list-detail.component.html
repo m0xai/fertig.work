@@ -1,8 +1,8 @@
-<div>
+<div class="d-flex align-items-center justify-content-between">
     <h2>{{ taskList?.title }}</h2>
-    <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Ideas">
+    <mat-form-field appearance="outline">
+        <mat-label>Search in tasks</mat-label>
+        <input [(ngModel)]="searchInTaskList" matInput placeholder="Ex. Meeting Ideas">
     </mat-form-field>
 </div>
 <app-tasks-table (forwardUpdatedTask)="handleTaskUpdated($event)" (taskDeleted)="onTaskDeleted($event)"
