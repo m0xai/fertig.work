@@ -12,6 +12,7 @@ import { TasksCount } from "../../../task/models/task-count.model";
 import { Task } from "src/app/features/task/models/task.model";
 import { CollaboratorResourceService } from "../../services/collaborator-resource.service";
 import { Collaborator } from "../../models/collaborator.model";
+import { TitleService } from "../../../../shared/services/title.service";
 
 @Component({
 	selector: "app-project-detail",
@@ -28,6 +29,7 @@ export class ProjectDetailComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
+		private titleService: TitleService,
 		private projectResourceService: ProjectResourceService,
 		private collaboratorResourceService: CollaboratorResourceService,
 		private notificationService: NotificationService,
@@ -40,6 +42,7 @@ export class ProjectDetailComponent implements OnInit {
 			this.projectResourceService.getById(+paramMap.get("id")!).subscribe({
 				next: (val) => {
 					this.model = val;
+					this.titleService.setTitle(this.model.title + " Details");
 				},
 				error: (err) => {
 					this.notificationService.notify(err.error.detail, NotificationType.error);

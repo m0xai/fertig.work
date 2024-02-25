@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ProjectResourceService } from "../../services/project-resource.service";
 import { Project } from "../../models/project.model";
@@ -7,13 +7,14 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from "rxjs
 import { User } from "../../../user/models/user";
 import { CollaboratorResourceService } from "../../services/collaborator-resource.service";
 import { Collaborator } from "../../models/collaborator.model";
+import { TitleService } from "../../../../shared/services/title.service";
 
 @Component({
 	selector: "app-project-create",
 	templateUrl: "./project-create.component.html",
 	styleUrls: ["./project-create.component.css"],
 })
-export class ProjectCreateComponent implements AfterViewInit {
+export class ProjectCreateComponent implements AfterViewInit, OnInit {
 	@ViewChild("collaboratorSearch") collaboratorSearch: ElementRef | undefined;
 	// TODO: Set FormGroup generic type properly
 	firstFormGroup: FormGroup<any> = this._formBuilder.group({
@@ -31,10 +32,15 @@ export class ProjectCreateComponent implements AfterViewInit {
 
 	constructor(
 		private _formBuilder: FormBuilder,
+		private titleService: TitleService,
 		private projectResourceService: ProjectResourceService,
 		private collaboratorResourceService: CollaboratorResourceService,
 		private userService: UserService,
 	) {}
+
+	ngOnInit() {
+		this.titleService.setTitle("New Project Wizard");
+	}
 
 	submitCreateProjectForm() {
 		if (this.firstFormGroup.valid) {
