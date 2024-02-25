@@ -15,12 +15,10 @@
                     <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
                     <mat-icon *ngIf="drawer.opened">close</mat-icon>
                 </button>
-                <nav aria-labelledby="base-sidenav" class="header__nav">
-                    <a routerLink="/login" routerLinkActive="active">Login</a>
-                    <a routerLink="app/tasks" routerLinkActive="active">Tasks</a>
-                    <a (click)="logout()">Logout</a>
-                </nav>
-                <span class="example-spacer"></span>
+                <div>
+                    {{ title }}
+                </div>
+                <div class="vertical-spacer"></div>
                 <button aria-label="Example icon-button with heart icon" class="example-icon favorite-icon"
                         mat-icon-button>
                     <mat-icon>favorite</mat-icon>
@@ -33,9 +31,6 @@
                     <button mat-menu-item>Task</button>
                     <button [routerLink]="'projects/create/'" mat-menu-item>Project</button>
                 </mat-menu>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                {{ title }}
             </mat-toolbar-row>
         </mat-toolbar>
         <!-- Application's content -->
