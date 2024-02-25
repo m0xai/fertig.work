@@ -1,11 +1,10 @@
-<mat-drawer-container id="main-container">
-    <mat-drawer #drawer>
+<mat-drawer-container autosize id="main-container">
+    <mat-drawer #drawer mode="over">
         <div id="base-sidenav">
             <h1>Fertig Work</h1>
             <app-header-menu-items/>
         </div>
     </mat-drawer>
-
     <div class="main-content-wrapper h-100">
         <mat-toolbar color="accent">
             <mat-toolbar-row>
@@ -40,6 +39,6 @@
             </mat-toolbar-row>
         </mat-toolbar>
         <!-- Application's content -->
-        <ng-content class="main-content"/>
+        <ng-content/>
     </div>
 </mat-drawer-container>

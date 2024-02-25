@@ -29,7 +29,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
 	ngOnInit() {
 		this.observer.observe(["(max-width: 800px)"]).subscribe((res) => {
 			if (res.matches) {
-				this.drawer.mode = "push";
+				this.drawer.mode = "over";
 				this.drawer.close();
 			} else {
 				this.drawer.mode = "side";
