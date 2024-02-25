@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BaseAppComponent } from "./base-app.component";
+import { AppShellComponent } from "./app-shell.component";
 
 describe("BaseAppComponent", () => {
-	let component: BaseAppComponent;
-	let fixture: ComponentFixture<BaseAppComponent>;
+	let component: AppShellComponent;
+	let fixture: ComponentFixture<AppShellComponent>;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			declarations: [BaseAppComponent],
+			declarations: [AppShellComponent],
 		});
-		fixture = TestBed.createComponent(BaseAppComponent);
+		fixture = TestBed.createComponent(AppShellComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

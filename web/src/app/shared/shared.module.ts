@@ -10,7 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from "@angular/material/list";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatMenuModule } from "@angular/material/menu";
-import { BaseAppComponent } from "./components/base-app/base-app.component";
+import { AppShellComponent } from "./components/app-shell/app-shell.component";
 import { FormDialogComponent } from "./components/form-dialog/form-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
@@ -24,12 +24,13 @@ import { FocusableDirective } from "./directives/focusable/focusable.directive";
 import { OpenableDirective } from "./directives/openable/openable.directive";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { HeaderMenuItemsComponent } from "./components/header/header-menu-items/header-menu-items.component";
+import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
 
 @NgModule({
 	declarations: [
 		HeaderComponent,
 		FwAlertComponent,
-		BaseAppComponent,
+		AppShellComponent,
 		FormDialogComponent,
 		ConfirmDialogComponent,
 		FormDialogEditableComponent,
@@ -38,6 +39,7 @@ import { HeaderMenuItemsComponent } from "./components/header/header-menu-items/
 		FocusableDirective,
 		OpenableDirective,
 		HeaderMenuItemsComponent,
+  ContentLayoutComponent,
 	],
 	exports: [HeaderComponent, FwAlertComponent, ConfirmDialogComponent, FormDialogComponent],
 	imports: [

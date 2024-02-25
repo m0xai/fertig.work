@@ -7,7 +7,7 @@ import { TasksComponent } from "./features/task/components/tasks/tasks.component
 import { ProjectCreateComponent } from "./features/project/components/project-create/project-create.component";
 import { ProjectsComponent } from "./features/project/components/projects/projects.component";
 import { RegisterComponent } from "./features/user/components/register/register.component";
-import { BaseAppComponent } from "./shared/components/base-app/base-app.component";
+import { AppShellComponent } from "./shared/components/app-shell/app-shell.component";
 import { LogoutGuard } from "./shared/services/guards/logout.guard";
 import { ProjectDetailComponent } from "./features/project/components/project-detail/project-detail.component";
 
@@ -27,7 +27,7 @@ const routes: Routes = [
 	},
 	{
 		path: "app",
-		component: BaseAppComponent,
+		component: AppShellComponent,
 		canActivate: [LoginGuard],
 		children: [
 			{ path: "home", component: HomeComponent, data: { title: "Home" } },
