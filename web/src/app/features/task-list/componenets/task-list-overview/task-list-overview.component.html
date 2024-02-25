@@ -1,5 +1,6 @@
-<p>task-list-overview works!</p>
-<div *ngFor="let taskList of taskListList">
-    <app-task-list-detail [taskList]="taskList"/>
+<div id="task-list-overview-page">
+    <div *ngFor="let taskList of taskListList">
+        <app-task-list-detail [taskList]="taskList"/>
+    </div>
     <mat-divider/>
 </div>
