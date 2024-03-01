@@ -22,17 +22,17 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class TaskListController {
     @Autowired
-    TaskListService taskListService;
+    TaskListServiceImpl taskListServiceImpl;
 
     @PostMapping("/tasklists/")
     public ResponseEntity<TaskListDTOResponse> create(@Valid @RequestBody TaskListDTORequest request) {
-        return new ResponseEntity<>(taskListService.create(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(taskListServiceImpl.create(request), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/tasklists/", params = {"projectId"})
     public ResponseEntity<List<TaskListDTOResponse>> getAllByProject(@RequestParam Long projectId) {
         try {
-            return new ResponseEntity<>(taskListService.getAllByProject(projectId), HttpStatus.OK);
+            return new ResponseEntity<>(taskListServiceImpl.getAllByProject(projectId), HttpStatus.OK);
         } catch (ProjectNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
@@ -40,19 +40,19 @@ public class TaskListController {
 
     @GetMapping("/tasklists/{id}/")
     public ResponseEntity<TaskListDTOResponse> getSingleTaskList(@PathVariable @NotNull Long id) {
-        return new ResponseEntity<>(taskListService.get(id), HttpStatus.OK);
+        return new ResponseEntity<>(taskListServiceImpl.get(id), HttpStatus.OK);
     }
 
     @PutMapping("/tasklists/{id}/")
     public ResponseEntity<TaskListDTOResponse> updateTaskList(@PathVariable Long id,
                                                               @RequestParam TaskListDTORequest request) {
-        return new ResponseEntity<>(taskListService.update(id, request), HttpStatus.OK);
+        return new ResponseEntity<>(taskListServiceImpl.update(id, request), HttpStatus.OK);
     }
 
     @DeleteMapping("/tasklists/{id}/")
     public ResponseEntity<Map<String, String>> deleteTaskList(@PathVariable Long id) {
         try {
-            taskListService.delete(id);
+            taskListServiceImpl.delete(id);
             var response = new HashMap<String, String>();
             response.put("msg", "TaskList with ID: " + id + " deleted " +
                     "succesfully.");
