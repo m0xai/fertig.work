@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: datenbank
+    restart: always
+    environment:
+      - POSTGRES_USER=m0xai
+      - POSTGRES_PASSWORD=1299
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+volumes:
+  postgres_db:
+    driver: local
