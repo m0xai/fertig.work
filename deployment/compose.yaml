@@ -1,9 +1,11 @@
 version: '3.9'
 
+name: fertig_work
+
 services:
   db:
     image: postgres:latest
-    container_name: datenbank
+    container_name: fw_db
     restart: always
     environment:
       - POSTGRES_USER=m0xai
@@ -11,8 +13,34 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres_db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
+
+  #  backend:
+  #    build:
+  #      context: ../backend
+  #      dockerfile: Dockerfile
+  #    container_name: fw_backend
+  #    restart: always
+  #    depends_on: [ 'db' ]
+  #    ports:
+  #      - '8080:8080'
+  #    volumes:
+  #      - ../backend:/app/backend  # Mounting backend source code
+
+  web:
+    build:
+      context: ../web
+      dockerfile: Dockerfile
+    container_name: fw_web
+    restart: always
+    ports:
+      - '4200:4200'
+      - '49153:49153'
+    volumes:
+      - ../web:/app/web  # Mounting web directory to target app/web directory
+      - /app/web/node_modules
 
 volumes:
-  postgres_db:
+  db:
     driver: local
+#  backend:
