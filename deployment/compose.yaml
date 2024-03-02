@@ -15,17 +15,17 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  #  backend:
-  #    build:
-  #      context: ../backend
-  #      dockerfile: Dockerfile
-  #    container_name: fw_backend
-  #    restart: always
-  #    depends_on: [ 'db' ]
-  #    ports:
-  #      - '8080:8080'
-  #    volumes:
-  #      - ../backend:/app/backend  # Mounting backend source code
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: fw_backend
+    restart: always
+    depends_on: [ 'db' ]
+    ports:
+      - '8080:8080'
+    volumes:
+      - ../backend:/app/backend  # Mounting backend source code
 
   web:
     build:
